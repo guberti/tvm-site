@@ -41,6 +41,7 @@ var searchData=
   ['todual',['ToDual',['../classtvm_1_1tir_1_1LayoutAxis.html#a54c175b562828e2ea878aaaa5411930a',1,'tvm::tir::LayoutAxis']]],
   ['tographnormalform',['ToGraphNormalForm',['../namespacetvm_1_1relay_1_1transform.html#a2cfef0e02cca22f3e0e85e0a10a82f5b',1,'tvm::relay::transform']]],
   ['toprimal',['ToPrimal',['../classtvm_1_1tir_1_1LayoutAxis.html#a45791b7980bfaf0791bdf8e97f1775b0',1,'tvm::tir::LayoutAxis']]],
+  ['torchruntimecreate',['TorchRuntimeCreate',['../namespacetvm_1_1runtime_1_1contrib.html#a9f22008a54a14d817f75207666ef433d',1,'tvm::runtime::contrib']]],
   ['tosizevar',['ToSizeVar',['../classtvm_1_1tir_1_1AnyNode.html#a741b57467c114e83182910df14fca3be',1,'tvm::tir::AnyNode']]],
   ['tostr',['ToStr',['../classtvm_1_1auto__scheduler_1_1State.html#acc2b1cbaece2a0cd0d0d26f808b2331b',1,'tvm::auto_scheduler::State']]],
   ['tostring',['ToString',['../classtvm_1_1relay_1_1FeatureSet.html#ad496face33ee548cd323d80ff8e098d3',1,'tvm::relay::FeatureSet']]],
