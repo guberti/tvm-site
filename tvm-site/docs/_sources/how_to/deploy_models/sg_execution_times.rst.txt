@@ -5,13 +5,13 @@
 
 Computation times
 =================
-**10:42.708** total execution time for **how_to_deploy_models** files:
+**11:26.853** total execution time for **how_to_deploy_models** files:
 
-- **03:00.769**: :ref:`sphx_glr_how_to_deploy_models_deploy_object_detection_pytorch.py` (``deploy_object_detection_pytorch.py``)
-- **02:27.171**: :ref:`sphx_glr_how_to_deploy_models_deploy_ssd_gluoncv.py` (``deploy_ssd_gluoncv.py``)
-- **02:00.041**: :ref:`sphx_glr_how_to_deploy_models_deploy_prequantized_tflite.py` (``deploy_prequantized_tflite.py``)
-- **01:17.734**: :ref:`sphx_glr_how_to_deploy_models_deploy_quantized.py` (``deploy_quantized.py``)
-- **01:07.271**: :ref:`sphx_glr_how_to_deploy_models_deploy_prequantized.py` (``deploy_prequantized.py``)
-- **00:27.557**: :ref:`sphx_glr_how_to_deploy_models_deploy_model_on_android.py` (``deploy_model_on_android.py``)
-- **00:21.981**: :ref:`sphx_glr_how_to_deploy_models_deploy_model_on_rasp.py` (``deploy_model_on_rasp.py``)
-- **00:00.184**: :ref:`sphx_glr_how_to_deploy_models_deploy_sparse.py` (``deploy_sparse.py``)
+- **03:17.669**: :ref:`sphx_glr_how_to_deploy_models_deploy_object_detection_pytorch.py` (``deploy_object_detection_pytorch.py``)
+- **02:40.939**: :ref:`sphx_glr_how_to_deploy_models_deploy_ssd_gluoncv.py` (``deploy_ssd_gluoncv.py``)
+- **02:02.984**: :ref:`sphx_glr_how_to_deploy_models_deploy_prequantized_tflite.py` (``deploy_prequantized_tflite.py``)
+- **01:19.829**: :ref:`sphx_glr_how_to_deploy_models_deploy_quantized.py` (``deploy_quantized.py``)
+- **01:12.658**: :ref:`sphx_glr_how_to_deploy_models_deploy_prequantized.py` (``deploy_prequantized.py``)
+- **00:29.458**: :ref:`sphx_glr_how_to_deploy_models_deploy_model_on_android.py` (``deploy_model_on_android.py``)
+- **00:23.095**: :ref:`sphx_glr_how_to_deploy_models_deploy_model_on_rasp.py` (``deploy_model_on_rasp.py``)
+- **00:00.222**: :ref:`sphx_glr_how_to_deploy_models_deploy_sparse.py` (``deploy_sparse.py``)

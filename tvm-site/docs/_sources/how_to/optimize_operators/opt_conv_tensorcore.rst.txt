@@ -627,7 +627,7 @@ be able to run on our build server
 
  .. code-block:: none
 
-    conv2d with tensor core: 8.539591 ms
+    conv2d with tensor core: 7.003454 ms
 
 
 
