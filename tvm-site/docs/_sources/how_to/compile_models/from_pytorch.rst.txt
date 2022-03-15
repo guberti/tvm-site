@@ -79,7 +79,7 @@ Load a pretrained PyTorch model
  .. code-block:: none
 
     Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /workspace/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
-      0%|          | 0.00/44.7M [00:00<?, ?B/s]     32%|###1      | 14.2M/44.7M [00:00<00:00, 146MB/s]     77%|#######7  | 34.6M/44.7M [00:00<00:00, 185MB/s]    100%|##########| 44.7M/44.7M [00:00<00:00, 194MB/s]
+      0%|          | 0.00/44.7M [00:00<?, ?B/s]      9%|9         | 4.15M/44.7M [00:00<00:00, 43.5MB/s]     19%|#8        | 8.30M/44.7M [00:00<00:00, 42.6MB/s]     63%|######3   | 28.3M/44.7M [00:00<00:00, 118MB/s]     100%|##########| 44.7M/44.7M [00:00<00:00, 124MB/s]
 
 
 
