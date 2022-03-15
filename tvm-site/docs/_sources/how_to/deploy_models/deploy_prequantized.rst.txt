@@ -187,7 +187,7 @@ training. Other models require a full post training calibration.
  .. code-block:: none
 
     Downloading: "https://download.pytorch.org/models/mobilenet_v2-b0353104.pth" to /workspace/.cache/torch/hub/checkpoints/mobilenet_v2-b0353104.pth
-      0%|          | 0.00/13.6M [00:00<?, ?B/s]     30%|##9       | 4.02M/13.6M [00:00<00:00, 42.2MB/s]     59%|#####9    | 8.05M/13.6M [00:00<00:00, 41.9MB/s]    100%|##########| 13.6M/13.6M [00:00<00:00, 63.5MB/s]
+      0%|          | 0.00/13.6M [00:00<?, ?B/s]    100%|##########| 13.6M/13.6M [00:00<00:00, 180MB/s]
 
 
 
@@ -348,7 +348,7 @@ Here we give an example of how to measure performance of TVM compiled models.
 
     Execution time summary:
      mean (ms)   median (ms)    max (ms)     min (ms)     std (ms)  
-      90.4689      90.4306      92.4427      90.2261       0.2257   
+      90.3249      90.2782      91.4027      89.9314       0.3068   
                
 
 
@@ -388,7 +388,7 @@ TODO
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  11.616 seconds)
+   **Total running time of the script:** ( 1 minutes  6.574 seconds)
 
 
 .. _sphx_glr_download_how_to_deploy_models_deploy_prequantized.py:

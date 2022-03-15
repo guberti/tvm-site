@@ -5,13 +5,13 @@
 
 Computation times
 =================
-**00:05.884** total execution time for **how_to_work_with_schedules** files:
+**00:05.882** total execution time for **how_to_work_with_schedules** files:
 
-- **00:02.106**: :ref:`sphx_glr_how_to_work_with_schedules_intrin_math.py` (``intrin_math.py``)
-- **00:01.198**: :ref:`sphx_glr_how_to_work_with_schedules_tensorize.py` (``tensorize.py``)
-- **00:00.747**: :ref:`sphx_glr_how_to_work_with_schedules_reduction.py` (``reduction.py``)
-- **00:00.741**: :ref:`sphx_glr_how_to_work_with_schedules_scan.py` (``scan.py``)
-- **00:00.345**: :ref:`sphx_glr_how_to_work_with_schedules_extern_op.py` (``extern_op.py``)
-- **00:00.260**: :ref:`sphx_glr_how_to_work_with_schedules_tedd.py` (``tedd.py``)
-- **00:00.254**: :ref:`sphx_glr_how_to_work_with_schedules_schedule_primitives.py` (``schedule_primitives.py``)
-- **00:00.234**: :ref:`sphx_glr_how_to_work_with_schedules_tuple_inputs.py` (``tuple_inputs.py``)
+- **00:02.202**: :ref:`sphx_glr_how_to_work_with_schedules_intrin_math.py` (``intrin_math.py``)
+- **00:01.237**: :ref:`sphx_glr_how_to_work_with_schedules_tensorize.py` (``tensorize.py``)
+- **00:00.748**: :ref:`sphx_glr_how_to_work_with_schedules_reduction.py` (``reduction.py``)
+- **00:00.732**: :ref:`sphx_glr_how_to_work_with_schedules_scan.py` (``scan.py``)
+- **00:00.309**: :ref:`sphx_glr_how_to_work_with_schedules_extern_op.py` (``extern_op.py``)
+- **00:00.228**: :ref:`sphx_glr_how_to_work_with_schedules_schedule_primitives.py` (``schedule_primitives.py``)
+- **00:00.219**: :ref:`sphx_glr_how_to_work_with_schedules_tedd.py` (``tedd.py``)
+- **00:00.206**: :ref:`sphx_glr_how_to_work_with_schedules_tuple_inputs.py` (``tuple_inputs.py``)
