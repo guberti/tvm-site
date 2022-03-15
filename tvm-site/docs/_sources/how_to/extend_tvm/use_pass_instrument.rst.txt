@@ -199,10 +199,10 @@ profile the execution time of each passes.
  .. code-block:: none
 
     Printing results of timing profile...
-    InferType: 6015us [6015us] (45.60%; 45.60%)
-    FoldScaleAxis: 7177us [2us] (54.40%; 54.40%)
-            FoldConstant: 7175us [1475us] (54.39%; 99.97%)
-                    InferType: 5700us [5700us] (43.21%; 79.44%)
+    InferType: 5906us [5906us] (45.14%; 45.14%)
+    FoldScaleAxis: 7177us [2us] (54.86%; 54.86%)
+            FoldConstant: 7175us [1496us] (54.84%; 99.97%)
+                    InferType: 5679us [5679us] (43.41%; 79.16%)
 
 
 
@@ -239,10 +239,10 @@ Refer to following sections and :py:func:`tvm.instrument.pass_instrument` for th
  .. code-block:: none
 
     Printing results of timing profile...
-    InferType: 5796us [5796us] (44.63%; 44.63%)
-    FoldScaleAxis: 7191us [2us] (55.37%; 55.37%)
-            FoldConstant: 7190us [1491us] (55.36%; 99.98%)
-                    InferType: 5699us [5699us] (43.88%; 79.26%)
+    InferType: 5791us [5791us] (44.79%; 44.79%)
+    FoldScaleAxis: 7138us [2us] (55.21%; 55.21%)
+            FoldConstant: 7136us [1496us] (55.19%; 99.97%)
+                    InferType: 5640us [5640us] (43.62%; 79.04%)
 
 
 

@@ -423,7 +423,7 @@ First let us define two helper functions to get the mobilenet model and a cat im
 
  .. code-block:: none
 
-    Downloading /workspace/.mxnet/models/mobilenet0.25-9f83e440.zip2bf92b70-bb9a-4394-a6b1-c4030940bd4d from https://apache-mxnet.s3-accelerate.dualstack.amazonaws.com/gluon/models/mobilenet0.25-9f83e440.zip...
+    Downloading /workspace/.mxnet/models/mobilenet0.25-9f83e440.zip905d0f36-7818-4a8c-9ee0-9b444c1e6128 from https://apache-mxnet.s3-accelerate.dualstack.amazonaws.com/gluon/models/mobilenet0.25-9f83e440.zip...
 
 
 
