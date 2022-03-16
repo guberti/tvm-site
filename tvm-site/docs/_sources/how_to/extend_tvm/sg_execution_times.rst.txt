@@ -5,9 +5,9 @@
 
 Computation times
 =================
-**00:37.496** total execution time for **how_to_extend_tvm** files:
+**00:38.006** total execution time for **how_to_extend_tvm** files:
 
-- **00:34.113**: :ref:`sphx_glr_how_to_extend_tvm_bring_your_own_datatypes.py` (``bring_your_own_datatypes.py``)
-- **00:02.193**: :ref:`sphx_glr_how_to_extend_tvm_use_pass_instrument.py` (``use_pass_instrument.py``)
-- **00:01.021**: :ref:`sphx_glr_how_to_extend_tvm_use_pass_infra.py` (``use_pass_infra.py``)
-- **00:00.169**: :ref:`sphx_glr_how_to_extend_tvm_low_level_custom_pass.py` (``low_level_custom_pass.py``)
+- **00:34.544**: :ref:`sphx_glr_how_to_extend_tvm_bring_your_own_datatypes.py` (``bring_your_own_datatypes.py``)
+- **00:02.226**: :ref:`sphx_glr_how_to_extend_tvm_use_pass_instrument.py` (``use_pass_instrument.py``)
+- **00:01.034**: :ref:`sphx_glr_how_to_extend_tvm_use_pass_infra.py` (``use_pass_infra.py``)
+- **00:00.202**: :ref:`sphx_glr_how_to_extend_tvm_low_level_custom_pass.py` (``low_level_custom_pass.py``)
