@@ -826,6 +826,12 @@ See the documentation of <a class="reference internal" href="#tvm.tir.decl_buffe
 <tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.Buffer.scope" title="tvm.tir.Buffer.scope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scope</span></code></a>()</p></td>
 <td><p>Return the storage scope associated with this buffer.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.Buffer.get_flattened_buffer" title="tvm.tir.Buffer.get_flattened_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_flattened_buffer</span></code></a>()</p></td>
+<td><p>Generate a Buffer that is a flattened version of this buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.Buffer.offset_of" title="tvm.tir.Buffer.offset_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_of</span></code></a>(indices)</p></td>
+<td><p>Determine the offset of the provided indices in the flattened buffer.</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py method">
@@ -910,11 +916,42 @@ can be vector type which have lanes that is multiple of Buffer.dtype</p></li>
 :rtype: str</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="tvm.tir.Buffer.get_flattened_buffer">
+<span class="sig-name descname"><span class="pre">get_flattened_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.Buffer.get_flattened_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a Buffer that is a flattened version of this buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>flattened</strong> – The corresponding flat buffer.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tvm.tir.Buffer" title="tvm.tir.Buffer">Buffer</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tvm.tir.Buffer.offset_of">
+<span class="sig-name descname"><span class="pre">offset_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.Buffer.offset_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the offset of the provided indices in the flattened buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>Union</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr"><em>PrimExpr</em></a><em>, </em><a class="reference internal" href="relay/dataflow_pattern.html#tvm.relay.dataflow_pattern.List" title="tvm.relay.dataflow_pattern.List"><em>List</em></a><em>[</em><a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr"><em>PrimExpr</em></a><em>]</em><em>]</em>) – The indices of the element in the original buffer.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>flattened_indices</strong> – The offset indices of the element in the flattened buffer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="relay/dataflow_pattern.html#tvm.relay.dataflow_pattern.List" title="tvm.relay.dataflow_pattern.List">List</a>[<a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr">PrimExpr</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.tir.decl_buffer">
-<span class="sig-prename descclassname"><span class="pre">tvm.tir.</span></span><span class="sig-name descname"><span class="pre">decl_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'buffer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_alignment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.decl_buffer" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.tir.</span></span><span class="sig-name descname"><span class="pre">decl_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'buffer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_alignment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_separators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.decl_buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Declare a new symbolic buffer.</p>
 <p>Normally buffer is created automatically during lower and build.
 This is only needed if user want to specify their own buffer layout.</p>
@@ -940,6 +977,9 @@ if non-zero is passed, we will created a Var for elem_offset if elem_offset is n
 <li><p><strong>buffer_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em><em>, </em><em>{&quot;&quot;</em><em>, </em><em>&quot;auto_broadcast&quot;}</em>) – auto_broadcast buffer allows one to implement broadcast computation
 without considering whether dimension size equals to one.
 TVM maps buffer[i][j][k] -&gt; buffer[i][0][k] if dimension j’s shape equals 1.</p></li>
+<li><p><strong>axis_separators</strong> (<em>list of int</em><em>, </em><em>optional</em>) – If passed, a list of separators between groups of axes,
+each of which is flattened to an output axis.  For flat
+memory spaces, should either be None, or an empty list.</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of the decl_buffer creation in the source.</p></li>
 </ul>
 </dd>
@@ -1975,16 +2015,18 @@ if kind is ThreadBinding</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.tir.AllocateConst">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.tir.</span></span><span class="sig-name descname"><span class="pre">AllocateConst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.AllocateConst" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.tir.</span></span><span class="sig-name descname"><span class="pre">AllocateConst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_or_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.AllocateConst" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocate constant node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>buffer_var</strong> (<a class="reference internal" href="#tvm.tir.Var" title="tvm.tir.Var"><em>Var</em></a>) – The buffer variable.</p></li>
-<li><p><strong>data</strong> (<em>NDarray</em>) – The data associated with the constant</p></li>
 <li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type of the buffer.</p></li>
 <li><p><strong>extents</strong> (<em>list of Expr</em>) – The extents of the allocate</p></li>
-<li><p><strong>condition</strong> (<a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr"><em>PrimExpr</em></a>) – The condition.</p></li>
+<li><p><strong>data_or_idx</strong> (<em>Union</em><em>[</em><a class="reference internal" href="ndarray.html#tvm.nd.NDArray" title="tvm.nd.NDArray"><em>NDArray</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – If an NDArray, this is the const data associated with the
+constant.  If an integer, this is the index into the
+“Constants” attribute of the <cite>IRModule</cite> that contains the
+<cite>AllocateConst</cite>.</p></li>
 <li><p><strong>body</strong> (<a class="reference internal" href="#tvm.tir.Stmt" title="tvm.tir.Stmt"><em>Stmt</em></a>) – The body statement.</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this itervar in the source code.</p></li>
 </ul>
@@ -2188,7 +2230,7 @@ if kind is ThreadBinding</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.tir.PrimFunc">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.tir.</span></span><span class="sig-name descname"><span class="pre">PrimFunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.PrimFunc" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.tir.</span></span><span class="sig-name descname"><span class="pre">PrimFunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preflattened_buffer_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.PrimFunc" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function declaration expression.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2197,6 +2239,7 @@ if kind is ThreadBinding</p></li>
 <li><p><strong>body</strong> (<a class="reference internal" href="#tvm.tir.Stmt" title="tvm.tir.Stmt"><em>tvm.tir.Stmt</em></a>) – The body of the function.</p></li>
 <li><p><strong>ret_type</strong> (<a class="reference internal" href="ir.html#tvm.ir.Type" title="tvm.ir.Type"><em>tvm.ir.Type</em></a>) – The return type annotation of the function.</p></li>
 <li><p><strong>buffer_map</strong> (<a class="reference internal" href="ir.html#tvm.ir.Map" title="tvm.ir.Map"><em>Map</em></a><em>[</em><a class="reference internal" href="#tvm.tir.Var" title="tvm.tir.Var"><em>tvm.tir.Var</em></a><em>, </em><a class="reference internal" href="#tvm.tir.Buffer" title="tvm.tir.Buffer"><em>tvm.tir.Buffer</em></a><em>]</em>) – The buffer binding map.</p></li>
+<li><p><strong>preflattened_buffer_map</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Map" title="tvm.ir.Map"><em>Map</em></a><em>[</em><a class="reference internal" href="#tvm.tir.Var" title="tvm.tir.Var"><em>tvm.tir.Var</em></a><em>, </em><a class="reference internal" href="#tvm.tir.Buffer" title="tvm.tir.Buffer"><em>tvm.tir.Buffer</em></a><em>]</em><em>]</em>) – The buffer binding map, prior to any flattening.</p></li>
 <li><p><strong>attrs</strong> (<em>Optional</em><em>[</em><em>tvm.Attrs</em><em>]</em>) – Attributes of the function, can be None</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this itervar in the source code.</p></li>
 </ul>
@@ -5833,166 +5876,169 @@ block are divisible by the subspace represented by the loops starting at the giv
 <tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.Apply" title="tvm.tir.transform.Apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Apply</span></code></a>(ftransform)</p></td>
 <td><p>Apply ftransform to each function in the Module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16CastElimination" title="tvm.tir.transform.BF16CastElimination"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16CastElimination</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.ApplyLayoutTransforms" title="tvm.tir.transform.ApplyLayoutTransforms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ApplyLayoutTransforms</span></code></a>()</p></td>
+<td><p>Reshape buffers that appear in the &quot;layout_transform_map&quot; fucntion attribute.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16CastElimination" title="tvm.tir.transform.BF16CastElimination"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16CastElimination</span></code></a>()</p></td>
 <td><p>Eliminate verbose casting between fp32 and bf16 Checks if the AST has the pattern: castto32(castto16(some_fp32_op(...))) The verbose casting is generated by BF16Promote for multiple bf16 Ops in a row.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16Legalize" title="tvm.tir.transform.BF16Legalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16Legalize</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16Legalize" title="tvm.tir.transform.BF16Legalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16Legalize</span></code></a>()</p></td>
 <td><p>Legalize bf16 typed Ops.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16Promote" title="tvm.tir.transform.BF16Promote"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16Promote</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16Promote" title="tvm.tir.transform.BF16Promote"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16Promote</span></code></a>()</p></td>
 <td><p>Promote bf16 to fp32.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16TypeLowering" title="tvm.tir.transform.BF16TypeLowering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16TypeLowering</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.BF16TypeLowering" title="tvm.tir.transform.BF16TypeLowering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BF16TypeLowering</span></code></a>()</p></td>
 <td><p>Replace all bf16 type with uint16.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.CoProcSync" title="tvm.tir.transform.CoProcSync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CoProcSync</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.CoProcSync" title="tvm.tir.transform.CoProcSync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CoProcSync</span></code></a>()</p></td>
 <td><p>Detect and insert sync points to co-processor.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.CombineContextCall" title="tvm.tir.transform.CombineContextCall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CombineContextCall</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.CombineContextCall" title="tvm.tir.transform.CombineContextCall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CombineContextCall</span></code></a>()</p></td>
 <td><p>Combine context calls in the host function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.CommonSubexprElimTIR" title="tvm.tir.transform.CommonSubexprElimTIR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CommonSubexprElimTIR</span></code></a>([enable_cse_tir])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.CommonSubexprElimTIR" title="tvm.tir.transform.CommonSubexprElimTIR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CommonSubexprElimTIR</span></code></a>([enable_cse_tir])</p></td>
 <td><p>Replace redundant computations by new variables.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.CompactBufferAllocation" title="tvm.tir.transform.CompactBufferAllocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompactBufferAllocation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.CompactBufferAllocation" title="tvm.tir.transform.CompactBufferAllocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompactBufferAllocation</span></code></a>()</p></td>
 <td><p>Compact the buffer access region.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.ConvertBlocksToOpaque" title="tvm.tir.transform.ConvertBlocksToOpaque"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConvertBlocksToOpaque</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.ConvertBlocksToOpaque" title="tvm.tir.transform.ConvertBlocksToOpaque"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConvertBlocksToOpaque</span></code></a>()</p></td>
 <td><p>Substitute all the block vars with the PrimExprs they are bound to, indicated by the corresponding iter_values in BlockRealize, and then convert the blocks into opaque ones by removing all the iter_values in BlockRealize and iter_vars in Block.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.ConvertForLoopsToSerial" title="tvm.tir.transform.ConvertForLoopsToSerial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConvertForLoopsToSerial</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.ConvertForLoopsToSerial" title="tvm.tir.transform.ConvertForLoopsToSerial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConvertForLoopsToSerial</span></code></a>()</p></td>
 <td><p>Convert Parallel For Loops to Serial For Loops.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.DecorateDeviceScope" title="tvm.tir.transform.DecorateDeviceScope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DecorateDeviceScope</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.DecorateDeviceScope" title="tvm.tir.transform.DecorateDeviceScope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DecorateDeviceScope</span></code></a>()</p></td>
 <td><p>Decorate all the function's body as device function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.ExtractPrimFuncConstants" title="tvm.tir.transform.ExtractPrimFuncConstants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExtractPrimFuncConstants</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.ExtractPrimFuncConstants" title="tvm.tir.transform.ExtractPrimFuncConstants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExtractPrimFuncConstants</span></code></a>()</p></td>
 <td><p>Collects and unificates tir non-scalar constants to module's attr 'Constants' array.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.Filter" title="tvm.tir.transform.Filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Filter</span></code></a>(fcond)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.Filter" title="tvm.tir.transform.Filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Filter</span></code></a>(fcond)</p></td>
 <td><p>Filter functions by the calling convention attribute.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.FlattenBuffer" title="tvm.tir.transform.FlattenBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlattenBuffer</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.FlattenBuffer" title="tvm.tir.transform.FlattenBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlattenBuffer</span></code></a>()</p></td>
 <td><p>Flatten the multi-dimensional BufferLoad and BufferStore to single dimensional Load/Store.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.HoistIfThenElse" title="tvm.tir.transform.HoistIfThenElse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HoistIfThenElse</span></code></a>([variant])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.HoistIfThenElse" title="tvm.tir.transform.HoistIfThenElse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HoistIfThenElse</span></code></a>([variant])</p></td>
 <td><p>Hoist loop-invariant IfThenElse nodes to outside the eligible loops.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InferFragment" title="tvm.tir.transform.InferFragment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InferFragment</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InferFragment" title="tvm.tir.transform.InferFragment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InferFragment</span></code></a>()</p></td>
 <td><p>Infer the TensorCore fragment infomation using tensor intrinsics.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectCopyIntrin" title="tvm.tir.transform.InjectCopyIntrin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectCopyIntrin</span></code></a>(pragma_key, fintrin)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectCopyIntrin" title="tvm.tir.transform.InjectCopyIntrin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectCopyIntrin</span></code></a>(pragma_key, fintrin)</p></td>
 <td><p>Inject virtual thread loops.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectDoubleBuffer" title="tvm.tir.transform.InjectDoubleBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectDoubleBuffer</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectDoubleBuffer" title="tvm.tir.transform.InjectDoubleBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectDoubleBuffer</span></code></a>()</p></td>
 <td><p>Inject double buffer statements.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectPrefetch" title="tvm.tir.transform.InjectPrefetch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectPrefetch</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectPrefetch" title="tvm.tir.transform.InjectPrefetch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectPrefetch</span></code></a>()</p></td>
 <td><p>Inject prefetch instructions into stmt.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectRollingBuffer" title="tvm.tir.transform.InjectRollingBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectRollingBuffer</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectRollingBuffer" title="tvm.tir.transform.InjectRollingBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectRollingBuffer</span></code></a>()</p></td>
 <td><p>Inject rolling buffer statements.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectSoftwarePipeline" title="tvm.tir.transform.InjectSoftwarePipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectSoftwarePipeline</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectSoftwarePipeline" title="tvm.tir.transform.InjectSoftwarePipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectSoftwarePipeline</span></code></a>()</p></td>
 <td><p>Transform annotated loops into pipelined one that parallelize producers and consumers</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectVirtualThread" title="tvm.tir.transform.InjectVirtualThread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectVirtualThread</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InjectVirtualThread" title="tvm.tir.transform.InjectVirtualThread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InjectVirtualThread</span></code></a>()</p></td>
 <td><p>Inject virtual thread loops.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.InstrumentBoundCheckers" title="tvm.tir.transform.InstrumentBoundCheckers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstrumentBoundCheckers</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.InstrumentBoundCheckers" title="tvm.tir.transform.InstrumentBoundCheckers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstrumentBoundCheckers</span></code></a>()</p></td>
 <td><p>Instruments bound checkers.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LegalizePackedCalls" title="tvm.tir.transform.LegalizePackedCalls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LegalizePackedCalls</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LegalizePackedCalls" title="tvm.tir.transform.LegalizePackedCalls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LegalizePackedCalls</span></code></a>()</p></td>
 <td><p>Legalize packed calls to have its arguments wrapped in TVMValues</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LiftAttrScope" title="tvm.tir.transform.LiftAttrScope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LiftAttrScope</span></code></a>(attr_key)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LiftAttrScope" title="tvm.tir.transform.LiftAttrScope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LiftAttrScope</span></code></a>(attr_key)</p></td>
 <td><p>Lift common attrs with attr_key to outer scope.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LoopPartition" title="tvm.tir.transform.LoopPartition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoopPartition</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LoopPartition" title="tvm.tir.transform.LoopPartition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoopPartition</span></code></a>()</p></td>
 <td><p>Inject virtual thread loops.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerCrossThreadReduction" title="tvm.tir.transform.LowerCrossThreadReduction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerCrossThreadReduction</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerCrossThreadReduction" title="tvm.tir.transform.LowerCrossThreadReduction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerCrossThreadReduction</span></code></a>()</p></td>
 <td><p>Lower cross-thread reduction from thread bindings to intrinsic function calls.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerCustomDatatypes" title="tvm.tir.transform.LowerCustomDatatypes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerCustomDatatypes</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerCustomDatatypes" title="tvm.tir.transform.LowerCustomDatatypes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerCustomDatatypes</span></code></a>()</p></td>
 <td><p>Lower custom datatypes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerDeviceStorageAccessInfo" title="tvm.tir.transform.LowerDeviceStorageAccessInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerDeviceStorageAccessInfo</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerDeviceStorageAccessInfo" title="tvm.tir.transform.LowerDeviceStorageAccessInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerDeviceStorageAccessInfo</span></code></a>()</p></td>
 <td><p>Lower attached storage access information on device.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerInitBlock" title="tvm.tir.transform.LowerInitBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerInitBlock</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerInitBlock" title="tvm.tir.transform.LowerInitBlock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerInitBlock</span></code></a>()</p></td>
 <td><p>Lower block init stmt into IfThenElse statements.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerIntrin" title="tvm.tir.transform.LowerIntrin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerIntrin</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerIntrin" title="tvm.tir.transform.LowerIntrin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerIntrin</span></code></a>()</p></td>
 <td><p>Lower target specific intrinsic calls.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerMatchBuffer" title="tvm.tir.transform.LowerMatchBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerMatchBuffer</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerMatchBuffer" title="tvm.tir.transform.LowerMatchBuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerMatchBuffer</span></code></a>()</p></td>
 <td><p>Remove match buffers inside the block.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerTVMBuiltin" title="tvm.tir.transform.LowerTVMBuiltin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerTVMBuiltin</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerTVMBuiltin" title="tvm.tir.transform.LowerTVMBuiltin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerTVMBuiltin</span></code></a>()</p></td>
 <td><p>Lower tvm builtin intrinsics.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerThreadAllreduce" title="tvm.tir.transform.LowerThreadAllreduce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerThreadAllreduce</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerThreadAllreduce" title="tvm.tir.transform.LowerThreadAllreduce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerThreadAllreduce</span></code></a>()</p></td>
 <td><p>Lower cross thread alleduce.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerWarpMemory" title="tvm.tir.transform.LowerWarpMemory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerWarpMemory</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.LowerWarpMemory" title="tvm.tir.transform.LowerWarpMemory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowerWarpMemory</span></code></a>()</p></td>
 <td><p>Lower warp memory access to low-level device related function calls.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.MakePackedAPI" title="tvm.tir.transform.MakePackedAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakePackedAPI</span></code></a>([num_unpacked_params])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.MakePackedAPI" title="tvm.tir.transform.MakePackedAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakePackedAPI</span></code></a>([num_unpacked_params])</p></td>
 <td><p>Transform the PrimFuncs in the module to a packed func API.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.MakeUnpackedAPI" title="tvm.tir.transform.MakeUnpackedAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeUnpackedAPI</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.MakeUnpackedAPI" title="tvm.tir.transform.MakeUnpackedAPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MakeUnpackedAPI</span></code></a>()</p></td>
 <td><p>Transform the PrimFuncs in the module to a C API compatible with internal calls.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.MergeDynamicSharedMemoryAllocations" title="tvm.tir.transform.MergeDynamicSharedMemoryAllocations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MergeDynamicSharedMemoryAllocations</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.MergeDynamicSharedMemoryAllocations" title="tvm.tir.transform.MergeDynamicSharedMemoryAllocations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MergeDynamicSharedMemoryAllocations</span></code></a>()</p></td>
 <td><p>This pass merges multiple TIR-level dynamic shared memory allocations into one allocation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.NarrowDataType" title="tvm.tir.transform.NarrowDataType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NarrowDataType</span></code></a>(target_bits)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.NarrowDataType" title="tvm.tir.transform.NarrowDataType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NarrowDataType</span></code></a>(target_bits)</p></td>
 <td><p>Narrow down PrimExpr datatype in stmt to target_bits.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.PlanAndUpdateBufferAllocationLocation" title="tvm.tir.transform.PlanAndUpdateBufferAllocationLocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlanAndUpdateBufferAllocationLocation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.PlanAndUpdateBufferAllocationLocation" title="tvm.tir.transform.PlanAndUpdateBufferAllocationLocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlanAndUpdateBufferAllocationLocation</span></code></a>()</p></td>
 <td><p>Locate the buffer allocation to the exact position (usually is the lca of buffer access).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.RemoveNoOp" title="tvm.tir.transform.RemoveNoOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RemoveNoOp</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.RemoveNoOp" title="tvm.tir.transform.RemoveNoOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RemoveNoOp</span></code></a>()</p></td>
 <td><p>Remove No Op from the Stmt.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.RenomalizeSplitPattern" title="tvm.tir.transform.RenomalizeSplitPattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RenomalizeSplitPattern</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.RenormalizeSplitPattern" title="tvm.tir.transform.RenormalizeSplitPattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RenormalizeSplitPattern</span></code></a>()</p></td>
 <td><p>Renormalize the split pattern from floordiv(floormod()) to floormod(floordiv())</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.RewriteUnsafeSelect" title="tvm.tir.transform.RewriteUnsafeSelect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RewriteUnsafeSelect</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.RewriteUnsafeSelect" title="tvm.tir.transform.RewriteUnsafeSelect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RewriteUnsafeSelect</span></code></a>()</p></td>
 <td><p>Detect and rewrite unsafe select that contains memory access.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.Simplify" title="tvm.tir.transform.Simplify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Simplify</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.Simplify" title="tvm.tir.transform.Simplify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Simplify</span></code></a>()</p></td>
 <td><p>Run arithmetic simplifications on the statements and expressions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.SkipAssert" title="tvm.tir.transform.SkipAssert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SkipAssert</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.SkipAssert" title="tvm.tir.transform.SkipAssert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SkipAssert</span></code></a>()</p></td>
 <td><p>Skip assert stmt.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.SplitHostDevice" title="tvm.tir.transform.SplitHostDevice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SplitHostDevice</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.SplitHostDevice" title="tvm.tir.transform.SplitHostDevice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SplitHostDevice</span></code></a>()</p></td>
 <td><p>Split the function into a host function and device functions.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.StorageFlatten" title="tvm.tir.transform.StorageFlatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StorageFlatten</span></code></a>(cache_line_size[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.StorageFlatten" title="tvm.tir.transform.StorageFlatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StorageFlatten</span></code></a>(cache_line_size[, ...])</p></td>
 <td><p>Flatten the multi-dimensional read/write to 1D.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.StorageRewrite" title="tvm.tir.transform.StorageRewrite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StorageRewrite</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.StorageRewrite" title="tvm.tir.transform.StorageRewrite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StorageRewrite</span></code></a>()</p></td>
 <td><p>Rewrite storage allocation pattern.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.TextureFlatten" title="tvm.tir.transform.TextureFlatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextureFlatten</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.TextureFlatten" title="tvm.tir.transform.TextureFlatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextureFlatten</span></code></a>()</p></td>
 <td><p>Flatten the multi-dimensional read/write to 2D.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.ThreadSync" title="tvm.tir.transform.ThreadSync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThreadSync</span></code></a>(storage_scope)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.ThreadSync" title="tvm.tir.transform.ThreadSync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThreadSync</span></code></a>(storage_scope)</p></td>
 <td><p>Insert sync between parallel read/write of shared buffers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.UnifyThreadBinding" title="tvm.tir.transform.UnifyThreadBinding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnifyThreadBinding</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.UnifyThreadBinding" title="tvm.tir.transform.UnifyThreadBinding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnifyThreadBinding</span></code></a>()</p></td>
 <td><p>Unify all the thread bindings for &quot;blockIdx.x/y/z&quot;, &quot;threadIdx.x/y/z&quot;, and &quot;vthread.x/y/z&quot;.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.UnrollLoop" title="tvm.tir.transform.UnrollLoop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnrollLoop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.UnrollLoop" title="tvm.tir.transform.UnrollLoop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnrollLoop</span></code></a>()</p></td>
 <td><p>Unroll the constant loop marked by unroll.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.VectorizeLoop" title="tvm.tir.transform.VectorizeLoop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VectorizeLoop</span></code></a>([enable_vectorize])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.VectorizeLoop" title="tvm.tir.transform.VectorizeLoop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VectorizeLoop</span></code></a>([enable_vectorize])</p></td>
 <td><p>Lower vectorization loops.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.tir.transform.VerifyMemory" title="tvm.tir.transform.VerifyMemory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VerifyMemory</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.tir.transform.VerifyMemory" title="tvm.tir.transform.VerifyMemory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VerifyMemory</span></code></a>()</p></td>
 <td><p>Verify if func contains illegal host side direct memory access.</p></td>
 </tr>
 </tbody>
@@ -6090,6 +6136,21 @@ pass class should be created through py:func:<cite>tvm.tir.transform.function_pa
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="ir.html#tvm.transform.Pass" title="tvm.transform.Pass">tvm.transform.Pass</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tvm.tir.transform.ApplyLayoutTransforms">
+<span class="sig-prename descclassname"><span class="pre">tvm.tir.transform.</span></span><span class="sig-name descname"><span class="pre">ApplyLayoutTransforms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.transform.ApplyLayoutTransforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reshape buffers that appear in the “layout_transform_map”
+fucntion attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>fpass</strong> – The result pass</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="ir.html#tvm.transform.Pass" title="tvm.transform.Pass">tvm.transform.Pass</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -6757,8 +6818,8 @@ with alloc_buffers at the allocation site.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="tvm.tir.transform.RenomalizeSplitPattern">
-<span class="sig-prename descclassname"><span class="pre">tvm.tir.transform.</span></span><span class="sig-name descname"><span class="pre">RenomalizeSplitPattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.transform.RenomalizeSplitPattern" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tvm.tir.transform.RenormalizeSplitPattern">
+<span class="sig-prename descclassname"><span class="pre">tvm.tir.transform.</span></span><span class="sig-name descname"><span class="pre">RenormalizeSplitPattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tvm.tir.transform.RenormalizeSplitPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renormalize the split pattern from floordiv(floormod()) to floormod(floordiv())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -7104,6 +7165,12 @@ See the documentation of <code class="xref py py-func docutils literal notransla
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">scope</span></code>()</p></td>
 <td><p>Return the storage scope associated with this buffer.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_flattened_buffer</span></code>()</p></td>
+<td><p>Generate a Buffer that is a flattened version of this buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_of</span></code>(indices)</p></td>
+<td><p>Determine the offset of the provided indices in the flattened buffer.</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py method">
@@ -7188,6 +7255,37 @@ can be vector type which have lanes that is multiple of Buffer.dtype</p></li>
 :rtype: str</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_flattened_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Generate a Buffer that is a flattened version of this buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>flattened</strong> – The corresponding flat buffer.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#tvm.tir.Buffer" title="tvm.tir.Buffer">Buffer</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">offset_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Determine the offset of the provided indices in the flattened buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>Union</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr"><em>PrimExpr</em></a><em>, </em><a class="reference internal" href="relay/dataflow_pattern.html#tvm.relay.dataflow_pattern.List" title="tvm.relay.dataflow_pattern.List"><em>List</em></a><em>[</em><a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr"><em>PrimExpr</em></a><em>]</em><em>]</em>) – The indices of the element in the original buffer.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>flattened_indices</strong> – The offset indices of the element in the flattened buffer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="relay/dataflow_pattern.html#tvm.relay.dataflow_pattern.List" title="tvm.relay.dataflow_pattern.List">List</a>[<a class="reference internal" href="ir.html#tvm.ir.PrimExpr" title="tvm.ir.PrimExpr">PrimExpr</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -7230,7 +7328,7 @@ optimizations and integer analysis.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.tir.analysis.</span></span><span class="sig-name descname"><span class="pre">PrimFunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.tir.analysis.</span></span><span class="sig-name descname"><span class="pre">PrimFunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ret_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preflattened_buffer_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>A function declaration expression.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -7239,6 +7337,7 @@ optimizations and integer analysis.</p>
 <li><p><strong>body</strong> (<a class="reference internal" href="#tvm.tir.Stmt" title="tvm.tir.Stmt"><em>tvm.tir.Stmt</em></a>) – The body of the function.</p></li>
 <li><p><strong>ret_type</strong> (<a class="reference internal" href="ir.html#tvm.ir.Type" title="tvm.ir.Type"><em>tvm.ir.Type</em></a>) – The return type annotation of the function.</p></li>
 <li><p><strong>buffer_map</strong> (<a class="reference internal" href="ir.html#tvm.ir.Map" title="tvm.ir.Map"><em>Map</em></a><em>[</em><a class="reference internal" href="#tvm.tir.Var" title="tvm.tir.Var"><em>tvm.tir.Var</em></a><em>, </em><a class="reference internal" href="#tvm.tir.Buffer" title="tvm.tir.Buffer"><em>tvm.tir.Buffer</em></a><em>]</em>) – The buffer binding map.</p></li>
+<li><p><strong>preflattened_buffer_map</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Map" title="tvm.ir.Map"><em>Map</em></a><em>[</em><a class="reference internal" href="#tvm.tir.Var" title="tvm.tir.Var"><em>tvm.tir.Var</em></a><em>, </em><a class="reference internal" href="#tvm.tir.Buffer" title="tvm.tir.Buffer"><em>tvm.tir.Buffer</em></a><em>]</em><em>]</em>) – The buffer binding map, prior to any flattening.</p></li>
 <li><p><strong>attrs</strong> (<em>Optional</em><em>[</em><em>tvm.Attrs</em><em>]</em>) – Attributes of the function, can be None</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this itervar in the source code.</p></li>
 </ul>

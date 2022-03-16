@@ -770,6 +770,12 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trunc</span></code>(data)</p></td>
 <td><p>Compute element-wise trunc of data.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trunc_divide</span></code>(lhs, rhs)</p></td>
+<td><p>Trunc division with numpy-style broadcasting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trunc_mod</span></code>(lhs, rhs)</p></td>
+<td><p>Trunc mod with numpy-style broadcasting.</p></td>
+</tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique</span></code>(data[, is_sorted, return_counts])</p></td>
 <td><p>Find the unique elements of a 1-D tensor.</p></td>
 </tr>
@@ -958,9 +964,8 @@ during inference time. Used for constant folding.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The type of executor. Avaliable options are <cite>debug</cite> for the
-interpreter, <cite>graph</cite> for the graph executor, and <cite>vm</cite> for the virtual
-machine.</p></li>
+<li><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The type of executor. Avaliable options are <cite>debug</cite> for the interpreter, <cite>graph</cite> for the
+graph executor, <cite>aot</cite> for the aot executor, and <cite>vm</cite> for the virtual machine.</p></li>
 <li><p><strong>mod</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">IRModule</span></code>) – The Relay module containing collection of functions</p></li>
 <li><p><strong>device</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code>) – The device to execute the code.</p></li>
 <li><p><strong>target</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tvm.Target</span></code>) – The corresponding context</p></li>
@@ -4836,6 +4841,46 @@ If data.ndim &gt;=  d, reps is promoted to a.ndim by pre-pending 1’s to it.</p
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>relay.Expr</em>) – The input data</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – The computed result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>relay.Expr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.</span></span><span class="sig-name descname"><span class="pre">trunc_divide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Trunc division with numpy-style broadcasting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<em>relay.Expr</em>) – The left hand side input data</p></li>
+<li><p><strong>rhs</strong> (<em>relay.Expr</em>) – The right hand side input data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – The computed result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>relay.Expr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.</span></span><span class="sig-name descname"><span class="pre">trunc_mod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Trunc mod with numpy-style broadcasting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<em>relay.Expr</em>) – The left hand side input data</p></li>
+<li><p><strong>rhs</strong> (<em>relay.Expr</em>) – The right hand side input data</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>result</strong> – The computed result.</p>
