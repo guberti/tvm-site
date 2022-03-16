@@ -5,15 +5,15 @@
 
 Computation times
 =================
-**05:54.043** total execution time for **how_to_compile_models** files:
+**06:26.793** total execution time for **how_to_compile_models** files:
 
-- **01:15.979**: :ref:`sphx_glr_how_to_compile_models_from_paddle.py` (``from_paddle.py``)
-- **01:10.844**: :ref:`sphx_glr_how_to_compile_models_from_tensorflow.py` (``from_tensorflow.py``)
-- **00:59.132**: :ref:`sphx_glr_how_to_compile_models_from_darknet.py` (``from_darknet.py``)
-- **00:43.204**: :ref:`sphx_glr_how_to_compile_models_from_caffe2.py` (``from_caffe2.py``)
-- **00:25.162**: :ref:`sphx_glr_how_to_compile_models_from_tflite.py` (``from_tflite.py``)
-- **00:21.827**: :ref:`sphx_glr_how_to_compile_models_from_coreml.py` (``from_coreml.py``)
-- **00:21.161**: :ref:`sphx_glr_how_to_compile_models_from_mxnet.py` (``from_mxnet.py``)
-- **00:19.701**: :ref:`sphx_glr_how_to_compile_models_from_pytorch.py` (``from_pytorch.py``)
-- **00:14.579**: :ref:`sphx_glr_how_to_compile_models_from_keras.py` (``from_keras.py``)
-- **00:02.454**: :ref:`sphx_glr_how_to_compile_models_from_onnx.py` (``from_onnx.py``)
+- **01:16.668**: :ref:`sphx_glr_how_to_compile_models_from_tensorflow.py` (``from_tensorflow.py``)
+- **01:10.552**: :ref:`sphx_glr_how_to_compile_models_from_darknet.py` (``from_darknet.py``)
+- **01:08.223**: :ref:`sphx_glr_how_to_compile_models_from_caffe2.py` (``from_caffe2.py``)
+- **01:07.657**: :ref:`sphx_glr_how_to_compile_models_from_paddle.py` (``from_paddle.py``)
+- **00:25.086**: :ref:`sphx_glr_how_to_compile_models_from_tflite.py` (``from_tflite.py``)
+- **00:21.648**: :ref:`sphx_glr_how_to_compile_models_from_coreml.py` (``from_coreml.py``)
+- **00:21.135**: :ref:`sphx_glr_how_to_compile_models_from_mxnet.py` (``from_mxnet.py``)
+- **00:19.542**: :ref:`sphx_glr_how_to_compile_models_from_pytorch.py` (``from_pytorch.py``)
+- **00:13.601**: :ref:`sphx_glr_how_to_compile_models_from_keras.py` (``from_keras.py``)
+- **00:02.680**: :ref:`sphx_glr_how_to_compile_models_from_onnx.py` (``from_onnx.py``)

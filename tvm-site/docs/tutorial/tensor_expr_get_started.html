@@ -507,7 +507,7 @@ helper function to run a profile of the TVM generated code.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Numpy running time: 0.000009
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Numpy running time: 0.000008
 naive: 0.000006
 </pre></div>
 </div>
@@ -631,10 +631,10 @@ factor to be the number of threads on your CPU.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Operator                  Timing             Performance
-   numpy    8.844139999837353e-06                    1.0
-   naive    5.980900000000001e-06     0.6762556902208685
-parallel              6.1167e-06      0.6916104901225545
-  vector    2.4603400000000002e-05     2.781887215766877
+   numpy    8.19126999999753e-06                     1.0
+   naive              5.8834e-06      0.7182524809952271
+parallel              6.0796e-06      0.7422048107316488
+  vector    2.4538099999999998e-05    2.9956404806589694
 </pre></div>
 </div>
 <div class="admonition-code-specialization admonition">
@@ -952,7 +952,7 @@ matrix multiplication.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Numpy running time: 0.018416
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Numpy running time: 0.018310
 </pre></div>
 </div>
 <p>Now we write a basic matrix multiplication using TVM TE and verify that it
@@ -994,7 +994,7 @@ optimizations.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>none: 3.220894
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>none: 3.457100
 </pre></div>
 </div>
 <p>Let’s take a look at the intermediate representation of the operator and
@@ -1060,7 +1060,7 @@ schedule.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>blocking: 0.312230
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>blocking: 0.312704
 </pre></div>
 </div>
 <p>By reordering the computation to take advantage of caching, you should see a
@@ -1072,8 +1072,8 @@ internal representation and compare it to the original:</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
   attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
-             A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
+  buffers = {A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
+             C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
              B: Buffer(B_2: Pointer(float32), float32, [1048576], [])}
   buffer_map = {A_1: A, B_1: B, C_1: C} {
   for (x.outer: int32, 0, 32) {
@@ -1120,7 +1120,7 @@ already cache friendly from our previous optimizations.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>vectorization: 0.341531
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>vectorization: 0.344258
 @main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
   attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
   buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1175,7 +1175,7 @@ more cache friendly.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>loop permutation: 0.124537
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>loop permutation: 0.116483
 @main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
   attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
   buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1251,7 +1251,7 @@ optimized schedule.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array packing: 0.111649
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array packing: 0.108938
 @main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
   attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
   buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1325,11 +1325,11 @@ to `C</cite> when all the block results are ready.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>block caching: 0.111273
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>block caching: 0.111654
 @main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
   attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
-             C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
+  buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
+             A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
              B: Buffer(B_2: Pointer(float32), float32, [1048576], [])}
   buffer_map = {A_1: A, B_1: B, C_1: C} {
   allocate(packedB: Pointer(global float32x32), float32x32, [32768]), storage_scope = global;
@@ -1392,7 +1392,7 @@ of thread-level parallelization.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>parallelization: 0.146008
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>parallelization: 0.145078
 @main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
   attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
   buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1454,13 +1454,13 @@ working, we can compare the results.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>        Operator                  Timing             Performance
-            none            3.2208935061                     1.0
-        blocking            0.3122297556     0.09693886339572325
-   vectorization     0.34153118579999997     0.10603616206284976
-loop permutation     0.12453650590000001     0.03866520444222768
-   array packing     0.11164866799999999    0.034663880624600074
-   block caching            0.1112728793    0.034547208434324836
- parallelization            0.1460076196     0.04533140239609861
+            none      3.4570996946999997                     1.0
+        blocking            0.3127038337     0.09045265144635518
+   vectorization     0.34425791749999995     0.09957997972340048
+loop permutation     0.11648303900000001    0.033693861701060424
+   array packing     0.10893831840000001      0.0315114772556345
+   block caching     0.11165416560000001    0.032297062700035656
+ parallelization     0.14507799540000002     0.04196523334933493
 </pre></div>
 </div>
 <p>Note that the outputs on the web page reflect the running times on a
@@ -1492,6 +1492,7 @@ is</p>
 you can build generic templates of the matrix multiplication and other
 operations with tunable parameters that allows you to automatically optimize
 the computation for specific platforms.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  1.705 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tensor-expr-get-started-py">
 <div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/40a01cffb015a67aaec0fad7e27cf80d/tensor_expr_get_started.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tensor_expr_get_started.py</span></code></a></p>
