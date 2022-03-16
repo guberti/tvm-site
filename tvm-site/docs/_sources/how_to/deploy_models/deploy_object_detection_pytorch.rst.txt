@@ -108,7 +108,7 @@ Load pre-trained maskrcnn from torchvision and do tracing
  .. code-block:: none
 
     Downloading: "https://download.pytorch.org/models/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth" to /workspace/.cache/torch/hub/checkpoints/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth
-      0%|          | 0.00/170M [00:00<?, ?B/s]     11%|#1        | 19.4M/170M [00:00<00:00, 204MB/s]     26%|##6       | 44.4M/170M [00:00<00:00, 238MB/s]     39%|###9      | 67.1M/170M [00:00<00:00, 237MB/s]     54%|#####3    | 91.4M/170M [00:00<00:00, 244MB/s]     68%|######8   | 116M/170M [00:00<00:00, 250MB/s]      84%|########3 | 142M/170M [00:00<00:00, 257MB/s]     99%|#########9| 168M/170M [00:00<00:00, 263MB/s]    100%|##########| 170M/170M [00:00<00:00, 252MB/s]
+      0%|          | 0.00/170M [00:00<?, ?B/s]     13%|#2        | 21.7M/170M [00:00<00:00, 228MB/s]     30%|##9       | 50.2M/170M [00:00<00:00, 269MB/s]     47%|####6     | 79.2M/170M [00:00<00:00, 285MB/s]     63%|######3   | 108M/170M [00:00<00:00, 290MB/s]      80%|#######9  | 136M/170M [00:00<00:00, 292MB/s]     97%|#########7| 165M/170M [00:00<00:00, 297MB/s]    100%|##########| 170M/170M [00:00<00:00, 288MB/s]
     /usr/local/lib/python3.6/dist-packages/torch/functional.py:445: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2157.)
       return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
     /usr/local/lib/python3.6/dist-packages/torch/nn/functional.py:3702: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
@@ -255,7 +255,7 @@ Get boxes with score larger than 0.9
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  59.496 seconds)
+   **Total running time of the script:** ( 3 minutes  20.030 seconds)
 
 
 .. _sphx_glr_download_how_to_deploy_models_deploy_object_detection_pytorch.py:
