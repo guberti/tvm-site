@@ -5,11 +5,11 @@
 
 Computation times
 =================
-**05:13.562** total execution time for **how_to_tune_with_autoscheduler** files:
+**05:05.197** total execution time for **how_to_tune_with_autoscheduler** files:
 
-- **02:29.376**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_conv2d_layer_cuda.py` (``tune_conv2d_layer_cuda.py``)
-- **01:24.188**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_x86.py` (``tune_network_x86.py``)
-- **00:41.526**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_cuda.py` (``tune_network_cuda.py``)
-- **00:19.951**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_sparse_x86.py` (``tune_sparse_x86.py``)
-- **00:09.359**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_mali.py` (``tune_network_mali.py``)
-- **00:09.162**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_arm.py` (``tune_network_arm.py``)
+- **02:20.582**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_conv2d_layer_cuda.py` (``tune_conv2d_layer_cuda.py``)
+- **01:20.986**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_x86.py` (``tune_network_x86.py``)
+- **00:40.127**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_cuda.py` (``tune_network_cuda.py``)
+- **00:25.815**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_sparse_x86.py` (``tune_sparse_x86.py``)
+- **00:08.913**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_mali.py` (``tune_network_mali.py``)
+- **00:08.774**: :ref:`sphx_glr_how_to_tune_with_autoscheduler_tune_network_arm.py` (``tune_network_arm.py``)
