@@ -243,7 +243,7 @@ helper function to run a profile of the TVM generated code.
 
  .. code-block:: none
 
-    Numpy running time: 0.000008
+    Numpy running time: 0.000009
     naive: 0.000006
 
 
@@ -436,10 +436,10 @@ We can now compare the different schedules
  .. code-block:: none
 
                 Operator                  Timing             Performance
-                   numpy    8.409499998833781e-06                    1.0
-                   naive              5.8627e-06      0.6971520305384424
-                parallel              6.0451e-06      0.7188417861749601
-                  vector    2.4516499999999998e-05     2.915333849027875
+                   numpy    8.844139999837353e-06                    1.0
+                   naive    5.980900000000001e-06     0.6762556902208685
+                parallel              6.1167e-06      0.6916104901225545
+                  vector    2.4603400000000002e-05     2.781887215766877
 
 
 
@@ -828,7 +828,7 @@ matrix multiplication.
 
  .. code-block:: none
 
-    Numpy running time: 0.018803
+    Numpy running time: 0.018416
 
 
 
@@ -884,7 +884,7 @@ optimizations.
 
  .. code-block:: none
 
-    none: 3.426877
+    none: 3.220894
 
 
 
@@ -982,7 +982,7 @@ schedule.
 
  .. code-block:: none
 
-    blocking: 0.302644
+    blocking: 0.312230
 
 
 
@@ -1073,7 +1073,7 @@ already cache friendly from our previous optimizations.
 
  .. code-block:: none
 
-    vectorization: 0.338167
+    vectorization: 0.341531
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1144,7 +1144,7 @@ more cache friendly.
 
  .. code-block:: none
 
-    loop permutation: 0.113345
+    loop permutation: 0.124537
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1240,7 +1240,7 @@ optimized schedule.
 
  .. code-block:: none
 
-    array packing: 0.107924
+    array packing: 0.111649
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1330,11 +1330,11 @@ to `C` when all the block results are ready.
 
  .. code-block:: none
 
-    block caching: 0.110567
+    block caching: 0.111273
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
-      buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
-                 A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
+      buffers = {A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
+                 C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
                  B: Buffer(B_2: Pointer(float32), float32, [1048576], [])}
       buffer_map = {A_1: A, B_1: B, C_1: C} {
       allocate(packedB: Pointer(global float32x32), float32x32, [32768]), storage_scope = global;
@@ -1413,11 +1413,11 @@ of thread-level parallelization.
 
  .. code-block:: none
 
-    parallelization: 0.143161
+    parallelization: 0.146008
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
-      buffers = {A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
-                 C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
+      buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
+                 A: Buffer(A_2: Pointer(float32), float32, [1048576], []),
                  B: Buffer(B_2: Pointer(float32), float32, [1048576], [])}
       buffer_map = {A_1: A, B_1: B, C_1: C} {
       allocate(packedB: Pointer(global float32x32), float32x32, [32768]), storage_scope = global {
@@ -1491,13 +1491,13 @@ working, we can compare the results.
  .. code-block:: none
 
                 Operator                  Timing             Performance
-                    none            3.4268773383                     1.0
-                blocking            0.3026435112     0.08831466122745289
-           vectorization            0.3381668505     0.09868075717812452
-        loop permutation     0.11334497930000001     0.03307529511874154
-           array packing            0.1079244569     0.03149352785225134
-           block caching            0.1105671171     0.03226468478000732
-         parallelization            0.1431610314     0.04177594272195896
+                    none            3.2208935061                     1.0
+                blocking            0.3122297556     0.09693886339572325
+           vectorization     0.34153118579999997     0.10603616206284976
+        loop permutation     0.12453650590000001     0.03866520444222768
+           array packing     0.11164866799999999    0.034663880624600074
+           block caching            0.1112728793    0.034547208434324836
+         parallelization            0.1460076196     0.04533140239609861
 
 
 
@@ -1530,11 +1530,6 @@ Upcoming tutorials expand on the matrix multiplication example, and show how
 you can build generic templates of the matrix multiplication and other
 operations with tunable parameters that allows you to automatically optimize
 the computation for specific platforms.
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 1 minutes  1.292 seconds)
 
 
 .. _sphx_glr_download_tutorial_tensor_expr_get_started.py:
