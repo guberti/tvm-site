@@ -393,7 +393,7 @@ Execute on TVM
     Evaluate inference time cost...
     Execution time summary:
      mean (ms)   median (ms)    max (ms)     min (ms)     std (ms)  
-      16.5829      16.4236      17.2333      16.2695       0.3284   
+      16.5812      16.3675      17.5348      16.3170       0.4154   
                
 
 
