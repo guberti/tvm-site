@@ -5,17 +5,17 @@
 
 Computation times
 =================
-**09:46.692** total execution time for **tutorial** files:
+**10:20.368** total execution time for **tutorial** files:
 
-- **06:39.306**: :ref:`sphx_glr_tutorial_autotvm_relay_x86.py` (``autotvm_relay_x86.py``)
-- **01:10.963**: :ref:`sphx_glr_tutorial_auto_scheduler_matmul_x86.py` (``auto_scheduler_matmul_x86.py``)
-- **01:01.034**: :ref:`sphx_glr_tutorial_tensor_expr_get_started.py` (``tensor_expr_get_started.py``)
-- **00:26.800**: :ref:`sphx_glr_tutorial_relay_quick_start.py` (``relay_quick_start.py``)
-- **00:25.998**: :ref:`sphx_glr_tutorial_autotvm_matmul_x86.py` (``autotvm_matmul_x86.py``)
-- **00:01.380**: :ref:`sphx_glr_tutorial_tensor_ir_blitz_course.py` (``tensor_ir_blitz_course.py``)
-- **00:00.748**: :ref:`sphx_glr_tutorial_intro_topi.py` (``intro_topi.py``)
-- **00:00.226**: :ref:`sphx_glr_tutorial_cross_compilation_and_rpc.py` (``cross_compilation_and_rpc.py``)
-- **00:00.064**: :ref:`sphx_glr_tutorial_tvmc_python.py` (``tvmc_python.py``)
-- **00:00.059**: :ref:`sphx_glr_tutorial_tvmc_command_line_driver.py` (``tvmc_command_line_driver.py``)
-- **00:00.058**: :ref:`sphx_glr_tutorial_introduction.py` (``introduction.py``)
-- **00:00.056**: :ref:`sphx_glr_tutorial_install.py` (``install.py``)
+- **07:49.351**: :ref:`sphx_glr_tutorial_autotvm_relay_x86.py` (``autotvm_relay_x86.py``)
+- **01:00.669**: :ref:`sphx_glr_tutorial_tensor_expr_get_started.py` (``tensor_expr_get_started.py``)
+- **00:41.032**: :ref:`sphx_glr_tutorial_auto_scheduler_matmul_x86.py` (``auto_scheduler_matmul_x86.py``)
+- **00:25.951**: :ref:`sphx_glr_tutorial_relay_quick_start.py` (``relay_quick_start.py``)
+- **00:21.714**: :ref:`sphx_glr_tutorial_autotvm_matmul_x86.py` (``autotvm_matmul_x86.py``)
+- **00:00.733**: :ref:`sphx_glr_tutorial_intro_topi.py` (``intro_topi.py``)
+- **00:00.574**: :ref:`sphx_glr_tutorial_tensor_ir_blitz_course.py` (``tensor_ir_blitz_course.py``)
+- **00:00.209**: :ref:`sphx_glr_tutorial_cross_compilation_and_rpc.py` (``cross_compilation_and_rpc.py``)
+- **00:00.039**: :ref:`sphx_glr_tutorial_tvmc_command_line_driver.py` (``tvmc_command_line_driver.py``)
+- **00:00.035**: :ref:`sphx_glr_tutorial_introduction.py` (``introduction.py``)
+- **00:00.031**: :ref:`sphx_glr_tutorial_install.py` (``install.py``)
+- **00:00.030**: :ref:`sphx_glr_tutorial_tvmc_python.py` (``tvmc_python.py``)
