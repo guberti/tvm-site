@@ -633,7 +633,7 @@ so we can read the log file and load the best schedules.
     Evaluate inference time cost...
     Execution time summary:
      mean (ms)   median (ms)    max (ms)     min (ms)     std (ms)  
-      759.9538     760.8101     763.5619     755.4894      3.3508   
+      766.7357     768.3955     770.2006     761.6110      3.6979   
                
 
 
@@ -658,7 +658,7 @@ Other Tips
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  19.942 seconds)
+   **Total running time of the script:** ( 1 minutes  21.781 seconds)
 
 
 .. _sphx_glr_download_how_to_tune_with_autoscheduler_tune_network_x86.py:

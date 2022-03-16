@@ -146,7 +146,6 @@ var searchData=
   ['array_3c_20tvm_3a_3aintimm_20_3e',['Array&lt; tvm::IntImm &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
   ['array_3c_20tvm_3a_3airmodule_20_3e',['Array&lt; tvm::IRModule &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
   ['array_3c_20tvm_3a_3ameta_5fschedule_3a_3aarginfo_20_3e',['Array&lt; tvm::meta_schedule::ArgInfo &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
-  ['array_3c_20tvm_3a_3ameta_5fschedule_3a_3aextractedtask_20_3e',['Array&lt; tvm::meta_schedule::ExtractedTask &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
   ['array_3c_20tvm_3a_3ameta_5fschedule_3a_3ameasurecallback_20_3e',['Array&lt; tvm::meta_schedule::MeasureCallback &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
   ['array_3c_20tvm_3a_3ameta_5fschedule_3a_3apostproc_20_3e',['Array&lt; tvm::meta_schedule::Postproc &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
   ['array_3c_20tvm_3a_3ameta_5fschedule_3a_3aschedulerule_20_3e',['Array&lt; tvm::meta_schedule::ScheduleRule &gt;',['../classtvm_1_1runtime_1_1Array.html',1,'tvm::runtime']]],
