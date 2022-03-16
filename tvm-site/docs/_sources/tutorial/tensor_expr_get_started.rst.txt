@@ -387,7 +387,7 @@ factor to be the number of threads on your CPU.
 
  .. code-block:: none
 
-    vector: 0.000025
+    vector: 0.000024
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [(stride: int32*n: int32)], [], type="auto"),
@@ -436,10 +436,10 @@ We can now compare the different schedules
  .. code-block:: none
 
                 Operator                  Timing             Performance
-                   numpy    7.753910003884813e-06                    1.0
-                   naive    5.8298000000000005e-06    0.7518529357548892
-                parallel              6.0871e-06      0.7850361942491312
-                  vector    2.4560499999999996e-05    3.1674987184136594
+                   numpy    7.990220000237969e-06                    1.0
+                   naive              5.9359e-06      0.7428956899588766
+                parallel    6.121600000000001e-06     0.7661366019731227
+                  vector             2.44743e-05       3.063032056598078
 
 
 
@@ -828,7 +828,7 @@ matrix multiplication.
 
  .. code-block:: none
 
-    Numpy running time: 0.018708
+    Numpy running time: 0.018521
 
 
 
@@ -884,7 +884,7 @@ optimizations.
 
  .. code-block:: none
 
-    none: 3.295840
+    none: 3.291073
 
 
 
@@ -982,7 +982,7 @@ schedule.
 
  .. code-block:: none
 
-    blocking: 0.321887
+    blocking: 0.299966
 
 
 
@@ -1073,7 +1073,7 @@ already cache friendly from our previous optimizations.
 
  .. code-block:: none
 
-    vectorization: 0.355476
+    vectorization: 0.333510
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1144,7 +1144,7 @@ more cache friendly.
 
  .. code-block:: none
 
-    loop permutation: 0.118100
+    loop permutation: 0.115713
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1240,7 +1240,7 @@ optimized schedule.
 
  .. code-block:: none
 
-    array packing: 0.108192
+    array packing: 0.108562
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1330,7 +1330,7 @@ to `C` when all the block results are ready.
 
  .. code-block:: none
 
-    block caching: 0.111026
+    block caching: 0.110587
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1413,7 +1413,7 @@ of thread-level parallelization.
 
  .. code-block:: none
 
-    parallelization: 0.144178
+    parallelization: 0.144050
     @main = primfn(A_1: handle, B_1: handle, C_1: handle) -> ()
       attr = {"from_legacy_te_schedule": True, "global_symbol": "main", "tir.noalias": True}
       buffers = {C: Buffer(C_2: Pointer(float32), float32, [1048576], []),
@@ -1491,13 +1491,13 @@ working, we can compare the results.
  .. code-block:: none
 
                 Operator                  Timing             Performance
-                    none      3.2958401599999996                     1.0
-                blocking            0.3218870307     0.09766463635178232
-           vectorization            0.3554757872     0.10785589407952358
-        loop permutation     0.11810008989999998    0.035833075685320855
-           array packing     0.10819203560000001     0.03282684546206877
-           block caching     0.11102622980000001     0.03368677618152454
-         parallelization     0.14417765600000002     0.04374534231053245
+                    none            3.2910728973                     1.0
+                blocking            0.2999660323     0.09114536251873744
+           vectorization            0.3335095543     0.10133763812208829
+        loop permutation     0.11571290149999999      0.0351596288234548
+           array packing            0.1085617105     0.03298672314097453
+           block caching     0.11058652899999999       0.033601968856638
+         parallelization            0.1440502534     0.04376999777737497
 
 
 

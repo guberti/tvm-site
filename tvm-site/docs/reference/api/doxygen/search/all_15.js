@@ -94,7 +94,6 @@ var searchData=
   ['terminalrenderer',['TerminalRenderer',['../namespacetvm.html#a69a0e3f559d3a3b98d42701117d93ed0',1,'tvm']]],
   ['terminatesession',['TerminateSession',['../classtvm_1_1runtime_1_1micro__rpc_1_1Session.html#a4816ac92f5e3a35e5c9c7bf8a8d8f35a',1,'tvm::runtime::micro_rpc::Session']]],
   ['test',['test',['../structtvm_1_1runtime_1_1vm_1_1Instruction.html#adebc0e955069bdaa543df3a908351532',1,'tvm::runtime::vm::Instruction']]],
-  ['texture2d_5falloca',['texture2d_alloca',['../namespacetvm_1_1tir_1_1builtin.html#a627a513bb198df01f24cf13c2aa96881',1,'tvm::tir::builtin']]],
   ['texture2d_5fload',['texture2d_load',['../namespacetvm_1_1tir_1_1builtin.html#ae52feb3e7828262a1b8a31062642ae36',1,'tvm::tir::builtin']]],
   ['texture2d_5fstore',['texture2d_store',['../namespacetvm_1_1tir_1_1builtin.html#a6ea87b06a1eb1050b7503ef6cc1bab34',1,'tvm::tir::builtin']]],
   ['textureflatten',['TextureFlatten',['../namespacetvm_1_1tir_1_1transform.html#ab19311e5b5ae82ad85ec3fdd7ea4556e',1,'tvm::tir::transform']]],
