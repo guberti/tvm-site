@@ -5,7 +5,7 @@
 
 Computation times
 =================
-**00:19.421** total execution time for **topic_vta_tutorials_autotvm** files:
+**00:21.598** total execution time for **topic_vta_tutorials_autotvm** files:
 
-- **00:19.245**: :ref:`sphx_glr_topic_vta_tutorials_autotvm_tune_relay_vta.py` (``tune_relay_vta.py``)
-- **00:00.177**: :ref:`sphx_glr_topic_vta_tutorials_autotvm_tune_alu_vta.py` (``tune_alu_vta.py``)
+- **00:21.366**: :ref:`sphx_glr_topic_vta_tutorials_autotvm_tune_relay_vta.py` (``tune_relay_vta.py``)
+- **00:00.232**: :ref:`sphx_glr_topic_vta_tutorials_autotvm_tune_alu_vta.py` (``tune_alu_vta.py``)
