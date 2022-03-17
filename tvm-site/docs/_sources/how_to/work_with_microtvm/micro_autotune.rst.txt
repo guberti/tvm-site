@@ -292,10 +292,10 @@ Timing the untuned program
     ########## Build without Autotuning ##########
     Node Name                                     Ops                                           Time(us)  Time(%)  Shape              Inputs  Outputs  
     ---------                                     ---                                           --------  -------  -----              ------  -------  
-    tvmgen_default_fused_nn_contrib_conv2d_NCHWc  tvmgen_default_fused_nn_contrib_conv2d_NCHWc  312.7     98.742   (1, 2, 10, 10, 3)  2       1        
-    tvmgen_default_fused_layout_transform_1       tvmgen_default_fused_layout_transform_1       3.076     0.971    (1, 6, 10, 10)     1       1        
-    tvmgen_default_fused_layout_transform         tvmgen_default_fused_layout_transform         0.907     0.286    (1, 1, 10, 10, 3)  1       1        
-    Total_time                                    -                                             316.683   -        -                  -       -        
+    tvmgen_default_fused_nn_contrib_conv2d_NCHWc  tvmgen_default_fused_nn_contrib_conv2d_NCHWc  313.9     98.731   (1, 2, 10, 10, 3)  2       1        
+    tvmgen_default_fused_layout_transform_1       tvmgen_default_fused_layout_transform_1       3.103     0.976    (1, 6, 10, 10)     1       1        
+    tvmgen_default_fused_layout_transform         tvmgen_default_fused_layout_transform         0.931     0.293    (1, 1, 10, 10, 3)  1       1        
+    Total_time                                    -                                             317.934   -        -                  -       -        
 
 
 
@@ -357,10 +357,10 @@ Timing the tuned program
     ########## Build with Autotuning ##########
     Node Name                                     Ops                                           Time(us)  Time(%)  Shape              Inputs  Outputs  
     ---------                                     ---                                           --------  -------  -----              ------  -------  
-    tvmgen_default_fused_nn_contrib_conv2d_NCHWc  tvmgen_default_fused_nn_contrib_conv2d_NCHWc  82.4      96.891   (1, 6, 10, 10, 1)  2       1        
-    tvmgen_default_fused_layout_transform_1       tvmgen_default_fused_layout_transform_1       1.743     2.05     (1, 6, 10, 10)     1       1        
-    tvmgen_default_fused_layout_transform         tvmgen_default_fused_layout_transform         0.901     1.059    (1, 1, 10, 10, 3)  1       1        
-    Total_time                                    -                                             85.044    -        -                  -       -        
+    tvmgen_default_fused_nn_contrib_conv2d_NCHWc  tvmgen_default_fused_nn_contrib_conv2d_NCHWc  81.35     96.9     (1, 6, 10, 10, 1)  2       1        
+    tvmgen_default_fused_layout_transform_1       tvmgen_default_fused_layout_transform_1       1.702     2.027    (1, 6, 10, 10)     1       1        
+    tvmgen_default_fused_layout_transform         tvmgen_default_fused_layout_transform         0.901     1.073    (1, 1, 10, 10, 3)  1       1        
+    Total_time                                    -                                             83.953    -        -                  -       -        
 
 
 

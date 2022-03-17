@@ -614,7 +614,7 @@ so we can read the log file and load the best schedules.
     Evaluate inference time cost...
     Execution time summary:
      mean (ms)   median (ms)    max (ms)     min (ms)     std (ms)  
-       9.7922       9.8004       9.8079       9.7682       0.0172   
+       9.8358       9.8736       9.8781       9.7557       0.0567   
                
 
 
