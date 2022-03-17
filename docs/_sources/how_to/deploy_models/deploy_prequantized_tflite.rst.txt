@@ -352,7 +352,7 @@ Here we give an example of how to measure performance of TVM compiled models.
 
     Execution time summary:
      mean (ms)   median (ms)    max (ms)     min (ms)     std (ms)  
-      117.8534     117.8098     122.0296     116.9189      0.6196   
+      116.9473     116.7776     132.1289     115.4894      1.6453   
                
 
 
@@ -386,7 +386,7 @@ Here we give an example of how to measure performance of TVM compiled models.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  59.810 seconds)
+   **Total running time of the script:** ( 1 minutes  59.056 seconds)
 
 
 .. _sphx_glr_download_how_to_deploy_models_deploy_prequantized_tflite.py:
