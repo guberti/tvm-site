@@ -98,7 +98,7 @@ In this section, we download a pretrained imagenet model and classify an image.
 
  .. code-block:: none
 
-    Downloading /workspace/.mxnet/models/resnet18_v1-a0666292.zip16efa867-fd43-489d-bc1e-96498e67fd2f from https://apache-mxnet.s3-accelerate.dualstack.amazonaws.com/gluon/models/resnet18_v1-a0666292.zip...
+    Downloading /workspace/.mxnet/models/resnet18_v1-a0666292.zipfd8fe66f-ab8e-42b2-ac86-7c4b031653f9 from https://apache-mxnet.s3-accelerate.dualstack.amazonaws.com/gluon/models/resnet18_v1-a0666292.zip...
     x (1, 3, 224, 224)
 
 

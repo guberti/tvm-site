@@ -296,7 +296,7 @@ latency of convolution.
 
  .. code-block:: none
 
-    Convolution: 54.185096 ms
+    Convolution: 43.187901 ms
 
 
 
