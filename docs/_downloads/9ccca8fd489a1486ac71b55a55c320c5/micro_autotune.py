@@ -27,15 +27,43 @@ Autotuning with microTVM
 This tutorial explains how to autotune a model using the C runtime.
 """
 
+######################################################################
+#
+#     .. include:: ../../../../gallery/how_to/work_with_microtvm/install_dependencies.rst
+#
+
+# sphinx_gallery_start_ignore
+from tvm import testing
+
+testing.utils.install_request_hook(depth=3)
+# sphinx_gallery_end_ignore
+
+# You can skip the following two sections (installing Zephyr and CMSIS-NN) if the following flag is False.
+# Installing Zephyr takes ~20 min.
 import os
+
+use_physical_hw = bool(os.getenv("TVM_MICRO_USE_HW"))
+
+######################################################################
+#
+#     .. include:: ../../../../gallery/how_to/work_with_microtvm/install_zephyr.rst
+#
+
+######################################################################
+#
+#     .. include:: ../../../../gallery/how_to/work_with_microtvm/install_cmsis.rst
+#
+
+######################################################################
+# Import Python dependencies
+# -------------------------------
+#
 import json
 import numpy as np
 import pathlib
 
 import tvm
 from tvm.relay.backend import Runtime
-
-use_physical_hw = bool(os.getenv("TVM_MICRO_USE_HW"))
 
 ####################
 # Defining the model
@@ -95,6 +123,7 @@ if use_physical_hw:
         boards = json.load(f)
 
     BOARD = os.getenv("TVM_MICRO_BOARD", default="nucleo_l4r5zi")
+    SERIAL = os.getenv("TVM_MICRO_SERIAL", default=None)
     TARGET = tvm.target.target.micro(boards[BOARD]["model"])
 
 
@@ -146,10 +175,10 @@ if use_physical_hw:
     module_loader = tvm.micro.AutoTvmModuleLoader(
         template_project_dir=pathlib.Path(tvm.micro.get_microtvm_template_projects("zephyr")),
         project_options={
-            "zephyr_board": BOARD,
-            "west_cmd": "west",
+            "board": BOARD,
             "verbose": False,
             "project_type": "host_driven",
+            "serial_number": SERIAL,
         },
     )
     builder = tvm.autotvm.LocalBuilder(
@@ -213,10 +242,11 @@ if use_physical_hw:
         lowered,
         temp_dir / "project",
         {
-            "zephyr_board": BOARD,
-            "west_cmd": "west",
+            "board": BOARD,
             "verbose": False,
             "project_type": "host_driven",
+            "serial_number": SERIAL,
+            "config_main_stack_size": 4096,
         },
     )
 
@@ -256,10 +286,11 @@ if use_physical_hw:
         lowered_tuned,
         temp_dir / "project",
         {
-            "zephyr_board": BOARD,
-            "west_cmd": "west",
+            "board": BOARD,
             "verbose": False,
             "project_type": "host_driven",
+            "serial_number": SERIAL,
+            "config_main_stack_size": 4096,
         },
     )
 
