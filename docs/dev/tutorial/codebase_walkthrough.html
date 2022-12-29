@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TVM Codebase Walkthrough by Example &mdash; tvm 0.9.dev0 documentation</title>
+  <title>TVM Codebase Walkthrough by Example &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -250,7 +282,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -296,7 +328,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/dev/tutorial/codebase_walkthrough.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/dev/tutorial/codebase_walkthrough.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -344,7 +378,7 @@
 <span class="k">class</span> <span class="nc">Tensor</span><span class="p">(</span><span class="n">Object</span><span class="p">,</span> <span class="n">_expr</span><span class="o">.</span><span class="n">ExprOp</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Tensor object, to construct, see function.Tensor&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">indices</span><span class="p">):</span>
        <span class="o">...</span>
 </pre></div>
 </div>
@@ -365,8 +399,11 @@ You can also checkout <a class="reference external" href="https://github.com/tqc
 <p><code class="docutils literal notranslate"><span class="pre">Schedule</span></code> consists of collections of <code class="docutils literal notranslate"><span class="pre">Stage</span></code> and output <code class="docutils literal notranslate"><span class="pre">Operation</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Stage</span></code> corresponds to one <code class="docutils literal notranslate"><span class="pre">Operation</span></code>. In the vector add example above, there are two placeholder ops and one compute op, so the schedule <code class="docutils literal notranslate"><span class="pre">s</span></code> contains three stages. Each <code class="docutils literal notranslate"><span class="pre">Stage</span></code> holds information about a loop nest structure, types of each loop (<code class="docutils literal notranslate"><span class="pre">Parallel</span></code>, <code class="docutils literal notranslate"><span class="pre">Vectorized</span></code>, <code class="docutils literal notranslate"><span class="pre">Unrolled</span></code>), and where to execute its computation in the loop nest of the next <code class="docutils literal notranslate"><span class="pre">Stage</span></code>, if any.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Schedule</span></code> and <code class="docutils literal notranslate"><span class="pre">Stage</span></code> are defined in <code class="docutils literal notranslate"><span class="pre">tvm/python/te/schedule.py</span></code>, <code class="docutils literal notranslate"><span class="pre">include/tvm/te/schedule.h</span></code>, and <code class="docutils literal notranslate"><span class="pre">src/te/schedule/schedule_ops.cc</span></code>.</p>
-<p>To keep it simple, we call <code class="docutils literal notranslate"><span class="pre">tvm.build(...)</span></code> on the default schedule created by <code class="docutils literal notranslate"><span class="pre">create_schedule()</span></code> function above.</p>
+<p>To keep it simple, we call <code class="docutils literal notranslate"><span class="pre">tvm.build(...)</span></code> on the default schedule created by <code class="docutils literal notranslate"><span class="pre">create_schedule()</span></code> function above, and we must add necessary thread bindings to make it runnable on GPU.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
+<span class="n">bx</span><span class="p">,</span> <span class="n">tx</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">C</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">factor</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">s</span><span class="p">[</span><span class="n">C</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span><span class="p">(</span><span class="s2">&quot;blockIdx.x&quot;</span><span class="p">))</span>
+<span class="n">s</span><span class="p">[</span><span class="n">C</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span><span class="p">(</span><span class="s2">&quot;threadIdx.x&quot;</span><span class="p">))</span>
 <span class="n">fadd</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">target</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -485,20 +522,20 @@ You can also checkout <a class="reference external" href="https://github.com/tqc
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

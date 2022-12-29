@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Adding an Operator to Relay &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Adding an Operator to Relay &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -47,7 +50,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Adding a Compiler Pass to Relay" href="relay_add_pass.html" />
-    <link rel="prev" title="Developer How-To Guide" href="how_to.html" /> 
+    <link rel="prev" title="Debugging TVM" href="debugging_tvm.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -169,8 +172,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -209,6 +241,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Developer Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="how_to.html">Developer How-To Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="debugging_tvm.html">Debugging TVM</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Adding an Operator to Relay</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#defining-an-attribute-node">1. Defining an Attribute Node</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#writing-a-type-relation">2. Writing a Type Relation</a></li>
@@ -266,7 +299,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -312,7 +345,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/dev/how_to/relay_add_op.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/dev/how_to/relay_add_op.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -347,7 +382,7 @@ The PR itself builds upon another PR which adds a <a class="reference external" 
 operator would be an appropriate example of fields which might belong in an attribute node for a convolution operator.</p>
 <p>Attributes should be defined in a file within the folder <a class="reference external" href="https://github.com/apache/tvm/tree/main/include/tvm/relay/attrs">include/tvm/relay/attrs/</a>.</p>
 <p>Ultimately we want to create an operator whose interface can be seen clearly in the final python interface:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cumprod</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cumprod</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Numpy style cumprod op. Return the cumulative inclusive product of the elements along</span>
 <span class="sd">    a given axis.</span>
 <span class="sd">    Parameters</span>
@@ -377,7 +412,7 @@ operator would be an appropriate example of fields which might belong in an attr
 <p>Therefore, when defining our attributes in <code class="docutils literal notranslate"><span class="pre">include/tvm/relay/attrs/transform.h</span></code> we choose the axis,
 accumulation dtype, and exclusivity of the operation as appropriate fields for the struct.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! \brief Attributes used in cumsum and cumprod operator */</span>
-<span class="k">struct</span> <span class="nl">ScanopAttrs</span> <span class="p">:</span> <span class="k">public</span> <span class="n">tvm</span><span class="o">::</span><span class="n">AttrsNode</span><span class="o">&lt;</span><span class="n">ScanopAttrs</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">struct</span> <span class="nc">ScanopAttrs</span> <span class="o">:</span> <span class="k">public</span> <span class="n">tvm</span><span class="o">::</span><span class="n">AttrsNode</span><span class="o">&lt;</span><span class="n">ScanopAttrs</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="n">Integer</span> <span class="n">axis</span><span class="p">;</span>
   <span class="n">DataType</span> <span class="n">dtype</span><span class="p">;</span>
   <span class="n">Bool</span> <span class="n">exclusive</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
@@ -530,7 +565,7 @@ add the following strategies:</p>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">strategy</span>
 
-<span class="nd">@cumsum_strategy.register</span><span class="p">([</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;gpu&quot;</span><span class="p">])</span>
+<span class="nd">@cumsum_strategy</span><span class="o">.</span><span class="n">register</span><span class="p">([</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;gpu&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">cumsum_strategy_cuda</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">out_type</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;cumsum cuda strategy&quot;&quot;&quot;</span>
     <span class="n">strategy</span> <span class="o">=</span> <span class="n">_op</span><span class="o">.</span><span class="n">OpStrategy</span><span class="p">()</span>
@@ -542,7 +577,7 @@ add the following strategies:</p>
     <span class="k">return</span> <span class="n">strategy</span>
 
 
-<span class="nd">@cumprod_strategy.register</span><span class="p">([</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;gpu&quot;</span><span class="p">])</span>
+<span class="nd">@cumprod_strategy</span><span class="o">.</span><span class="n">register</span><span class="p">([</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;gpu&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">cumprod_strategy_cuda</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">out_type</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;cumprod cuda strategy&quot;&quot;&quot;</span>
     <span class="n">strategy</span> <span class="o">=</span> <span class="n">_op</span><span class="o">.</span><span class="n">OpStrategy</span><span class="p">()</span>
@@ -557,24 +592,24 @@ add the following strategies:</p>
 <p>Where in each strategy we define the compute we wrote and the schedule to use within <code class="docutils literal notranslate"><span class="pre">add_implementation()</span></code>.
 We finally link the strategy and compute with the defined relay operator in <code class="docutils literal notranslate"><span class="pre">python/tvm/relay/op/_transform.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># cumsum</span>
-<span class="nd">@_reg.register_compute</span><span class="p">(</span><span class="s2">&quot;cumsum&quot;</span><span class="p">)</span>
+<span class="nd">@_reg</span><span class="o">.</span><span class="n">register_compute</span><span class="p">(</span><span class="s2">&quot;cumsum&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">compute_cumsum</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output_type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute definition of cumsum&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">topi</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">attrs</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span> <span class="n">attrs</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">attrs</span><span class="o">.</span><span class="n">exclusive</span><span class="p">)]</span>
 
 
 <span class="n">_reg</span><span class="o">.</span><span class="n">register_strategy</span><span class="p">(</span><span class="s2">&quot;cumsum&quot;</span><span class="p">,</span> <span class="n">strategy</span><span class="o">.</span><span class="n">cumsum_strategy</span><span class="p">)</span>
-<span class="n">_reg</span><span class="o">.</span><span class="n">register_shape_func</span><span class="p">(</span><span class="s2">&quot;cumsum&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">elemwise_shape_func</span><span class="p">)</span>
+<span class="n">_reg</span><span class="o">.</span><span class="n">register_shape_func</span><span class="p">(</span><span class="s2">&quot;cumsum&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">elemwise_shape_func</span><span class="p">)</span>
 
 <span class="c1"># cumprod</span>
-<span class="nd">@_reg.register_compute</span><span class="p">(</span><span class="s2">&quot;cumprod&quot;</span><span class="p">)</span>
+<span class="nd">@_reg</span><span class="o">.</span><span class="n">register_compute</span><span class="p">(</span><span class="s2">&quot;cumprod&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">compute_cumprod</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output_type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute definition of cumprod&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">topi</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">attrs</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span> <span class="n">attrs</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">attrs</span><span class="o">.</span><span class="n">exclusive</span><span class="p">)]</span>
 
 
 <span class="n">_reg</span><span class="o">.</span><span class="n">register_strategy</span><span class="p">(</span><span class="s2">&quot;cumprod&quot;</span><span class="p">,</span> <span class="n">strategy</span><span class="o">.</span><span class="n">cumprod_strategy</span><span class="p">)</span>
-<span class="n">_reg</span><span class="o">.</span><span class="n">register_shape_func</span><span class="p">(</span><span class="s2">&quot;cumprod&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">elemwise_shape_func</span><span class="p">)</span>
+<span class="n">_reg</span><span class="o">.</span><span class="n">register_shape_func</span><span class="p">(</span><span class="s2">&quot;cumprod&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">elemwise_shape_func</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The shape functions are used for determining output shape given a dynamically shaped tensor. In this
@@ -624,10 +659,10 @@ in Python via <code class="docutils literal notranslate"><span class="pre">relay
 through <code class="docutils literal notranslate"><span class="pre">TVM_REGISTER_GLOBAL</span></code> should be wrapped in a separate
 Python function rather than called directly in Python. For our
 operators we expose this cleaner interface in <code class="docutils literal notranslate"><span class="pre">python/tvm/relay/op/transform.py</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cumsum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cumsum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">_make</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">exclusive</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">cumprod</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">cumprod</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">_make</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">exclusive</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -764,24 +799,24 @@ order to register the gradient.</p>
         <a href="relay_add_pass.html" class="btn btn-neutral float-right" title="Adding a Compiler Pass to Relay" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="how_to.html" class="btn btn-neutral float-left" title="Developer How-To Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="debugging_tvm.html" class="btn btn-neutral float-left" title="Debugging TVM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

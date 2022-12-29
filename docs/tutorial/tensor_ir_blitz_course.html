@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Blitz Course to TensorIR &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Blitz Course to TensorIR &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -223,6 +255,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cross_compilation_and_rpc.html">Cross Compilation and RPC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relay_quick_start.html">Quick Start Tutorial for Compiling Deep Learning Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uma.html">Making your Hardware Accelerator TVM-ready with UMA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intro_topi.html">Introduction to TOPI</a></li>
 </ul>
 </li>
@@ -267,7 +300,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -313,7 +346,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tutorial/tensor_ir_blitz_course.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/tutorial/tensor_ir_blitz_course.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -328,7 +363,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorial-tensor-ir-blitz-course-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-tutorial-tensor-ir-blitz-course-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/c9bb7875c6ca5b2da162e177d3c9aac0/tensor_ir_blitz_course.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="blitz-course-to-tensorir">
 <span id="tir-blitz"></span><span id="sphx-glr-tutorial-tensor-ir-blitz-course-py"></span><h1>Blitz Course to TensorIR<a class="headerlink" href="#blitz-course-to-tensorir" title="Permalink to this headline">¶</a></h1>
@@ -336,11 +373,11 @@
 <p>TensorIR is a domain specific language for deep learning programs serving two broad purposes:</p>
 <ul class="simple">
 <li><p>An implementation for transforming and optimizing programs on various hardware backends.</p></li>
-<li><p>An abstraction for automatic tensorized program optimization.</p></li>
+<li><p>An abstraction for automatic _tensorized_ program optimization.</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm.ir.module</span> <span class="k">import</span> <span class="n">IRModule</span>
-<span class="kn">from</span> <span class="nn">tvm.script</span> <span class="k">import</span> <span class="n">tir</span> <span class="k">as</span> <span class="n">T</span>
+<span class="kn">from</span> <span class="nn">tvm.ir.module</span> <span class="kn">import</span> <span class="n">IRModule</span>
+<span class="kn">from</span> <span class="nn">tvm.script</span> <span class="kn">import</span> <span class="n">tir</span> <span class="k">as</span> <span class="n">T</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
@@ -391,77 +428,31 @@ and further schedule and optimize it.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">ir_module</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;tvm.ir.module.IRModule&#39;&gt;
-# from tvm.script import tir as T
-@tvm.script.ir_module
-class Module:
-    @T.prim_func
-    def main(A: T.Buffer[(8,), &quot;float32&quot;], B: T.Buffer[(8,), &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        T.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with T.block(&quot;root&quot;)
-        for i in T.serial(8):
-            with T.block(&quot;B&quot;):
-                vi = T.axis.spatial(8, i)
-                T.reads(A[vi])
-                T.writes(B[vi])
-                B[vi] = A[vi] + T.float32(1)
-</pre></div>
-</div>
 <p>Besides, we can also use tensor expression DSL to write simple operators, and convert them
 to an IRModule.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 
-<span class="n">A</span> <span class="o">=</span> <a href="../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="mi">8</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
-<span class="n">B</span> <span class="o">=</span> <a href="../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">8</span><span class="p">,),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">A</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
-<span class="n">func</span> <span class="o">=</span> <a href="../reference/api/python/te.html#tvm.te.create_prim_func" title="View documentation for tvm.te.create_prim_func"><span class="n">te</span><span class="o">.</span><span class="n">create_prim_func</span></a><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <a href="../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="mi">8</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <a href="../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">8</span><span class="p">,),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">A</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="n">func</span> <span class="o">=</span> <a href="../reference/api/python/te.html#tvm.te.create_prim_func" title="tvm.te.create_prim_func" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_prim_func</span></a><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">])</span>
 <span class="n">ir_module_from_te</span> <span class="o">=</span> <span class="n">IRModule</span><span class="p">({</span><span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="n">func</span><span class="p">})</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ir_module_from_te</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span># from tvm.script import tir as T
-@tvm.script.ir_module
-class Module:
-    @T.prim_func
-    def main(A: T.Buffer[(8,), &quot;float32&quot;], B: T.Buffer[(8,), &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        T.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with T.block(&quot;root&quot;)
-        for i0 in T.serial(8):
-            with T.block(&quot;B&quot;):
-                i0_1 = T.axis.spatial(8, i0)
-                T.reads(A[i0_1])
-                T.writes(B[i0_1])
-                B[i0_1] = A[i0_1] + T.float32(1)
 </pre></div>
 </div>
 </div>
 <div class="section" id="build-and-run-an-irmodule">
 <h2>Build and Run an IRModule<a class="headerlink" href="#build-and-run-an-irmodule" title="Permalink to this headline">¶</a></h2>
 <p>We can build the IRModule into a runnable module with specific target backends.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <a href="../reference/api/python/driver.html#tvm.build" title="View documentation for tvm.build"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">ir_module</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mod</span> <span class="o">=</span> <a href="../reference/api/python/driver.html#tvm.build" title="tvm.build" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">ir_module</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>  <span class="c1"># The module for CPU backends.</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">mod</span><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;tvm.driver.build_module.OperatorModule&#39;&gt;
-</pre></div>
-</div>
 <p>Prepare the input array and output array, then run the module.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
-<span class="n">b</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
 <span class="n">mod</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[0. 1. 2. 3. 4. 5. 6. 7.]
-[1. 2. 3. 4. 5. 6. 7. 8.]
 </pre></div>
 </div>
 </div>
@@ -476,64 +467,24 @@ Each primitive transforms the program in certain ways to bring additional perfor
 schedule on the initial IRModule created from either TVMScript or Tensor Expression. Then, a
 sequence of schedule primitives will help to improve the performance. And at last, we can lower
 and build it into a runnable module.</p>
-<p>Here we just demostrate a very simple tranformation. First we create schedule on the input <cite>ir_module</cite>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span> <span class="o">=</span> <a href="../reference/api/python/tir.html#tvm.tir.Schedule" title="View documentation for tvm.tir.Schedule"><span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Schedule</span></a><span class="p">(</span><span class="n">ir_module</span><span class="p">)</span>
+<p>Here we just demonstrate a very simple transformation. First we create schedule on the input <cite>ir_module</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span> <span class="o">=</span> <a href="../reference/api/python/tir.html#tvm.tir.Schedule" title="tvm.tir.Schedule" class="sphx-glr-backref-module-tvm-tir sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Schedule</span></a><span class="p">(</span><span class="n">ir_module</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sch</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;tvm.tir.schedule.schedule.Schedule&#39;&gt;
 </pre></div>
 </div>
 <p>Tile the loop into 3 loops and print the result.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get block by its name</span>
 <span class="n">block_b</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">get_block</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
-<span class="c1"># Get loops surronding the block</span>
+<span class="c1"># Get loops surrounding the block</span>
 <span class="p">(</span><span class="n">i</span><span class="p">,)</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">get_loops</span><span class="p">(</span><span class="n">block_b</span><span class="p">)</span>
 <span class="c1"># Tile the loop nesting.</span>
 <span class="n">i_0</span><span class="p">,</span> <span class="n">i_1</span><span class="p">,</span> <span class="n">i_2</span> <span class="o">=</span> <span class="n">sch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span># from tvm.script import tir as T
-@tvm.script.ir_module
-class Module:
-    @T.prim_func
-    def main(A: T.Buffer[(8,), &quot;float32&quot;], B: T.Buffer[(8,), &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        T.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with T.block(&quot;root&quot;)
-        for i_0, i_1, i_2 in T.grid(2, 2, 2):
-            with T.block(&quot;B&quot;):
-                vi = T.axis.spatial(8, i_0 * 4 + i_1 * 2 + i_2)
-                T.reads(A[vi])
-                T.writes(B[vi])
-                B[vi] = A[vi] + T.float32(1)
-</pre></div>
-</div>
 <p>We can also reorder the loops. Now we move loop <cite>i_2</cite> to outside of <cite>i_1</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sch</span><span class="o">.</span><span class="n">reorder</span><span class="p">(</span><span class="n">i_0</span><span class="p">,</span> <span class="n">i_2</span><span class="p">,</span> <span class="n">i_1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span># from tvm.script import tir as T
-@tvm.script.ir_module
-class Module:
-    @T.prim_func
-    def main(A: T.Buffer[(8,), &quot;float32&quot;], B: T.Buffer[(8,), &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        T.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with T.block(&quot;root&quot;)
-        for i_0, i_2, i_1 in T.grid(2, 2, 2):
-            with T.block(&quot;B&quot;):
-                vi = T.axis.spatial(8, i_0 * 4 + i_1 * 2 + i_2)
-                T.reads(A[vi])
-                T.writes(B[vi])
-                B[vi] = A[vi] + T.float32(1)
 </pre></div>
 </div>
 <div class="section" id="transform-to-a-gpu-program">
@@ -545,46 +496,21 @@ also use primitives and do incrementally transformation.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span># from tvm.script import tir as T
-@tvm.script.ir_module
-class Module:
-    @T.prim_func
-    def main(A: T.Buffer[(8,), &quot;float32&quot;], B: T.Buffer[(8,), &quot;float32&quot;]) -&gt; None:
-        # function attr dict
-        T.func_attr({&quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True})
-        # body
-        # with T.block(&quot;root&quot;)
-        for i_0 in T.thread_binding(2, thread=&quot;blockIdx.x&quot;):
-            for i_2 in T.thread_binding(2, thread=&quot;threadIdx.x&quot;):
-                for i_1 in T.serial(2):
-                    with T.block(&quot;B&quot;):
-                        vi = T.axis.spatial(8, i_0 * 4 + i_1 * 2 + i_2)
-                        T.reads(A[vi])
-                        T.writes(B[vi])
-                        B[vi] = A[vi] + T.float32(1)
-</pre></div>
-</div>
 <p>After binding the threads, now build the IRModule with <code class="code docutils literal notranslate"><span class="pre">cuda</span></code> backends.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">cuda_mod</span> <span class="o">=</span> <a href="../reference/api/python/driver.html#tvm.build" title="View documentation for tvm.build"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
-<span class="n">cuda_a</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
-<span class="n">cuda_b</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">cuda_mod</span> <span class="o">=</span> <a href="../reference/api/python/driver.html#tvm.build" title="tvm.build" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">sch</span><span class="o">.</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">cuda_a</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">cuda_b</span> <span class="o">=</span> <a href="../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
 <span class="n">cuda_mod</span><span class="p">(</span><span class="n">cuda_a</span><span class="p">,</span> <span class="n">cuda_b</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cuda_a</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cuda_b</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[0. 1. 2. 3. 4. 5. 6. 7.]
-[1. 2. 3. 4. 5. 6. 7. 8.]
-</pre></div>
-</div>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tensor-ir-blitz-course-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tensor-ir-blitz-course-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/5c7000b5aef924e29ec975ec3002ea03/tensor_ir_blitz_course.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tensor_ir_blitz_course.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/c9bb7875c6ca5b2da162e177d3c9aac0/tensor_ir_blitz_course.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tensor_ir_blitz_course.ipynb</span></code></a></p>
 </div>
 </div>
@@ -610,20 +536,20 @@ class Module:
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

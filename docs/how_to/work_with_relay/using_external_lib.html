@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using External Libraries in Relay &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Using External Libraries in Relay &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -45,7 +48,7 @@
     <script type="text/javascript" src="../../_static/js/tlcpack_theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Use Relay Visualizer to Visualize Relay" href="using_relay_viz.html" />
+    <link rel="next" title="Using Pipeline Executor in Relay" href="using_pipeline_executor.html" />
     <link rel="prev" title="Building a Graph Convolutional Network" href="build_gcn.html" /> 
 </head>
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -215,6 +247,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="using_pipeline_executor.html">Using Pipeline Executor in Relay</a></li>
 <li class="toctree-l3"><a class="reference internal" href="using_relay_viz.html">Use Relay Visualizer to Visualize Relay</a></li>
 </ul>
 </li>
@@ -269,7 +302,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -317,7 +350,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/work_with_relay/using_external_lib.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/work_with_relay/using_external_lib.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -332,7 +367,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-work-with-relay-using-external-lib-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-work-with-relay-using-external-lib-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/edc9d28c4fbc249e2e7b78002af63b84/using_external_lib.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="using-external-libraries-in-relay">
 <span id="sphx-glr-how-to-work-with-relay-using-external-lib-py"></span><h1>Using External Libraries in Relay<a class="headerlink" href="#using-external-libraries-in-relay" title="Permalink to this headline">¶</a></h1>
@@ -346,11 +383,11 @@ For Relay users, all we need to do is just to set a target string appropriately.
 For example, to use cuDNN, USE_CUDNN option in <cite>cmake/config.cmake</cite> needs to be enabled, and cuDNN include and library directories need to be specified if necessary.</p>
 <p>To begin with, we import Relay and TVM.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">graph_executor</span> <span class="k">as</span> <span class="n">runtime</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm.relay</span> <span class="k">import</span> <span class="n">testing</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">graph_executor</span> <span class="k">as</span> <span class="n">runtime</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm.relay</span> <span class="kn">import</span> <span class="n">testing</span>
 <span class="kn">import</span> <span class="nn">tvm.testing</span>
 </pre></div>
 </div>
@@ -368,15 +405,15 @@ It consists of convolution, batch normalization, and ReLU activation.</p>
 <span class="n">bn_mmean</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s2">&quot;bn_mean&quot;</span><span class="p">)</span>
 <span class="n">bn_mvar</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s2">&quot;bn_var&quot;</span><span class="p">)</span>
 
-<span class="n">simple_net</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.conv2d" title="View documentation for tvm.relay.nn.conv2d"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span></a><span class="p">(</span>
+<span class="n">simple_net</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.conv2d" title="tvm.relay.nn.conv2d" class="sphx-glr-backref-module-tvm-relay-nn sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">channels</span><span class="o">=</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">simple_net</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.batch_norm" title="View documentation for tvm.relay.nn.batch_norm"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">batch_norm</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">,</span> <span class="n">bn_gamma</span><span class="p">,</span> <span class="n">bn_beta</span><span class="p">,</span> <span class="n">bn_mmean</span><span class="p">,</span> <span class="n">bn_mvar</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">simple_net</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.relu" title="View documentation for tvm.relay.nn.relu"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">)</span>
-<span class="n">simple_net</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><a href="../../reference/api/python/relay/analysis.html#tvm.relay.analysis.free_vars" title="View documentation for tvm.relay.analysis.free_vars"><span class="n">relay</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">free_vars</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">),</span> <span class="n">simple_net</span><span class="p">)</span>
+<span class="n">simple_net</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.batch_norm" title="tvm.relay.nn.batch_norm" class="sphx-glr-backref-module-tvm-relay-nn sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">batch_norm</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">,</span> <span class="n">bn_gamma</span><span class="p">,</span> <span class="n">bn_beta</span><span class="p">,</span> <span class="n">bn_mmean</span><span class="p">,</span> <span class="n">bn_mvar</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">simple_net</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.relu" title="tvm.relay.nn.relu" class="sphx-glr-backref-module-tvm-relay-nn sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">)</span>
+<span class="n">simple_net</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><a href="../../reference/api/python/relay/analysis.html#tvm.relay.analysis.free_vars" title="tvm.relay.analysis.free_vars" class="sphx-glr-backref-module-tvm-relay-analysis sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">free_vars</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">),</span> <span class="n">simple_net</span><span class="p">)</span>
 
 <span class="n">data_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-<span class="n">net</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.create_workload" title="View documentation for tvm.relay.testing.create_workload"><span class="n">testing</span><span class="o">.</span><span class="n">create_workload</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">)</span>
+<span class="n">net</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.create_workload" title="tvm.relay.testing.create_workload" class="sphx-glr-backref-module-tvm-relay-testing sphx-glr-backref-type-py-function"><span class="n">testing</span><span class="o">.</span><span class="n">create_workload</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -386,18 +423,18 @@ It consists of convolution, batch normalization, and ReLU activation.</p>
 By setting the logging level to DEBUG, the result of Relay graph compilation will be dumped as pseudo code.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>  <span class="c1"># to dump TVM IR after fusion</span>
+<a href="https://docs.python.org/3/library/logging.html#logging.basicConfig" title="logging.basicConfig" class="sphx-glr-backref-module-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>  <span class="c1"># to dump TVM IR after fusion</span>
 
 <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
 <span class="n">lib</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build_module</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">data_shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="n">module</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="View documentation for tvm.contrib.graph_executor.GraphModule"><span class="n">runtime</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">dev</span><span class="p">))</span>
+<span class="n">module</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="tvm.contrib.graph_executor.GraphModule" class="sphx-glr-backref-module-tvm-contrib-graph_executor sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">runtime</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">dev</span><span class="p">))</span>
 <span class="n">module</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 <span class="n">module</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="n">out_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="View documentation for tvm.nd.empty"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">out_shape</span><span class="p">))</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="tvm.nd.empty" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">out_shape</span><span class="p">))</span>
 <span class="n">out_cuda</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -807,17 +844,17 @@ TVM generates a single, fused kernel from this representation.</p>
 <h2>Use cuDNN for a convolutional layer<a class="headerlink" href="#use-cudnn-for-a-convolutional-layer" title="Permalink to this headline">¶</a></h2>
 <p>We can use cuDNN to replace convolution kernels with cuDNN ones.
 To do that, all we need to do is to append the option ” -libs=cudnn” to the target string.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.create_workload" title="View documentation for tvm.relay.testing.create_workload"><span class="n">testing</span><span class="o">.</span><span class="n">create_workload</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.create_workload" title="tvm.relay.testing.create_workload" class="sphx-glr-backref-module-tvm-relay-testing sphx-glr-backref-type-py-function"><span class="n">testing</span><span class="o">.</span><span class="n">create_workload</span></a><span class="p">(</span><span class="n">simple_net</span><span class="p">)</span>
 <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;cuda -libs=cudnn&quot;</span>  <span class="c1"># use cudnn for convolution</span>
 <span class="n">lib</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build_module</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">data_shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="n">module</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="View documentation for tvm.contrib.graph_executor.GraphModule"><span class="n">runtime</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">dev</span><span class="p">))</span>
+<span class="n">module</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="tvm.contrib.graph_executor.GraphModule" class="sphx-glr-backref-module-tvm-contrib-graph_executor sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">runtime</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">dev</span><span class="p">))</span>
 <span class="n">module</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 <span class="n">module</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="n">out_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="View documentation for tvm.nd.empty"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">out_shape</span><span class="p">))</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="tvm.nd.empty" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">out_shape</span><span class="p">))</span>
 <span class="n">out_cudnn</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -864,11 +901,11 @@ For example, MIOpen only supports NCHW layout and fp32 data type at the moment, 
 <p>Second, and more importantly, external libraries restrict the possibility of operator fusion during graph compilation, as shown above.
 TVM and Relay aim to achieve the best performance on a variety of hardwares, with joint operator level and graph level optimization.
 To achieve this goal, we should continue developing better optimizations for TVM and Relay, while using external libraries as a nice way to fall back to existing implementation when necessary.</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-relay-using-external-lib-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-relay-using-external-lib-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d8509b0a8e7db9031303c1a1f6fd1e70/using_external_lib.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">using_external_lib.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/edc9d28c4fbc249e2e7b78002af63b84/using_external_lib.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">using_external_lib.ipynb</span></code></a></p>
 </div>
 </div>
@@ -886,27 +923,27 @@ To achieve this goal, we should continue developing better optimizations for TVM
 
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="using_relay_viz.html" class="btn btn-neutral float-right" title="Use Relay Visualizer to Visualize Relay" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="using_pipeline_executor.html" class="btn btn-neutral float-right" title="Using Pipeline Executor in Relay" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="build_gcn.html" class="btn btn-neutral float-left" title="Building a Graph Convolutional Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

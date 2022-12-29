@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Use AutoScheduler for Template-Free Scheduling &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Use AutoScheduler for Template-Free Scheduling &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -265,7 +297,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -311,7 +343,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/tune_with_autoscheduler/index.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/tune_with_autoscheduler/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -325,47 +359,31 @@
            <div itemprop="articleBody">
             
   <div class="section" id="use-autoscheduler-for-template-free-scheduling">
-<span id="sphx-glr-how-to-tune-with-autoscheduler"></span><h1>Use AutoScheduler for Template-Free Scheduling<a class="headerlink" href="#use-autoscheduler-for-template-free-scheduling" title="Permalink to this headline">¶</a></h1>
+<h1>Use AutoScheduler for Template-Free Scheduling<a class="headerlink" href="#use-autoscheduler-for-template-free-scheduling" title="Permalink to this headline">¶</a></h1>
 <p>The TVM AutoScheduler offers a template-free way to tune models. These how-tos
 demonstrate how to tune a variety of different models to target a number of
 common platforms.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="This is a tutorial on how to use the auto-scheduler for GPUs."><div class="figure align-default" id="id1">
-<img alt="../../_images/sphx_glr_tune_conv2d_layer_cuda_thumb.png" src="../../_images/sphx_glr_tune_conv2d_layer_cuda_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="tune_conv2d_layer_cuda.html#sphx-glr-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py"><span class="std std-ref">Auto-scheduling a Convolution Layer for GPU</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a tutorial on how to use the auto-scheduler for GPUs."><img alt="Auto-scheduling a Convolution Layer for GPU" src="../../_images/sphx_glr_tune_conv2d_layer_cuda_thumb.png" />
+<p><a class="reference internal" href="tune_conv2d_layer_cuda.html#sphx-glr-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py"><span class="std std-ref">Auto-scheduling a Convolution Layer for GPU</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Auto-scheduling a Convolution Layer for GPU</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><img alt="Auto-scheduling a Neural Network for x86 CPU" src="../../_images/sphx_glr_tune_network_x86_thumb.png" />
+<p><a class="reference internal" href="tune_network_x86.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-x86-py"><span class="std std-ref">Auto-scheduling a Neural Network for x86 CPU</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Auto-scheduling a Neural Network for x86 CPU</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><img alt="Auto-scheduling a Neural Network for NVIDIA GPU" src="../../_images/sphx_glr_tune_network_cuda_thumb.png" />
+<p><a class="reference internal" href="tune_network_cuda.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-cuda-py"><span class="std std-ref">Auto-scheduling a Neural Network for NVIDIA GPU</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Auto-scheduling a Neural Network for NVIDIA GPU</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><img alt="Auto-scheduling a Neural Network for ARM CPU" src="../../_images/sphx_glr_tune_network_arm_thumb.png" />
+<p><a class="reference internal" href="tune_network_arm.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-arm-py"><span class="std std-ref">Auto-scheduling a Neural Network for ARM CPU</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Auto-scheduling a Neural Network for ARM CPU</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><img alt="Auto-scheduling a Neural Network for mali GPU" src="../../_images/sphx_glr_tune_network_mali_thumb.png" />
+<p><a class="reference internal" href="tune_network_mali.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-mali-py"><span class="std std-ref">Auto-scheduling a Neural Network for mali GPU</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Auto-scheduling a Neural Network for mali GPU</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is a tutorial on how to use the auto-scheduler to tune a sparse matrix multiplication for ..."><img alt="Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule" src="../../_images/sphx_glr_tune_sparse_x86_thumb.png" />
+<p><a class="reference internal" href="tune_sparse_x86.html#sphx-glr-how-to-tune-with-autoscheduler-tune-sparse-x86-py"><span class="std std-ref">Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><div class="figure align-default" id="id2">
-<img alt="../../_images/sphx_glr_tune_network_x86_thumb.png" src="../../_images/sphx_glr_tune_network_x86_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="tune_network_x86.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-x86-py"><span class="std std-ref">Auto-scheduling a Neural Network for x86 CPU</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><div class="figure align-default" id="id3">
-<img alt="../../_images/sphx_glr_tune_network_cuda_thumb.png" src="../../_images/sphx_glr_tune_network_cuda_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="tune_network_cuda.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-cuda-py"><span class="std std-ref">Auto-scheduling a Neural Network for NVIDIA GPU</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><div class="figure align-default" id="id4">
-<img alt="../../_images/sphx_glr_tune_network_arm_thumb.png" src="../../_images/sphx_glr_tune_network_arm_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="tune_network_arm.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-arm-py"><span class="std std-ref">Auto-scheduling a Neural Network for ARM CPU</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Auto-tuning for specific devices and workloads is critical for getting the best performance. Th..."><div class="figure align-default" id="id5">
-<img alt="../../_images/sphx_glr_tune_network_mali_thumb.png" src="../../_images/sphx_glr_tune_network_mali_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="tune_network_mali.html#sphx-glr-how-to-tune-with-autoscheduler-tune-network-mali-py"><span class="std std-ref">Auto-scheduling a Neural Network for mali GPU</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This is a tutorial on how to use the auto-scheduler to tune a sparse matrix multiplication for ..."><div class="figure align-default" id="id6">
-<img alt="../../_images/sphx_glr_tune_sparse_x86_thumb.png" src="../../_images/sphx_glr_tune_sparse_x86_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="tune_sparse_x86.html#sphx-glr-how-to-tune-with-autoscheduler-tune-sparse-x86-py"><span class="std std-ref">Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div style='clear:both'></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 
 
@@ -385,20 +403,20 @@ common platforms.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

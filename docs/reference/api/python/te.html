@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvm.te &mdash; tvm 0.9.dev0 documentation</title>
+  <title>tvm.te &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -277,7 +309,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -323,7 +355,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/reference/api/python/te.rst.txt" rel="nofollow"> <img src="../../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/reference/api/python/te.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -493,49 +527,58 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.sum" title="tvm.te.sum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum</span></code></a>(expr, axis[, where, init])</p></td>
 <td><p>Create a sum expression over axis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.create_schedule" title="tvm.te.create_schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_schedule</span></code></a>(ops)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.add" title="tvm.te.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a>(lhs, rhs[, span])</p></td>
+<td><p>Generic add operator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.subtract" title="tvm.te.subtract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subtract</span></code></a>(lhs, rhs[, span])</p></td>
+<td><p>Generic subtract operator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.multiply" title="tvm.te.multiply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiply</span></code></a>(lhs, rhs[, span])</p></td>
+<td><p>Generic multiply operator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.create_schedule" title="tvm.te.create_schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_schedule</span></code></a>(ops)</p></td>
 <td><p>Create a schedule for list of ops</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.decl_tensor_intrin" title="tvm.te.decl_tensor_intrin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decl_tensor_intrin</span></code></a>(op, fcompute[, name, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.decl_tensor_intrin" title="tvm.te.decl_tensor_intrin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decl_tensor_intrin</span></code></a>(op, fcompute[, name, ...])</p></td>
 <td><p>Declare a tensor intrinsic function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.tag_scope" title="tvm.te.tag_scope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tag_scope</span></code></a>(tag)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.tag_scope" title="tvm.te.tag_scope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tag_scope</span></code></a>(tag)</p></td>
 <td><p>The operator tag scope.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.placeholder" title="tvm.te.placeholder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">placeholder</span></code></a>(shape[, dtype, name])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.placeholder" title="tvm.te.placeholder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">placeholder</span></code></a>(shape[, dtype, name])</p></td>
 <td><p>Construct an empty tensor object.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.compute" title="tvm.te.compute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code></a>(shape, fcompute[, name, tag, attrs, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.compute" title="tvm.te.compute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code></a>(shape, fcompute[, name, tag, attrs, ...])</p></td>
 <td><p>Construct a new tensor by computing over the shape domain.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.scan" title="tvm.te.scan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scan</span></code></a>(init, update, state_placeholder[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.scan" title="tvm.te.scan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scan</span></code></a>(init, update, state_placeholder[, ...])</p></td>
 <td><p>Construct new tensors by scanning over axis.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.extern" title="tvm.te.extern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extern</span></code></a>(shape, inputs, fcompute[, name, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.extern" title="tvm.te.extern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extern</span></code></a>(shape, inputs, fcompute[, name, ...])</p></td>
 <td><p>Compute several tensors via an extern function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.var" title="tvm.te.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var</span></code></a>([name, dtype, span])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.var" title="tvm.te.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var</span></code></a>([name, dtype, span])</p></td>
 <td><p>Create a new variable with specified name and dtype</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.size_var" title="tvm.te.size_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size_var</span></code></a>([name, dtype, span])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.size_var" title="tvm.te.size_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size_var</span></code></a>([name, dtype, span])</p></td>
 <td><p>Create a new variable represents a tensor shape size, which is non-negative.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.const" title="tvm.te.const"><code class="xref py py-obj docutils literal notranslate"><span class="pre">const</span></code></a>([dtype, span])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.const" title="tvm.te.const"><code class="xref py py-obj docutils literal notranslate"><span class="pre">const</span></code></a>([dtype, span])</p></td>
 <td><p>Create a new constant with specified name and dtype</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.thread_axis" title="tvm.te.thread_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thread_axis</span></code></a>([dom, tag, name, span])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.thread_axis" title="tvm.te.thread_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thread_axis</span></code></a>([dom, tag, name, span])</p></td>
 <td><p>Create a new IterVar to represent thread index.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.reduce_axis" title="tvm.te.reduce_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduce_axis</span></code></a>(dom[, name, thread_tag, span])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.reduce_axis" title="tvm.te.reduce_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduce_axis</span></code></a>(dom[, name, thread_tag, span])</p></td>
 <td><p>Create a new IterVar for reduction.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.create_prim_func" title="tvm.te.create_prim_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_prim_func</span></code></a>(ops)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.create_prim_func" title="tvm.te.create_prim_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_prim_func</span></code></a>(ops[, index_dtype_override])</p></td>
 <td><p>Create a TensorIR PrimFunc from tensor expression</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.create_prim_func_from_outputs" title="tvm.te.create_prim_func_from_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_prim_func_from_outputs</span></code></a>(outputs)</p></td>
-<td><p>Create a TensorIR PrimFunc from output tensor(s) in TE</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.extern_primfunc" title="tvm.te.extern_primfunc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extern_primfunc</span></code></a>(input_tensors, primfunc, ...)</p></td>
+<td><p>Compute tensors via a schedulable TIR PrimFunc</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.gradient" title="tvm.te.gradient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gradient</span></code></a>(output, inputs[, head])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.gradient" title="tvm.te.gradient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gradient</span></code></a>(output, inputs[, head])</p></td>
 <td><p>Perform reverse-mode automatic differentiation.</p></td>
 </tr>
 </tbody>
@@ -547,10 +590,10 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.Schedule" title="tvm.te.Schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Schedule</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.Schedule" title="tvm.te.Schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Schedule</span></code></a>()</p></td>
 <td><p>Schedule for all the stages.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.Stage" title="tvm.te.Stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stage</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.Stage" title="tvm.te.Stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stage</span></code></a>()</p></td>
 <td><p>A Stage represents schedule for one operation.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.SpecializedCondition" title="tvm.te.SpecializedCondition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpecializedCondition</span></code></a>(conditions)</p></td>
@@ -559,25 +602,25 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.TensorSlice" title="tvm.te.TensorSlice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorSlice</span></code></a>(tensor, indices)</p></td>
 <td><p>Auxiliary data structure for enable slicing syntax from tensor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor</span></code></a>()</p></td>
 <td><p>Tensor object, to construct, see function.Tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.PlaceholderOp" title="tvm.te.PlaceholderOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlaceholderOp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.PlaceholderOp" title="tvm.te.PlaceholderOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlaceholderOp</span></code></a>()</p></td>
 <td><p>Placeholder operation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.ComputeOp" title="tvm.te.ComputeOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeOp</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.ComputeOp" title="tvm.te.ComputeOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeOp</span></code></a>()</p></td>
 <td><p>Scalar operation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.TensorComputeOp" title="tvm.te.TensorComputeOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorComputeOp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.TensorComputeOp" title="tvm.te.TensorComputeOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorComputeOp</span></code></a>()</p></td>
 <td><p>Tensor operation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.ScanOp" title="tvm.te.ScanOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScanOp</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.ScanOp" title="tvm.te.ScanOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScanOp</span></code></a>()</p></td>
 <td><p>Scan operation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.ExternOp" title="tvm.te.ExternOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExternOp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tvm.te.ExternOp" title="tvm.te.ExternOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExternOp</span></code></a>()</p></td>
 <td><p>External operation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.HybridOp" title="tvm.te.HybridOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HybridOp</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.te.HybridOp" title="tvm.te.HybridOp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HybridOp</span></code></a>()</p></td>
 <td><p>Hybrid operation.</p></td>
 </tr>
 </tbody>
@@ -589,7 +632,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of symbolic boolean expressions</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of symbolic boolean expressions</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source code.</p></li>
 </ul>
 </dd>
@@ -613,7 +656,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of symbolic boolean expressions</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of symbolic boolean expressions</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source code.</p></li>
 </ul>
 </dd>
@@ -634,7 +677,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The data type.</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source code.</p></li>
 </ul>
 </dd>
@@ -650,12 +693,12 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.te.max_value">
-<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">max_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.base.Span"><span class="pre">tvm.ir.base.Span</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#tvm.te.max_value" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">max_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.base.Span"><span class="pre">tvm.ir.base.Span</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#tvm.te.max_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>maximum value of dtype</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The data type.</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source code.</p></li>
 </ul>
 </dd>
@@ -1678,6 +1721,72 @@ specified axis;</p></li>
 <p class="rubric">Alias of <a class="reference internal" href="tir.html#tvm.tir.sum" title="tvm.tir.sum"><code class="xref py py-func docutils literal notranslate"><span class="pre">tvm.tir.sum()</span></code></a></p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="tvm.te.add">
+<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.te.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic add operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The left operand.</p></li>
+<li><p><strong>rhs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The right operand.</p></li>
+<li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>op</strong> – The result Expr of add operaton.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tvm.Expr</p>
+</dd>
+</dl>
+<p class="rubric">Alias of <a class="reference internal" href="tir.html#tvm.tir.add" title="tvm.tir.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">tvm.tir.add()</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tvm.te.subtract">
+<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">subtract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.te.subtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic subtract operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The left operand.</p></li>
+<li><p><strong>rhs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The right operand.</p></li>
+<li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>op</strong> – The result Expr of subtract operaton.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tvm.Expr</p>
+</dd>
+</dl>
+<p class="rubric">Alias of <a class="reference internal" href="tir.html#tvm.tir.subtract" title="tvm.tir.subtract"><code class="xref py py-func docutils literal notranslate"><span class="pre">tvm.tir.subtract()</span></code></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tvm.te.multiply">
+<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">multiply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.te.multiply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic multiply operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The left operand.</p></li>
+<li><p><strong>rhs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The right operand.</p></li>
+<li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this operator in the source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>op</strong> – The result Expr of multiply operaton.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tvm.Expr</p>
+</dd>
+</dl>
+<p class="rubric">Alias of <a class="reference internal" href="tir.html#tvm.tir.multiply" title="tvm.tir.multiply"><code class="xref py py-func docutils literal notranslate"><span class="pre">tvm.tir.multiply()</span></code></a></p>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.te.Schedule">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">Schedule</span></span><a class="headerlink" href="#tvm.te.Schedule" title="Permalink to this definition">¶</a></dt>
@@ -1757,7 +1866,7 @@ Call this before doing any split/fuse schedule.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tensor</strong> (<a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a>) – The tensor to be cached.</p></li>
-<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The scope of cached</p></li>
+<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The scope of cached</p></li>
 <li><p><strong>readers</strong> (<em>list of Tensor</em><em> or </em><em>Operation</em>) – The readers to read the cache.</p></li>
 </ul>
 </dd>
@@ -1786,8 +1895,8 @@ the data stored in the transformed layout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tensor</strong> (<a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a>) – The tensors to be feed to. All the tensors must be produced by one computeOp</p></li>
-<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The scope of cached</p></li>
+<li><p><strong>tensor</strong> (<a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a>) – The tensors to be feed to. All the tensors must be produced by one computeOp</p></li>
+<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The scope of cached</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1811,7 +1920,7 @@ over the factored tensor.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tensor</strong> (<a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a>) – The tensor to be factored.</p></li>
 <li><p><strong>axis</strong> (<a class="reference internal" href="tir.html#tvm.tir.IterVar" title="tvm.tir.IterVar"><em>IterVar</em></a>) – The reduction axis in the schedule to be factored.</p></li>
-<li><p><strong>factor_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The position where the new axis is placed.</p></li>
+<li><p><strong>factor_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The position where the new axis is placed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1948,7 +2057,7 @@ The order is from outer to inner.</p>
 <dd><p>Set the thread scope of this stage</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The thread scope of this stage</p>
+<dd class="field-odd"><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The thread scope of this stage</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2123,7 +2232,7 @@ Useful to support experimental features and extensions.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>var</strong> (<a class="reference internal" href="tir.html#tvm.tir.IterVar" title="tvm.tir.IterVar"><em>IterVar</em></a>) – The iteration to be anotated</p></li>
-<li><p><strong>pragma_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The pragma string to be annotated</p></li>
+<li><p><strong>pragma_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The pragma string to be annotated</p></li>
 <li><p><strong>pragma_value</strong> (<em>Expr</em><em>, </em><em>optional</em>) – The pragma value to pass along the pragma</p></li>
 </ul>
 </dd>
@@ -2185,8 +2294,8 @@ higher dimension in GPU shared memory.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>axis</strong> (<a class="reference internal" href="tir.html#tvm.tir.IterVar" title="tvm.tir.IterVar"><em>IterVar</em></a>) – The axis dimension to be aligned.</p></li>
-<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The factor in alignment specification.</p></li>
-<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – The offset in the alignment specification.</p></li>
+<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The factor in alignment specification.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The offset in the alignment specification.</p></li>
 </ul>
 </dd>
 </dl>
@@ -2449,12 +2558,12 @@ reduce_init, reduce_update</p></li>
 </ul>
 </div>
 </p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the intrinsic.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the intrinsic.</p></li>
 <li><p><strong>binds</strong> (dict of <a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a> to <a class="reference internal" href="tir.html#tvm.tir.Buffer" title="tvm.tir.Buffer"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.tir.Buffer</span></code></a>, optional) – Dictionary that maps the Tensor to Buffer which specified the data layout
 requirement of the function. By default, a new compact buffer is created
 for each tensor in the argument.</p></li>
 <li><p><strong>scalar_params</strong> (<em>a list of variables used by op</em><em>, </em><em>whose values will be passed</em>) – as scalar_inputs when the tensor intrinsic is called.</p></li>
-<li><p><strong>default_buffer_params</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>]</em>) – Dictionary of buffer arguments to be passed when constructing a buffer.</p></li>
+<li><p><strong>default_buffer_params</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>]</em>) – Dictionary of buffer arguments to be passed when constructing a buffer.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -2472,7 +2581,7 @@ for each tensor in the argument.</p></li>
 <dd><p>The operator tag scope.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The tag name.</p>
+<dd class="field-odd"><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The tag name.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>tag_scope</strong> – The tag scope object, which can be used as decorator or
@@ -2494,7 +2603,7 @@ context manger.</p>
     <span class="n">C</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">te</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">k</span><span class="p">))</span>
 
 <span class="c1"># or use tag_scope as decorator</span>
-<span class="nd">@tvm.te.tag_scope</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;conv&quot;</span><span class="p">)</span>
+<span class="nd">@tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">tag_scope</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;conv&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">compute_relu</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">te</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">data</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">data</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)))</span>
 </pre></div>
@@ -2509,8 +2618,8 @@ context manger.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shape</strong> (<em>Tuple of Expr</em>) – The shape of the tensor</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The data type of the tensor</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The data type of the tensor</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -2532,10 +2641,10 @@ context manger.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shape</strong> (<em>Tuple of Expr</em>) – The shape of the tensor</p></li>
 <li><p><strong>fcompute</strong> (<em>lambda function of indices-&gt; value</em>) – Specifies the input source expression</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
-<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Additional tag information about the compute.</p></li>
-<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The additional auxiliary attributes about the compute.</p></li>
-<li><p><strong>varargs_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – The names to use for each of the varargs. If not supplied, the varargs
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Additional tag information about the compute.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – The additional auxiliary attributes about the compute.</p></li>
+<li><p><strong>varargs_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>, </em><em>optional</em>) – The names to use for each of the varargs. If not supplied, the varargs
 will be called i1, i2, …</p></li>
 </ul>
 </dd>
@@ -2560,13 +2669,13 @@ will be called i1, i2, …</p></li>
 <li><p><strong>state_placeholder</strong> (<a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a><em> or </em><em>list of Tensor</em>) – The placeholder variables used by update.</p></li>
 <li><p><strong>inputs</strong> (<a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a><em> or </em><em>list of Tensor</em><em>, </em><em>optional</em>) – The list of inputs to the scan. This is not required, but can
 be useful for the compiler to detect scan body faster.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
-<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Additonal tag information about the compute.</p></li>
-<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – The additional auxiliary attributes about the compute.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Additonal tag information about the compute.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>, </em><em>optional</em>) – The additional auxiliary attributes about the compute.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>tensor</strong> – The created tensor or tuple of tensors it it contains multiple outputs.</p>
+<dd class="field-even"><p><strong>tensor</strong> – The created tensor or tuple of tensors contains multiple outputs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor">Tensor</a> or list of Tensors</p>
@@ -2592,7 +2701,7 @@ be useful for the compiler to detect scan body faster.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em> or </em><em>list of tuples.</em>) – The shape of the outputs.</p></li>
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em> or </em><em>list of tuples.</em>) – The shape of the outputs.</p></li>
 <li><p><strong>inputs</strong> (<em>list of Tensor</em>) – The inputs</p></li>
 <li><p><strong>fcompute</strong> (<em>lambda function of inputs</em><em>, </em><em>outputs-&gt; stmt</em>) – <p>Specifies the IR statement to do the computation.
 See the following note for function signature of fcompute</p>
@@ -2609,8 +2718,8 @@ See the following note for function signature of fcompute</p>
 </ul>
 </div>
 </p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>list of str</em><em>, </em><em>optional</em>) – The data types of outputs,
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name hint of the tensor</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>list of str</em><em>, </em><em>optional</em>) – The data types of outputs,
 by default dtype will be same as inputs.</p></li>
 <li><p><strong>in_buffers</strong> (<a class="reference internal" href="tir.html#tvm.tir.Buffer" title="tvm.tir.Buffer"><em>tvm.tir.Buffer</em></a><em> or </em><em>list of tvm.tir.Buffer</em><em>, </em><em>optional</em>) – Input buffers.</p></li>
 <li><p><strong>out_buffers</strong> (<a class="reference internal" href="tir.html#tvm.tir.Buffer" title="tvm.tir.Buffer"><em>tvm.tir.Buffer</em></a><em> or </em><em>list of tvm.tir.Buffer</em><em>, </em><em>optional</em>) – Output buffers.</p></li>
@@ -2625,7 +2734,7 @@ by default dtype will be same as inputs.</p></li>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>tensor</strong> – The created tensor or tuple of tensors it it contains multiple outputs.</p>
+<dd class="field-odd"><p><strong>tensor</strong> – The created tensor or tuple of tensors contains multiple outputs.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor">Tensor</a> or list of Tensors</p>
@@ -2651,8 +2760,8 @@ by default dtype will be same as inputs.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The data type</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this variable in the source.</p></li>
 </ul>
 </dd>
@@ -2672,8 +2781,8 @@ by default dtype will be same as inputs.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The data type</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this variable in the source.</p></li>
 </ul>
 </dd>
@@ -2693,8 +2802,8 @@ by default dtype will be same as inputs.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The data type</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this variable in the source.</p></li>
 </ul>
 </dd>
@@ -2714,10 +2823,10 @@ by default dtype will be same as inputs.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dom</strong> (<a class="reference internal" href="ir.html#tvm.ir.Range" title="tvm.ir.Range"><em>Range</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The domain of iteration
+<li><p><strong>dom</strong> (<a class="reference internal" href="ir.html#tvm.ir.Range" title="tvm.ir.Range"><em>Range</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The domain of iteration
 When str is passed, dom is set to None and str is used as tag</p></li>
-<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The thread tag</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the var.</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The thread tag</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the var.</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this variable in the source.</p></li>
 </ul>
 </dd>
@@ -2738,8 +2847,8 @@ When str is passed, dom is set to None and str is used as tag</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dom</strong> (<a class="reference internal" href="ir.html#tvm.ir.Range" title="tvm.ir.Range"><em>Range</em></a>) – The domain of iteration.</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the variable.</p></li>
-<li><p><strong>thread_tag</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The name of the thread_tag.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the variable.</p></li>
+<li><p><strong>thread_tag</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The name of the thread_tag.</p></li>
 <li><p><strong>span</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="ir.html#tvm.ir.Span" title="tvm.ir.Span"><em>Span</em></a><em>]</em>) – The location of this variable in the source.</p></li>
 </ul>
 </dd>
@@ -2754,7 +2863,7 @@ When str is passed, dom is set to None and str is used as tag</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.te.create_prim_func">
-<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">create_prim_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ops</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.tensor.Tensor"><span class="pre">tvm.te.tensor.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tir.html#tvm.tir.PrimFunc" title="tvm.tir.function.PrimFunc"><span class="pre">tvm.tir.function.PrimFunc</span></a></span></span><a class="headerlink" href="#tvm.te.create_prim_func" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">create_prim_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ops</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.tensor.Tensor"><span class="pre">tvm.te.tensor.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_dtype_override</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tir.html#tvm.tir.PrimFunc" title="tvm.tir.function.PrimFunc"><span class="pre">tvm.tir.function.PrimFunc</span></a></span></span><a class="headerlink" href="#tvm.te.create_prim_func" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a TensorIR PrimFunc from tensor expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2773,14 +2882,14 @@ When str is passed, dom is set to None and str is used as tag</p></li>
 <span class="n">k</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
 <span class="n">C</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">te</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">k</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
 <span class="n">func</span> <span class="o">=</span> <span class="n">create_prim_func</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">script</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>If we want to use TensorIR schedule to do transformations on such kernel,
 we need to use <cite>create_prim_func([A, B, C])</cite> to create a schedulable PrimFunc.
 The generated function looks like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@T.prim_func</span>
-<span class="k">def</span> <span class="nf">tir_matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@T</span><span class="o">.</span><span class="n">prim_func</span>
+<span class="k">def</span> <span class="nf">tir_matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">match_buffer</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">match_buffer</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">match_buffer</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
@@ -2804,20 +2913,41 @@ The generated function looks like:</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="tvm.te.create_prim_func_from_outputs">
-<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">create_prim_func_from_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.tensor.Tensor"><span class="pre">tvm.te.tensor.Tensor</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.tensor.Tensor"><span class="pre">tvm.te.tensor.Tensor</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tir.html#tvm.tir.PrimFunc" title="tvm.tir.function.PrimFunc"><span class="pre">tvm.tir.function.PrimFunc</span></a></span></span><a class="headerlink" href="#tvm.te.create_prim_func_from_outputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a TensorIR PrimFunc from output tensor(s) in TE</p>
+<dt class="sig sig-object py" id="tvm.te.extern_primfunc">
+<span class="sig-prename descclassname"><span class="pre">tvm.te.</span></span><span class="sig-name descname"><span class="pre">extern_primfunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensors</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.tensor.Tensor"><span class="pre">tvm.te.tensor.Tensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primfunc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="tir.html#tvm.tir.PrimFunc" title="tvm.tir.function.PrimFunc"><span class="pre">tvm.tir.function.PrimFunc</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.te.extern_primfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute tensors via a schedulable TIR PrimFunc</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>outputs</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a><em>, </em><em>List</em><em>[</em><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor"><em>Tensor</em></a><em>]</em><em>]</em>) – The source expression.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_tensors</strong> (<em>list of Tensor</em>) – Input tensors that map to the corresponding primfunc input params.</p></li>
+<li><p><strong>primfunc</strong> (<a class="reference internal" href="tir.html#tvm.tir.PrimFunc" title="tvm.tir.PrimFunc"><em>PrimFunc</em></a>) – The TIR PrimFunc</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>func</strong> – The created function.</p>
+<dd class="field-even"><p><strong>tensor</strong> – The created tensor or tuple of tensors if it contains multiple outputs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="tir.html#tvm.tir.PrimFunc" title="tvm.tir.PrimFunc">tir.PrimFunc</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#tvm.te.Tensor" title="tvm.te.Tensor">Tensor</a> or list of Tensors</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<p>In the code below, a TVMScript defined TIR PrimFunc is inlined into
+a TE ExternOp. Applying te.create_prim_func on this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">placeholder</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">placeholder</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+
+<span class="nd">@T</span><span class="o">.</span><span class="n">prim_func</span>
+<span class="k">def</span> <span class="nf">before_split</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">T</span><span class="o">.</span><span class="n">handle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">match_buffer</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">match_buffer</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">T</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">T</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">):</span>
+            <span class="n">vi</span><span class="p">,</span> <span class="n">vj</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="s2">&quot;SS&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">vi</span><span class="p">,</span> <span class="n">vj</span><span class="p">]</span> <span class="o">*</span> <span class="mf">2.0</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">extern_primfunc</span><span class="p">([</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">],</span> <span class="n">func</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py class">
@@ -3017,7 +3147,7 @@ format for Phase 0 HalideIR. Thus, a totally separated module is defined.</p>
 <dd><p>Load the module from a python file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path to the given python file</p>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Path to the given python file</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3031,13 +3161,13 @@ format for Phase 0 HalideIR. Thus, a totally separated module is defined.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>src</strong> (<em>ast.node</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – If an ast.node, then directly lower it.
+<li><p><strong>src</strong> (<em>ast.node</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – If an ast.node, then directly lower it.
 If a str, then parse it to ast and lower it.</p></li>
 <li><p><strong>args</strong> (<em>list of Tensors</em><em> or </em><em>Vars</em>) – The argument lists to the function.
 It is NOT encouraged to write a function without arguments.
 It is NOT encouraged to write a function with side effect.</p></li>
 <li><p><strong>symbols</strong> (<em>list of str</em>) – The symbol list of the global context of the function.</p></li>
-<li><p><strong>closure_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – A dict of external name reference captured by this function.</p></li>
+<li><p><strong>closure_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – A dict of external name reference captured by this function.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -3106,20 +3236,20 @@ The usage of HybridModule is roughly the same as normal TVM-built modules.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

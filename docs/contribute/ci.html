@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using TVM’s CI &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Using TVM’s CI &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -206,19 +238,20 @@
 <li class="toctree-l2"><a class="reference internal" href="code_guide.html">Code Guide and Tips</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git_howto.html">Git Usage Tips</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Using TVM’s CI</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#debugging-failures">Debugging Failures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#jenkins-logs">Jenkins Logs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#reproduce-failures">Reproduce Failures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-contributors">For Contributors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#debugging-failures">Debugging Failures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reporting-issues">Reporting Issues</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#keeping-ci-green">Keeping CI Green</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#skip-ci-for-reverts">Skip CI for Reverts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-maintainers">For Maintainers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#procedures-for-keeping-ci-green">Procedures for Keeping CI Green</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dealing-with-flakiness">Dealing with Flakiness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#skipping-ci">Skipping CI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-images">Docker Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ci-docker-staging"><code class="docutils literal notranslate"><span class="pre">ci-docker-staging</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ci-monitoring-rotation">CI Monitoring Rotation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#handling-flaky-failures">Handling Flaky Failures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ci-docker-staging"><code class="docutils literal notranslate"><span class="pre">ci-docker-staging</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-images">Docker Images</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reporting-issues">Reporting Issues</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="release_process.html">Release Process</a></li>
@@ -270,7 +303,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -316,7 +349,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/contribute/ci.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/contribute/ci.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -333,38 +368,58 @@
 <span id="ci-guide"></span><h1>Using TVM’s CI<a class="headerlink" href="#using-tvm-s-ci" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#debugging-failures" id="id3">Debugging Failures</a></p>
+<li><p><a class="reference internal" href="#for-contributors" id="id5">For Contributors</a></p>
 <ul>
-<li><p><a class="reference internal" href="#jenkins-logs" id="id4">Jenkins Logs</a></p></li>
-<li><p><a class="reference internal" href="#reproduce-failures" id="id5">Reproduce Failures</a></p></li>
+<li><p><a class="reference internal" href="#debugging-failures" id="id6">Debugging Failures</a></p>
+<ul>
+<li><p><a class="reference internal" href="#jenkins-logs" id="id7">Jenkins Logs</a></p></li>
+<li><p><a class="reference internal" href="#reproduce-failures" id="id8">Reproduce Failures</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#keeping-ci-green" id="id6">Keeping CI Green</a></p>
-<ul>
-<li><p><a class="reference internal" href="#skip-ci-for-reverts" id="id7">Skip CI for Reverts</a></p></li>
+<li><p><a class="reference internal" href="#reporting-issues" id="id9">Reporting Issues</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#handling-flaky-failures" id="id8">Handling Flaky Failures</a></p></li>
-<li><p><a class="reference internal" href="#ci-docker-staging" id="id9"><code class="docutils literal notranslate"><span class="pre">ci-docker-staging</span></code></a></p></li>
-<li><p><a class="reference internal" href="#docker-images" id="id10">Docker Images</a></p></li>
-<li><p><a class="reference internal" href="#reporting-issues" id="id11">Reporting Issues</a></p></li>
+<li><p><a class="reference internal" href="#for-maintainers" id="id10">For Maintainers</a></p>
+<ul>
+<li><p><a class="reference internal" href="#procedures-for-keeping-ci-green" id="id11">Procedures for Keeping CI Green</a></p>
+<ul>
+<li><p><a class="reference internal" href="#broken-ci-due-to-simultaneous-merge" id="id12">Broken CI due to Simultaneous Merge</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#dealing-with-flakiness" id="id13">Dealing with Flakiness</a></p></li>
+<li><p><a class="reference internal" href="#skipping-ci" id="id14">Skipping CI</a></p></li>
+<li><p><a class="reference internal" href="#docker-images" id="id15">Docker Images</a></p>
+<ul>
+<li><p><a class="reference internal" href="#updating-a-docker-image-tag" id="id16">Updating a Docker Image Tag</a></p></li>
+<li><p><a class="reference internal" href="#adding-a-new-docker-image" id="id17">Adding a New Docker Image</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ci-docker-staging" id="id18"><code class="docutils literal notranslate"><span class="pre">ci-docker-staging</span></code></a></p></li>
+<li><p><a class="reference internal" href="#ci-monitoring-rotation" id="id19">CI Monitoring Rotation</a></p></li>
+</ul>
+</li>
 </ul>
 </div>
-<p>TVM uses Jenkins for running Linux continuous integration (CI) tests on
-<a class="reference external" href="https://ci.tlcpack.ai/job/tvm/">branches</a> and
+<p>TVM primarily uses Jenkins for running Linux continuous integration (CI) tests on
+<a class="reference external" href="https://ci.tlcpack.ai/job/tvm/">branches</a>
 <a class="reference external" href="https://ci.tlcpack.ai/job/tvm/view/change-requests/">pull requests</a> through a
 build configuration specified in a <a class="reference external" href="https://github.com/apache/tvm/blob/main/Jenkinsfile">Jenkinsfile</a>.
-Non-critical jobs run in GitHub Actions for Windows and MacOS jobs.</p>
+Jenkins is the only CI step that is codified to block merging. TVM is also tested minimally
+against Windows and MacOS using GitHub Actions.</p>
+<p>This page describes how contributors and committers can use TVM’s CI to verify their code. You can
+read more about the design of TVM CI in the <a class="reference external" href="https://github.com/tlc-pack/ci">tlc-pack/ci</a> repo.</p>
+<div class="section" id="for-contributors">
+<h2><a class="toc-backref" href="#id5">For Contributors</a><a class="headerlink" href="#for-contributors" title="Permalink to this headline">¶</a></h2>
 <p>A standard CI run looks something like this viewed in <a class="reference external" href="https://ci.tlcpack.ai/blue/organizations/jenkins/tvm/activity">Jenkins’ BlueOcean viewer</a>.
-CI runs usually take several hours to complete and pull requests (PRs) cannot be merged before CI
+CI runs usually take a couple hours to complete and pull requests (PRs) cannot be merged before CI
 has successfully completed. To diagnose failing steps, click through to the failing
 pipeline stage then to the failing step to see the output logs.</p>
 <a class="reference internal image-reference" href="https://github.com/tlc-pack/web-data/raw/main/images/contribute/ci.png"><img alt="The Jenkins UI for a CI run" src="https://github.com/tlc-pack/web-data/raw/main/images/contribute/ci.png" style="width: 800px;" /></a>
 <div class="section" id="debugging-failures">
-<h2><a class="toc-backref" href="#id3">Debugging Failures</a><a class="headerlink" href="#debugging-failures" title="Permalink to this headline">¶</a></h2>
+<h3><a class="toc-backref" href="#id6">Debugging Failures</a><a class="headerlink" href="#debugging-failures" title="Permalink to this headline">¶</a></h3>
 <p>When CI fails for some reason, there are several methods to diagnose the issue.</p>
 <div class="section" id="jenkins-logs">
-<h3><a class="toc-backref" href="#id4">Jenkins Logs</a><a class="headerlink" href="#jenkins-logs" title="Permalink to this headline">¶</a></h3>
+<h4><a class="toc-backref" href="#id7">Jenkins Logs</a><a class="headerlink" href="#jenkins-logs" title="Permalink to this headline">¶</a></h4>
 <p>The first place to look for a failure is in the CI logs, follow the red Xs on
 the failing job to view the logs. Note:</p>
 <ul class="simple">
@@ -375,23 +430,64 @@ need to scroll up to view the actual failure.</p></li>
 </ul>
 </div>
 <div class="section" id="reproduce-failures">
-<h3><a class="toc-backref" href="#id5">Reproduce Failures</a><a class="headerlink" href="#reproduce-failures" title="Permalink to this headline">¶</a></h3>
+<h4><a class="toc-backref" href="#id8">Reproduce Failures</a><a class="headerlink" href="#reproduce-failures" title="Permalink to this headline">¶</a></h4>
 <p>Most TVM Python tests run under <a class="reference external" href="https://docs.pytest.org/en/6.2.x/"><code class="docutils literal notranslate"><span class="pre">pytest</span></code></a> and can be run as described in <a class="reference internal" href="pull_request.html#pr-testing"><span class="std std-ref">Testing</span></a>.</p>
 </div>
 </div>
-<div class="section" id="keeping-ci-green">
-<h2><a class="toc-backref" href="#id6">Keeping CI Green</a><a class="headerlink" href="#keeping-ci-green" title="Permalink to this headline">¶</a></h2>
-<p>Developers rely on the TVM CI to get signal on their PRs before merging.
-Occasionally breakages slip through and break <code class="docutils literal notranslate"><span class="pre">main</span></code>, which in turn causes
-the same error to show up on an PR that is based on the broken commit(s). Broken
-commits can be identified <a class="reference external" href="https://github.com/apache/tvm/commits/main">through GitHub</a>
-via the commit status icon or via <a class="reference external" href="https://ci.tlcpack.ai/blue/organizations/jenkins/tvm/activity?branch=main">Jenkins</a>.
-In these situations it is possible to either revert the offending commit or
-submit a forward fix to address the issue. It is up to the committer and commit
-author which option to choose, keeping in mind that a broken CI affects all TVM
-developers and should be fixed as soon as possible.</p>
-<div class="section" id="skip-ci-for-reverts">
-<h3><a class="toc-backref" href="#id7">Skip CI for Reverts</a><a class="headerlink" href="#skip-ci-for-reverts" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="reporting-issues">
+<h3><a class="toc-backref" href="#id9">Reporting Issues</a><a class="headerlink" href="#reporting-issues" title="Permalink to this headline">¶</a></h3>
+<p>Issues with CI should be <a class="reference external" href="https://github.com/apache/tvm/issues/new?assignees=&amp;labels=&amp;template=ci-problem.md&amp;title=%5BCI+Problem%5D+">reported on GitHub</a>
+with a link to the relevant jobs, commits, or PRs.</p>
+</div>
+</div>
+<div class="section" id="for-maintainers">
+<h2><a class="toc-backref" href="#id10">For Maintainers</a><a class="headerlink" href="#for-maintainers" title="Permalink to this headline">¶</a></h2>
+<p>This section discusses processes ran by TVM Maintainers.</p>
+<div class="section" id="procedures-for-keeping-ci-green">
+<h3><a class="toc-backref" href="#id11">Procedures for Keeping CI Green</a><a class="headerlink" href="#procedures-for-keeping-ci-green" title="Permalink to this headline">¶</a></h3>
+<p>This section talks about common procedures used to keep CI passing.</p>
+<div class="section" id="broken-ci-due-to-simultaneous-merge">
+<h4><a class="toc-backref" href="#id12">Broken CI due to Simultaneous Merge</a><a class="headerlink" href="#broken-ci-due-to-simultaneous-merge" title="Permalink to this headline">¶</a></h4>
+<p>Developers rely on the TVM CI to get signal on their PRs before merging.  Occasionally, two
+different PRs can pass CI individually but break <code class="docutils literal notranslate"><span class="pre">main</span></code> when both land.  This in turn causes an
+error to show up on an unrelated PR that is based on the broken commit(s). Broken commits can be
+identified <a class="reference external" href="https://github.com/apache/tvm/commits/main">through GitHub</a> via the commit status icon
+or via <a class="reference external" href="https://ci.tlcpack.ai/blue/organizations/jenkins/tvm/activity?branch=main">Jenkins</a>.</p>
+<p>In these situations it is ultimately the responsibility of the TVM Committer who merged the PR to
+fix CI (others are encouraged to help). Typical responses to this situation are:
+1. revert the offending commit
+2. submit a forward fix to address the issue.</p>
+<p>It is up to the committer and commit author which option to choose. A broken CI affects all TVM
+developers and should be fixed as soon as possible, while a revert may be especially painful for the
+author of the offending PR when that PR is large.</p>
+</div>
+</div>
+<div class="section" id="dealing-with-flakiness">
+<h3><a class="toc-backref" href="#id13">Dealing with Flakiness</a><a class="headerlink" href="#dealing-with-flakiness" title="Permalink to this headline">¶</a></h3>
+<p>If you notice a failure on your PR that seems unrelated to your change, you should
+search [recent GitHub issues related to flaky tests](<a class="reference external" href="https://github.com/apache/tvm/issues?q=is%3Aissue+%5BCI+Problem%5D+Flaky+">https://github.com/apache/tvm/issues?q=is%3Aissue+%5BCI+Problem%5D+Flaky+</a>&gt;) and
+[file a new issue](<a class="reference external" href="https://github.com/apache/tvm/issues/new?assignees=&amp;labels=&amp;template=ci-problem.md&amp;title=%5BCI+Problem%5D+">https://github.com/apache/tvm/issues/new?assignees=&amp;labels=&amp;template=ci-problem.md&amp;title=%5BCI+Problem%5D+</a>&gt;)
+if you don’t see any reports of the failure. If a certain test or class of tests affects
+several PRs or commits on <cite>main</cite> with flaky failures, the test should be disabled via
+[pytest’s &#64;xfail decorator](<a class="reference external" href="https://docs.pytest.org/en/6.2.x/skipping.html#xfail-mark-test-functions-as-expected-to-fail">https://docs.pytest.org/en/6.2.x/skipping.html#xfail-mark-test-functions-as-expected-to-fail</a>) with [<cite>strict=False</cite>](<a class="reference external" href="https://docs.pytest.org/en/6.2.x/skipping.html#strict-parameter">https://docs.pytest.org/en/6.2.x/skipping.html#strict-parameter</a>) and the relevant issue linked in the
+disabling PR.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">xfail</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Flaky test: https://github.com/apache/tvm/issues/1234&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_something_flaky</span><span class="p">():</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Then submit a PR as usual</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git add &lt;<span class="nb">test</span> file&gt;
+git commit -m<span class="s1">&#39;[skip ci][ci] Disable flaky test: ``&lt;test_name&gt;``</span>
+
+<span class="s1">See #&lt;issue number&gt;</span>
+<span class="s1">&#39;</span>
+gh pr create
+</pre></div>
+</div>
+</div>
+<div class="section" id="skipping-ci">
+<h3><a class="toc-backref" href="#id14">Skipping CI</a><a class="headerlink" href="#skipping-ci" title="Permalink to this headline">¶</a></h3>
 <p>For reverts and trivial forward fixes, adding <code class="docutils literal notranslate"><span class="pre">[skip</span> <span class="pre">ci]</span></code> to the revert’s
 PR title will cause CI to shortcut and only run lint. Committers should
 take care that they only merge CI-skipped PRs to fix a failure on <code class="docutils literal notranslate"><span class="pre">main</span></code> and
@@ -413,63 +509,81 @@ git push my_repo
 </pre></div>
 </div>
 </div>
+<div class="section" id="docker-images">
+<h3><a class="toc-backref" href="#id15">Docker Images</a><a class="headerlink" href="#docker-images" title="Permalink to this headline">¶</a></h3>
+<p>Each CI job runs most of its work inside a Docker container, built from files
+in the <a class="reference external" href="https://github.com/apache/tvm/tree/main/docker">docker/</a> folder.</p>
+<div class="section" id="updating-a-docker-image-tag">
+<h4><a class="toc-backref" href="#id16">Updating a Docker Image Tag</a><a class="headerlink" href="#updating-a-docker-image-tag" title="Permalink to this headline">¶</a></h4>
+<p>To update a tag, a new image needs to be built and uploaded to Docker Hub, then
+the image tags in  <a class="reference external" href="https://github.com/apache/tvm/tree/main/ci/jenkins/docker-images.ini">docker-images.ini</a>
+need to be updated to match the image tags on Docker Hub.</p>
+<p>Docker images are built automatically nightly via the <a class="reference external" href="https://ci.tlcpack.ai/job/docker-images-ci/">docker-images-ci</a>,
+which uploads the built images to <a class="reference external" href="https://hub.docker.com/u/tlcpackstaging">https://hub.docker.com/u/tlcpackstaging</a> once
+they have passed CI. Post-merge CI runs on <code class="docutils literal notranslate"><span class="pre">main</span></code> build Docker images ad-hoc
+and upload them to the <code class="docutils literal notranslate"><span class="pre">tlcpackstaging</span></code> Docker Hub account as well. There is an
+auto-promotion process for <code class="docutils literal notranslate"><span class="pre">tlcpackstaging</span></code> Docker images to be moved to the
+<code class="docutils literal notranslate"><span class="pre">tlcpack</span></code> account. This means that image tags from <code class="docutils literal notranslate"><span class="pre">tlcpackstaging</span></code> can be
+used in CI and they will be automatically moved to <code class="docutils literal notranslate"><span class="pre">tlcpack</span></code> after a successful
+post-merge CI run on <code class="docutils literal notranslate"><span class="pre">main</span></code>. So the steps to update the image are:</p>
+<ol class="arabic">
+<li><p>Merge a PR that changes the Dockerfiles under <code class="docutils literal notranslate"><span class="pre">docker/</span></code> or scripts in <code class="docutils literal notranslate"><span class="pre">docker/install</span></code>.</p></li>
+<li><p>Do either of:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Wait for the post-merge CI build from the PR to complete and upload the newly built image to the <a class="reference external" href="https://hub.docker.com/u/tlcpackstaging">tlcpackstaging</a> Docker Hub.</p></li>
+<li><p>Wait for the nightly Docker image build to complete and upload the newly built image to the <a class="reference external" href="https://hub.docker.com/u/tlcpackstaging">tlcpackstaging</a> Docker Hub.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Find the newly uploaded image tag on the <a class="reference external" href="https://hub.docker.com/u/tlcpackstaging">tlcpackstaging</a> Docker Hub, for example <code class="docutils literal notranslate"><span class="pre">20221208-070144-22ff38dff</span></code> and update the tag in <code class="docutils literal notranslate"><span class="pre">ci/jenkins/docker-images.ini</span></code> to use the tlcpackstaging tag but under the tlcpack account, e.g. <code class="docutils literal notranslate"><span class="pre">tlcpack/ci-arm:20221208-070144-22ff38dff</span></code>. Send in a PR with these changes and wait for it to run through CI to ensure the new images are valid.</p></li>
+<li><p>Merge the <code class="docutils literal notranslate"><span class="pre">docker-images.ini</span></code> update PR. Once post-merge CI finishes running on <code class="docutils literal notranslate"><span class="pre">main</span></code> the <code class="docutils literal notranslate"><span class="pre">tlcpackstaging</span></code> tag will be re-uploaded to <code class="docutils literal notranslate"><span class="pre">tlcpack</span></code> automatically.</p></li>
+</ol>
 </div>
-<div class="section" id="handling-flaky-failures">
-<h2><a class="toc-backref" href="#id8">Handling Flaky Failures</a><a class="headerlink" href="#handling-flaky-failures" title="Permalink to this headline">¶</a></h2>
-<p>If you notice a failure on your PR that seems unrelated to your change, you should
-search <a class="reference external" href="https://github.com/apache/tvm/issues?q=is%3Aissue+%5BCI+Problem%5D+Flaky+">recent GitHub issues related to flaky tests</a> and
-<a class="reference external" href="https://github.com/apache/tvm/issues/new?assignees=&amp;labels=&amp;template=ci-problem.md&amp;title=%5BCI+Problem%5D+">file a new issue</a>
-if you don’t see any reports of the failure. If a certain test or class of tests affects
-several PRs or commits on <code class="docutils literal notranslate"><span class="pre">main</span></code> with flaky failures, the test should be disabled via
-<a class="reference external" href="https://docs.pytest.org/en/6.2.x/skipping.html#xfail-mark-test-functions-as-expected-to-fail">pytest’s <code class="docutils literal notranslate"><span class="pre">&#64;xfail</span></code> decorator</a> with <a class="reference external" href="https://docs.pytest.org/en/6.2.x/skipping.html#strict-parameter"><code class="docutils literal notranslate"><span class="pre">strict=True</span></code></a> and the relevant issue linked in the
-disabling PR.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest.mark.xfail</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Flaky test: https://github.com/apache/tvm/issues/1234&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">test_something_flaky</span><span class="p">():</span>
-    <span class="k">pass</span>
-</pre></div>
+<div class="section" id="adding-a-new-docker-image">
+<h4><a class="toc-backref" href="#id17">Adding a New Docker Image</a><a class="headerlink" href="#adding-a-new-docker-image" title="Permalink to this headline">¶</a></h4>
+<p>New docker images can be added to test TVM on a variety of platforms. Here are the steps for adding
+a new CI image:</p>
+<ol class="arabic">
+<li><p>Define the <code class="docutils literal notranslate"><span class="pre">docker/Dockerfile.ci_foo</span></code> and associated scripts in <code class="docutils literal notranslate"><span class="pre">docker/install</span></code>. Create a PR containing only these changes (no <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code> changes).</p>
+<p>Example: <a class="reference external" href="https://github.com/apache/tvm/pull/12230/files">https://github.com/apache/tvm/pull/12230/files</a></p>
+</li>
+<li><p>A committer verifies the image builds locally and then reviews/approves this PR.</p></li>
+<li><p>A committer creates the ci-foo repos in <a class="reference external" href="https://hub.docker.com/u/tlcpack">https://hub.docker.com/u/tlcpack</a> and <a class="reference external" href="https://hub.docker.com/u/tlcpackstaging">https://hub.docker.com/u/tlcpackstaging</a>.</p></li>
+<li><p>Create a PR to create an ECR repo for the image in tlcpack/ci: <a class="reference external" href="https://github.com/tlc-pack/ci/pull/46/files">https://github.com/tlc-pack/ci/pull/46/files</a></p></li>
+<li><p>A committer creates and gets merged a PR to add the image to the <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code></p>
+<blockquote>
+<div><p>Example: <a class="reference external" href="https://github.com/apache/tvm/pull/12369/files">https://github.com/apache/tvm/pull/12369/files</a>.</p>
+<p><strong>NOTE</strong>: The PR must be opened from a branch in apache/tvm, not from a branch in a forked repo.</p>
+</div></blockquote>
+</li>
+<li><p>A committer adds this image to the daily docker rebuild/validation run in tlcpack.</p>
+<blockquote>
+<div><p>Example: <a class="reference external" href="https://github.com/tlc-pack/tlcpack/pull/131">https://github.com/tlc-pack/tlcpack/pull/131</a></p>
+</div></blockquote>
+</li>
+</ol>
 </div>
 </div>
 <div class="section" id="ci-docker-staging">
-<h2><a class="toc-backref" href="#id9"><code class="docutils literal notranslate"><span class="pre">ci-docker-staging</span></code></a><a class="headerlink" href="#ci-docker-staging" title="Permalink to this headline">¶</a></h2>
+<h3><a class="toc-backref" href="#id18"><code class="docutils literal notranslate"><span class="pre">ci-docker-staging</span></code></a><a class="headerlink" href="#ci-docker-staging" title="Permalink to this headline">¶</a></h3>
 <p>The <a class="reference external" href="https://github.com/apache/tvm/tree/ci-docker-staging">ci-docker-staging</a>
-branch is used to test updates to Docker images and <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code> changes. When
+branch is typically used to test updates to Docker images and <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code> changes. When
 running a build for a normal PR from a forked repository, Jenkins uses the code
 from the PR except for the <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code> itself, which comes from the base branch.
 When branches are built, the <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code> in the branch is used, so a committer
 with write access must push PRs to a branch in apache/tvm to properly test
 <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code> changes. If your PR makes changes to the <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code>, make sure
-to &#64; a <a class="reference external" href="https://github.com/apache/tvm/blob/main/CONTRIBUTORS.md">committer</a>
+to &#64; a <a class="reference external" href="https://github.com/apache/tvm/tree/main/CONTRIBUTORS.md">committer</a>
 and ask them to push your PR as a branch to test the changes.</p>
 </div>
-<div class="section" id="docker-images">
-<span id="id2"></span><h2><a class="toc-backref" href="#id10">Docker Images</a><a class="headerlink" href="#docker-images" title="Permalink to this headline">¶</a></h2>
-<p>Each CI job runs most of its work inside a Docker container, built from files
-in the <a class="reference external" href="https://github.com/apache/tvm/tree/main/docker">docker/</a> folder. These
-files are built nightly in Jenkins via the <a class="reference external" href="https://ci.tlcpack.ai/job/docker-images-ci/">docker-images-ci</a> job.
-The images for these containers are hosted in the <a class="reference external" href="https://hub.docker.com/u/tlcpack">tlcpack Docker Hub</a>
-and referenced at the <a class="reference external" href="https://github.com/apache/tvm/blob/7481a297740f073b193a3f09b3e27f056e8c7f2e/Jenkinsfile#L48-L54">top of the <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code></a>. These can be inspected and run
-locally via standard Docker commands.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Beware: CI images can be several GB in size</span>
-<span class="c1"># Get a bare docker shell in the ci-gpu container</span>
-docker run -it tlcpack/ci-gpu:v0.78 /bin/bash
-</pre></div>
+<div class="section" id="ci-monitoring-rotation">
+<h3><a class="toc-backref" href="#id19">CI Monitoring Rotation</a><a class="headerlink" href="#ci-monitoring-rotation" title="Permalink to this headline">¶</a></h3>
+<p>Some tests are also flaky and occasionally fail for reasons unrelated to the PR. The
+<a class="reference external" href="https://github.com/apache/tvm/wiki/CI-Monitoring-Runbook">CI monitoring rotation</a> watches for these failures and
+disables tests as necessary. It is the responsibility of those who wrote the test to ultimately fix
+and re-enable the test.</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">docker/bash.sh</span></code> will automatically grab the latest image from the <code class="docutils literal notranslate"><span class="pre">Jenkinsfile</span></code>
-and help in mounting your current directory.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the ci_cpu image specified in Jenkinsfile</span>
-<span class="nb">cd</span> tvm
-bash docker/bash.sh ci_cpu
-<span class="c1"># the tvm directory is automatically mounted</span>
-<span class="c1"># example: build tvm (note: this will overrwrite build/)</span>
-$ ./tests/scripts/task_config_build_cpu.sh
-$ ./tests/scripts/task_build.sh build -j32
-</pre></div>
-</div>
-</div>
-<div class="section" id="reporting-issues">
-<h2><a class="toc-backref" href="#id11">Reporting Issues</a><a class="headerlink" href="#reporting-issues" title="Permalink to this headline">¶</a></h2>
-<p>Issues with CI should be <a class="reference external" href="https://github.com/apache/tvm/issues/new?assignees=&amp;labels=&amp;template=ci-problem.md&amp;title=%5BCI+Problem%5D+">reported on GitHub</a>
-with a link to the relevant jobs, commits, or PRs.</p>
 </div>
 </div>
 
@@ -490,20 +604,20 @@ with a link to the relevant jobs, commits, or PRs.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

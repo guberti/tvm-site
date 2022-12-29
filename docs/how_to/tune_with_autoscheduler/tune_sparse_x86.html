@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -273,7 +305,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -321,7 +353,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/tune_with_autoscheduler/tune_sparse_x86.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/tune_with_autoscheduler/tune_sparse_x86.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -336,7 +370,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-tune-with-autoscheduler-tune-sparse-x86-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-tune-with-autoscheduler-tune-sparse-x86-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/293f8d0753933b706a0b588f909fe38a/tune_sparse_x86.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="auto-scheduling-sparse-matrix-multiplication-on-cpu-with-custom-sketch-rule">
 <span id="sphx-glr-how-to-tune-with-autoscheduler-tune-sparse-x86-py"></span><h1>Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule<a class="headerlink" href="#auto-scheduling-sparse-matrix-multiplication-on-cpu-with-custom-sketch-rule" title="Permalink to this headline">¶</a></h1>
@@ -357,10 +393,10 @@ get it to run, you will need to wrap the body of this tutorial in a <code class=
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tvm</span>
 <span class="kn">import</span> <span class="nn">tvm.testing</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span><span class="p">,</span> <span class="n">auto_scheduler</span><span class="p">,</span> <span class="n">runtime</span><span class="p">,</span> <span class="n">topi</span>
-<span class="kn">from</span> <span class="nn">tvm.auto_scheduler</span> <span class="k">import</span> <span class="n">_ffi_api</span>
-<span class="kn">from</span> <span class="nn">tvm.topi.utils</span> <span class="k">import</span> <span class="n">get_const_tuple</span>
-<span class="kn">from</span> <span class="nn">tvm.topi.sparse.utils</span> <span class="k">import</span> <span class="n">random_bsr_matrix</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span><span class="p">,</span> <span class="n">auto_scheduler</span><span class="p">,</span> <span class="n">runtime</span><span class="p">,</span> <span class="n">topi</span>
+<span class="kn">from</span> <span class="nn">tvm.auto_scheduler</span> <span class="kn">import</span> <span class="n">_ffi_api</span>
+<span class="kn">from</span> <span class="nn">tvm.topi.utils</span> <span class="kn">import</span> <span class="n">get_const_tuple</span>
+<span class="kn">from</span> <span class="nn">tvm.topi.sparse.utils</span> <span class="kn">import</span> <span class="n">random_bsr_matrix</span>
 </pre></div>
 </div>
 <div class="section" id="define-the-computation">
@@ -370,15 +406,15 @@ The function should return the list of input/output tensors.
 From these tensors, the auto-scheduler can get the whole computational graph.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@auto_scheduler</span><span class="o">.</span><span class="n">register_workload</span>
 <span class="k">def</span> <span class="nf">sparse_dense</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">w_data_shape</span><span class="p">,</span> <span class="n">w_indices_shape</span><span class="p">,</span> <span class="n">w_indptr_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
-    <span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">W_data</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">w_data_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">W_indices</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">w_indices_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
-    <span class="n">W_indptr</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">w_indptr_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
-    <span class="n">B</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">W_data</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">w_data_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">W_indices</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">w_indices_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+    <span class="n">W_indptr</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">w_indptr_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 
-    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.sparse_dense" title="View documentation for tvm.topi.nn.sparse_dense"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">sparse_dense</span></a><span class="p">(</span><a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="View documentation for tvm.topi.nn.relu"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">W_data</span><span class="p">,</span> <span class="n">W_indices</span><span class="p">,</span> <span class="n">W_indptr</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;BiasAdd&quot;</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="View documentation for tvm.topi.nn.relu"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.sparse_dense" title="tvm.topi.nn.sparse_dense" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">sparse_dense</span></a><span class="p">(</span><a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="tvm.topi.nn.relu" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">W_data</span><span class="p">,</span> <span class="n">W_indices</span><span class="p">,</span> <span class="n">W_indptr</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;BiasAdd&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="tvm.topi.nn.relu" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">W_data</span><span class="p">,</span> <span class="n">W_indices</span><span class="p">,</span> <span class="n">W_indptr</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">out</span><span class="p">]</span>
 </pre></div>
@@ -422,7 +458,7 @@ If your machine supports avx instructions, you can</p>
 <li><p>replace “llvm” below with “llvm -mcpu=skylake-avx512” to enable AVX-512</p></li>
 </ul>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;llvm&quot;</span><span class="p">)</span>
 
 <span class="c1"># Register the sparse data to task inputs</span>
 <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;sparse_dense_bsr_</span><span class="si">%d</span><span class="s2">_</span><span class="si">%d</span><span class="s2">_</span><span class="si">%d</span><span class="s2">_</span><span class="si">%d</span><span class="s2">_</span><span class="si">%d</span><span class="s2">_</span><span class="si">%d</span><span class="s2">_&quot;</span> <span class="o">%</span> <span class="p">(</span>
@@ -433,7 +469,7 @@ If your machine supports avx instructions, you can</p>
     <span class="n">W_sp_np</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="n">W_sp_np</span><span class="o">.</span><span class="n">indptr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
 <span class="p">)</span>
-<span class="n">task</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SearchTask" title="View documentation for tvm.auto_scheduler.SearchTask"><span class="n">tvm</span><span class="o">.</span><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SearchTask</span></a><span class="p">(</span>
+<span class="n">task</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SearchTask" title="tvm.auto_scheduler.SearchTask" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SearchTask</span></a><span class="p">(</span>
     <span class="n">func</span><span class="o">=</span><span class="n">sparse_dense</span><span class="p">,</span>
     <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">W_sp_np</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">W_sp_np</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">W_sp_np</span><span class="o">.</span><span class="n">indptr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span>
     <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
@@ -448,20 +484,6 @@ If your machine supports avx instructions, you can</p>
 <span class="c1"># Inspect the computational graph</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computational DAG:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">compute_dag</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Computational DAG:
-placeholder = PLACEHOLDER [33]
-placeholder = PLACEHOLDER [4916, 16, 1]
-placeholder = PLACEHOLDER [4916]
-placeholder = PLACEHOLDER [128, 256]
-compute(i0, i1) = max(placeholder[i0, i1], 0f)
-compute(i, nb_j, j) += (placeholder[(placeholder[nb_j] + elem_idx), j, c]*compute[i, (placeholder[(placeholder[nb_j] + elem_idx)] + c)])
-compute(m, n) = compute[m, floordiv(n, 16), floormod(n, 16)]
-placeholder = PLACEHOLDER [128, 512]
-BiasAdd(i, j) = (compute[i, j] + placeholder[i, j])
-compute(i0, i1) = max(BiasAdd[i0, i1], 0f)
 </pre></div>
 </div>
 </div>
@@ -483,9 +505,9 @@ auto-scheduler provided loop state APIs.</p></li>
         <span class="s2">&quot;sparse_dense_sp_rhs_bsrmm&quot;</span><span class="p">,</span>
         <span class="s2">&quot;sparse_dense_sp_rhs_bsrmm_block&quot;</span><span class="p">,</span>
     <span class="p">]:</span>
-        <span class="k">return</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadCustomSketchRule" title="View documentation for tvm.auto_scheduler.PreloadCustomSketchRule"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadCustomSketchRule</span></a><span class="o">.</span><span class="n">APPLY_AND_SKIP_REST</span>
+        <span class="k">return</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadCustomSketchRule" title="tvm.auto_scheduler.PreloadCustomSketchRule" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadCustomSketchRule</span></a><span class="o">.</span><span class="n">APPLY_AND_SKIP_REST</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadCustomSketchRule" title="View documentation for tvm.auto_scheduler.PreloadCustomSketchRule"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadCustomSketchRule</span></a><span class="o">.</span><span class="n">PASS</span>
+        <span class="k">return</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadCustomSketchRule" title="tvm.auto_scheduler.PreloadCustomSketchRule" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadCustomSketchRule</span></a><span class="o">.</span><span class="n">PASS</span>
 
 
 <span class="k">def</span> <span class="nf">apply_func</span><span class="p">(</span><span class="n">search_policy</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">stage_id</span><span class="p">):</span>
@@ -544,17 +566,17 @@ and do more analyses later.</p></li>
 rule as a <cite>init_search_callbacks</cite>.</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;sparse_dense.json&quot;</span>
-<span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="View documentation for tvm.auto_scheduler.TuningOptions"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
+<span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="tvm.auto_scheduler.TuningOptions" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
     <span class="n">num_measure_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="View documentation for tvm.auto_scheduler.RecordToFile"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
+    <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="tvm.auto_scheduler.RecordToFile" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
     <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">search_policy</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SketchPolicy" title="View documentation for tvm.auto_scheduler.SketchPolicy"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SketchPolicy</span></a><span class="p">(</span>
+<span class="n">search_policy</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SketchPolicy" title="tvm.auto_scheduler.SketchPolicy" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SketchPolicy</span></a><span class="p">(</span>
     <span class="n">task</span><span class="p">,</span>
-    <span class="n">program_cost_model</span><span class="o">=</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.XGBModel" title="View documentation for tvm.auto_scheduler.XGBModel"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">XGBModel</span></a><span class="p">(),</span>
+    <span class="n">program_cost_model</span><span class="o">=</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.XGBModel" title="tvm.auto_scheduler.XGBModel" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">XGBModel</span></a><span class="p">(),</span>
     <span class="n">init_search_callbacks</span><span class="o">=</span><span class="p">[</span>
-        <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadCustomSketchRule" title="View documentation for tvm.auto_scheduler.PreloadCustomSketchRule"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadCustomSketchRule</span></a><span class="p">(</span><span class="n">meet_condition_func</span><span class="p">,</span> <span class="n">apply_func</span><span class="p">,</span> <span class="s2">&quot;SparseDense&quot;</span><span class="p">)</span>
+        <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadCustomSketchRule" title="tvm.auto_scheduler.PreloadCustomSketchRule" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadCustomSketchRule</span></a><span class="p">(</span><span class="n">meet_condition_func</span><span class="p">,</span> <span class="n">apply_func</span><span class="p">,</span> <span class="s2">&quot;SparseDense&quot;</span><span class="p">)</span>
     <span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
@@ -575,76 +597,27 @@ file and apply it.</p>
 <span class="n">sch</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">apply_best</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/numpy/core/_methods.py:43: RuntimeWarning: invalid value encountered in reduce
-  return umr_minimum(a, axis, None, out, keepdims, initial, where)
-/usr/local/lib/python3.7/dist-packages/numpy/core/_methods.py:39: RuntimeWarning: invalid value encountered in reduce
-  return umr_maximum(a, axis, None, out, keepdims, initial, where)
-</pre></div>
-</div>
 <p>We can lower the schedule to see the IR after auto-scheduling.
 The auto-scheduler correctly performs optimizations including multi-level tiling,
 layout transformation, parallelization, vectorization, unrolling, and operator fusion.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lowered TIR:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Lowered TIR:
-@main = primfn(placeholder_5: handle, placeholder_6: handle, placeholder_7: handle, placeholder_8: handle, placeholder_9: handle, compute_1: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {placeholder: Buffer(placeholder_10: Pointer(float32), float32, [32768], []),
-             placeholder_1: Buffer(placeholder_11: Pointer(float32), float32, [78656], []),
-             placeholder_2: Buffer(placeholder_12: Pointer(int32), int32, [4916], []),
-             placeholder_3: Buffer(placeholder_13: Pointer(int32), int32, [33], []),
-             placeholder_4: Buffer(placeholder_14: Pointer(float32), float32, [65536], []),
-             compute: Buffer(compute_2: Pointer(float32), float32, [65536], [])}
-  buffer_map = {placeholder_5: placeholder, placeholder_6: placeholder_1, placeholder_7: placeholder_2, placeholder_8: placeholder_3, placeholder_9: placeholder_4, compute_1: compute} {
-  for (i0.outer.i1.outer.fused: int32, 0, 16) &quot;parallel&quot; {
-    allocate(compute_3: Pointer(global float32), float32, [4096]), storage_scope = global {
-      for (i.outer.inner: int32, 0, 2) {
-        for (nb_j.inner: int32, 0, 2) {
-          for (i.inner.init: int32, 0, 64) {
-            for (j.init: int32, 0, 16) {
-              compute_4: Buffer(compute_3, float32, [4096], [])[((((i.outer.inner*2048) + (i.inner.init*32)) + (nb_j.inner*16)) + j.init)] = 0f32
-            }
-          }
-          for (elem_idx: int32, 0, let cse_var_1: int32 = ((i0.outer.i1.outer.fused*2) + nb_j.inner) in (placeholder_3[(cse_var_1 + 1)] - placeholder_3[cse_var_1])) {
-            for (i.inner: int32, 0, 64) {
-              for (j: int32, 0, 16) {
-                let cse_var_3: int32 = ((i0.outer.i1.outer.fused*2) + nb_j.inner)
-                let cse_var_2: int32 = ((((i.outer.inner*2048) + (i.inner*32)) + (nb_j.inner*16)) + j)
-                compute_4[cse_var_2] = (compute_4[cse_var_2] + (placeholder_1[(((placeholder_3[cse_var_3]*16) + (elem_idx*16)) + j)]*max(placeholder[(((i.outer.inner*16384) + (i.inner*256)) + placeholder_2[(placeholder_3[cse_var_3] + elem_idx)])], 0f32)))
-              }
-            }
-          }
-        }
-      }
-      for (i0.inner: int32, 0, 128) {
-        for (i1.inner: int32, 0, 32) {
-          let cse_var_4: int32 = (((i0.inner*512) + (i0.outer.i1.outer.fused*32)) + i1.inner)
-          compute[cse_var_4] = max((compute_4[((i0.inner*32) + i1.inner)] + placeholder_4[cse_var_4]), 0f32)
-        }
-      }
-    }
-  }
-}
+<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="check-correctness-and-evaluate-performance">
 <h2>Check correctness and evaluate performance<a class="headerlink" href="#check-correctness-and-evaluate-performance" title="Permalink to this headline">¶</a></h2>
 <p>We build the binary and check its correctness and performance.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="View documentation for tvm.build"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="tvm.build" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
 
-<span class="n">X_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">X_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">W_data_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">W_sp_np</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">W_indices_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">W_sp_np</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">W_indptr_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">W_sp_np</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">B_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">B_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">Y_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="View documentation for tvm.nd.empty"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">Y_np</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">X_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">X_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">W_data_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">W_sp_np</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">W_indices_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">W_sp_np</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">W_indptr_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">W_sp_np</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">B_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">B_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">Y_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="tvm.nd.empty" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">Y_np</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
 
 <span class="n">func</span><span class="p">(</span><span class="n">X_tvm</span><span class="p">,</span> <span class="n">W_data_tvm</span><span class="p">,</span> <span class="n">W_indices_tvm</span><span class="p">,</span> <span class="n">W_indptr_tvm</span><span class="p">,</span> <span class="n">B_tvm</span><span class="p">,</span> <span class="n">Y_tvm</span><span class="p">)</span>
 
@@ -660,10 +633,6 @@ layout transformation, parallelization, vectorization, unrolling, and operator f
         <span class="o">*</span> <span class="mi">1000</span>
     <span class="p">)</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Execution time of this operator: 1.830 ms
 </pre></div>
 </div>
 <div class="admonition note">
@@ -706,11 +675,11 @@ layout transformation, parallelization, vectorization, unrolling, and operator f
 </pre></div>
 </div>
 </div>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-tune-with-autoscheduler-tune-sparse-x86-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-tune-with-autoscheduler-tune-sparse-x86-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/07733b6b2cc4df026fce525285e8f538/tune_sparse_x86.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tune_sparse_x86.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/293f8d0753933b706a0b588f909fe38a/tune_sparse_x86.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tune_sparse_x86.ipynb</span></code></a></p>
 </div>
 </div>
@@ -735,20 +704,20 @@ layout transformation, parallelization, vectorization, unrolling, and operator f
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

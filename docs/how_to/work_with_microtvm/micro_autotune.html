@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Autotuning with microTVM &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Autotuning with microTVM &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -45,8 +48,8 @@
     <script type="text/javascript" src="../../_static/js/tlcpack_theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU" href="micro_ethosu.html" />
-    <link rel="prev" title="Work With microTVM" href="index.html" /> 
+    <link rel="next" title="Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN" href="micro_ethosu.html" />
+    <link rel="prev" title="microTVM Host-Driven AoT" href="micro_aot.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -211,20 +243,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../tune_with_autotvm/index.html">Auto-Tune with Templates and AutoTVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tune_with_autoscheduler/index.html">Use AutoScheduler for Template-Free Scheduling</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Work With microTVM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="micro_aot.html">microTVM Host-Driven AoT</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Autotuning with microTVM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#defining-the-model">Defining the model</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#defining-the-target">Defining the target</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#extracting-tuning-tasks">Extracting tuning tasks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#configuring-microtvm">Configuring microTVM</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#run-autotuning">Run Autotuning</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#timing-the-untuned-program">Timing the untuned program</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#timing-the-tuned-program">Timing the tuned program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-microtvm-python-dependencies">Install microTVM Python dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-zephyr">Install Zephyr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-cmsis-nn">Install CMSIS-NN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import-python-dependencies">Import Python dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="micro_ethosu.html">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micro_ethosu.html">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micro_pytorch.html">microTVM PyTorch Tutorial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="micro_reference_vm.html">microTVM Reference Virtual Machines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="micro_tflite.html">microTVM with TFLite Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="micro_tvmc.html">Executing a Tiny Model with TVMC Micro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micro_train.html">Training Vision Models for microTVM on Arduino</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../extend_tvm/index.html">Extend TVM</a></li>
@@ -273,7 +304,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -321,7 +352,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/work_with_microtvm/micro_autotune.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/work_with_microtvm/micro_autotune.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -336,7 +369,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-work-with-microtvm-micro-autotune-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-work-with-microtvm-micro-autotune-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/f83ba3df2d52f9b54cf141114359481a/micro_autotune.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="autotuning-with-microtvm">
 <span id="tutorial-micro-autotune"></span><span id="sphx-glr-how-to-work-with-microtvm-micro-autotune-py"></span><h1>Autotuning with microTVM<a class="headerlink" href="#autotuning-with-microtvm" title="Permalink to this headline">¶</a></h1>
@@ -344,19 +379,84 @@
 <a class="reference external" href="https://github.com/areusch">Andrew Reusch</a>,
 <a class="reference external" href="https://github.com/mehrdadh">Mehrdad Hessar</a></p>
 <p>This tutorial explains how to autotune a model using the C runtime.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<div class="section" id="install-microtvm-python-dependencies">
+<h2>Install microTVM Python dependencies<a class="headerlink" href="#install-microtvm-python-dependencies" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>%%shell
+wget https://github.com/guberti/tvm/raw/hackathon/tutorials/apps/microtvm/requirements.txt
+pip install -r requirements.txt
+</pre></div>
+</div>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can skip the following two sections (installing Zephyr and CMSIS-NN) if the following flag is False.</span>
+<span class="c1"># Installing Zephyr takes ~20 min.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">use_physical_hw</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><a href="https://docs.python.org/3/library/os.html#os.getenv" title="os.getenv" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">getenv</span></a><span class="p">(</span><span class="s2">&quot;TVM_MICRO_USE_HW&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-zephyr">
+<h2>Install Zephyr<a class="headerlink" href="#install-zephyr" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>%%shell
+<span class="c1"># Install west and ninja</span>
+python3 -m pip install west
+apt-get install -y ninja-build
+
+<span class="c1"># Install ZephyrProject</span>
+<span class="nv">ZEPHYR_PROJECT_PATH</span><span class="o">=</span><span class="s2">&quot;/content/zephyrproject&quot;</span>
+<span class="nb">export</span> <span class="nv">ZEPHYR_BASE</span><span class="o">=</span><span class="si">${</span><span class="nv">ZEPHYR_PROJECT_PATH</span><span class="si">}</span>/zephyr
+west init <span class="si">${</span><span class="nv">ZEPHYR_PROJECT_PATH</span><span class="si">}</span>
+<span class="nb">cd</span> <span class="si">${</span><span class="nv">ZEPHYR_BASE</span><span class="si">}</span>
+git checkout v2.7-branch
+<span class="nb">cd</span> ..
+west update
+west zephyr-export
+chmod -R o+w <span class="si">${</span><span class="nv">ZEPHYR_PROJECT_PATH</span><span class="si">}</span>
+
+<span class="c1"># Install Zephyr SDK</span>
+<span class="nv">ZEPHYR_SDK_VERSION</span><span class="o">=</span><span class="m">0</span>.13.2
+<span class="nv">ZEPHYR_SDK_FILE</span><span class="o">=</span><span class="s2">&quot;/content/zephyr-sdk-linux-setup.run&quot;</span>
+wget --no-verbose -O <span class="nv">$ZEPHYR_SDK_FILE</span> <span class="se">\</span>
+    https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v<span class="si">${</span><span class="nv">ZEPHYR_SDK_VERSION</span><span class="si">}</span>/zephyr-sdk-<span class="si">${</span><span class="nv">ZEPHYR_SDK_VERSION</span><span class="si">}</span>-linux-x86_64-setup.run
+chmod +x <span class="nv">$ZEPHYR_SDK_FILE</span>
+<span class="s2">&quot;</span><span class="nv">$ZEPHYR_SDK_FILE</span><span class="s2">&quot;</span> -- -d /content/zephyr-sdk
+
+<span class="c1"># Install python dependencies</span>
+python3 -m pip install -r <span class="s2">&quot;</span><span class="si">${</span><span class="nv">ZEPHYR_BASE</span><span class="si">}</span><span class="s2">/scripts/requirements.txt&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="install-cmsis-nn">
+<h2>Install CMSIS-NN<a class="headerlink" href="#install-cmsis-nn" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>%%shell
+<span class="nv">CMSIS_SHA</span><span class="o">=</span><span class="s2">&quot;51263182d16c92649a48144ba56c0945f9fce60e&quot;</span>
+<span class="nv">CMSIS_URL</span><span class="o">=</span><span class="s2">&quot;http://github.com/ARM-software/CMSIS_5/archive/</span><span class="si">${</span><span class="nv">CMSIS_SHA</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+<span class="nb">export</span> <span class="nv">CMSIS_PATH</span><span class="o">=</span>/content/cmsis
+<span class="nv">DOWNLOAD_PATH</span><span class="o">=</span><span class="s2">&quot;/content/</span><span class="si">${</span><span class="nv">CMSIS_SHA</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+mkdir <span class="si">${</span><span class="nv">CMSIS_PATH</span><span class="si">}</span>
+wget <span class="si">${</span><span class="nv">CMSIS_URL</span><span class="si">}</span> -O <span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOWNLOAD_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+tar -xf <span class="s2">&quot;</span><span class="si">${</span><span class="nv">DOWNLOAD_PATH</span><span class="si">}</span><span class="s2">&quot;</span> -C <span class="si">${</span><span class="nv">CMSIS_PATH</span><span class="si">}</span> --strip-components<span class="o">=</span><span class="m">1</span>
+rm <span class="si">${</span><span class="nv">DOWNLOAD_PATH</span><span class="si">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="import-python-dependencies">
+<h2>Import Python dependencies<a class="headerlink" href="#import-python-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm.relay.backend</span> <span class="k">import</span> <span class="n">Runtime</span>
-
-<span class="n">use_physical_hw</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TVM_MICRO_USE_HW&quot;</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">tvm.relay.backend</span> <span class="kn">import</span> <span class="n">Runtime</span>
 </pre></div>
 </div>
 <div class="section" id="defining-the-model">
-<h2>Defining the model<a class="headerlink" href="#defining-the-model" title="Permalink to this headline">¶</a></h2>
+<h3>Defining the model<a class="headerlink" href="#defining-the-model" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>To begin with, define a model in Relay to be executed on-device. Then create an IRModule from relay model and
 fill parameters with random numbers.</p>
@@ -367,7 +467,7 @@ fill parameters with random numbers.</p>
 <span class="n">data</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">TensorType</span><span class="p">(</span><span class="n">data_shape</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">))</span>
 <span class="n">weight</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">TensorType</span><span class="p">(</span><span class="n">weight_shape</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">))</span>
 
-<span class="n">y</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.conv2d" title="View documentation for tvm.relay.nn.conv2d"><span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span></a><span class="p">(</span>
+<span class="n">y</span> <span class="o">=</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.conv2d" title="tvm.relay.nn.conv2d" class="sphx-glr-backref-module-tvm-relay-nn sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">weight</span><span class="p">,</span>
     <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
@@ -378,7 +478,7 @@ fill parameters with random numbers.</p>
 <span class="n">f</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">Function</span><span class="p">([</span><span class="n">data</span><span class="p">,</span> <span class="n">weight</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
 
 <span class="n">relay_mod</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">IRModule</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">relay_mod</span> <span class="o">=</span> <a href="../../reference/api/python/relay/transform.html#tvm.relay.transform.InferType" title="View documentation for tvm.relay.transform.InferType"><span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">InferType</span></a><span class="p">()(</span><span class="n">relay_mod</span><span class="p">)</span>
+<span class="n">relay_mod</span> <span class="o">=</span> <a href="../../reference/api/python/relay/transform.html#tvm.relay.transform.InferType" title="tvm.relay.transform.InferType" class="sphx-glr-backref-module-tvm-relay-transform sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">InferType</span></a><span class="p">()(</span><span class="n">relay_mod</span><span class="p">)</span>
 
 <span class="n">weight_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span>
     <span class="n">weight_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">weight_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">weight_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">weight_shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
@@ -388,7 +488,7 @@ fill parameters with random numbers.</p>
 </div>
 </div>
 <div class="section" id="defining-the-target">
-<h2>Defining the target<a class="headerlink" href="#defining-the-target" title="Permalink to this headline">¶</a></h2>
+<h3>Defining the target<a class="headerlink" href="#defining-the-target" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Now we define the TVM target that describes the execution environment. This looks very similar
 to target definitions from other microTVM tutorials. Alongside this we pick the C Runtime to code
@@ -406,17 +506,18 @@ this tutorial.</p>
 <span class="c1">#  When running on physical hardware, choose a TARGET and a BOARD that describe the hardware. The</span>
 <span class="c1">#  STM32L4R5ZI Nucleo target and board is chosen in the example below.</span>
 <span class="k">if</span> <span class="n">use_physical_hw</span><span class="p">:</span>
-    <span class="n">boards_file</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;boards.json&quot;</span>
+    <span class="n">boards_file</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span></a><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;boards.json&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">boards_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">boards</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">boards</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/json.html#json.load" title="json.load" class="sphx-glr-backref-module-json sphx-glr-backref-type-py-function"><span class="n">json</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-    <span class="n">BOARD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TVM_MICRO_BOARD&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;nucleo_l4r5zi&quot;</span><span class="p">)</span>
+    <span class="n">BOARD</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/os.html#os.getenv" title="os.getenv" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">getenv</span></a><span class="p">(</span><span class="s2">&quot;TVM_MICRO_BOARD&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;nucleo_l4r5zi&quot;</span><span class="p">)</span>
+    <span class="n">SERIAL</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/os.html#os.getenv" title="os.getenv" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">getenv</span></a><span class="p">(</span><span class="s2">&quot;TVM_MICRO_SERIAL&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">TARGET</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">micro</span><span class="p">(</span><span class="n">boards</span><span class="p">[</span><span class="n">BOARD</span><span class="p">][</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="extracting-tuning-tasks">
-<h2>Extracting tuning tasks<a class="headerlink" href="#extracting-tuning-tasks" title="Permalink to this headline">¶</a></h2>
+<h3>Extracting tuning tasks<a class="headerlink" href="#extracting-tuning-tasks" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Not all operators in the Relay program printed above can be tuned. Some are so trivial that only
 a single implementation is defined; others don’t make sense as tuning tasks. Using
@@ -424,7 +525,7 @@ a single implementation is defined; others don’t make sense as tuning tasks. U
 <p>Because task extraction involves running the compiler, we first configure the compiler’s
 transformation passes; we’ll apply the same configuration later on during autotuning.</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pass_context</span> <span class="o">=</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="View documentation for tvm.transform.PassContext"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tir.disable_vectorize&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pass_context</span> <span class="o">=</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="tvm.transform.PassContext" class="sphx-glr-backref-module-tvm-transform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tir.disable_vectorize&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
 <span class="k">with</span> <span class="n">pass_context</span><span class="p">:</span>
     <span class="n">tasks</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">extract_from_program</span><span class="p">(</span><span class="n">relay_mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">],</span> <span class="p">{},</span> <span class="n">TARGET</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
@@ -432,7 +533,7 @@ transformation passes; we’ll apply the same configuration later on during auto
 </div>
 </div>
 <div class="section" id="configuring-microtvm">
-<h2>Configuring microTVM<a class="headerlink" href="#configuring-microtvm" title="Permalink to this headline">¶</a></h2>
+<h3>Configuring microTVM<a class="headerlink" href="#configuring-microtvm" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Before autotuning, we need to define a module loader and then pass that to
 a <cite>tvm.autotvm.LocalBuilder</cite>. Then we create a <cite>tvm.autotvm.LocalRunner</cite> and use
@@ -441,15 +542,15 @@ both builder and runner to generates multiple measurements for auto tunner.</p>
 from Zephyr RTOS. If you choose pass <cite>–platform=host</cite> to this tutorial it will uses x86. You can
 choose other options by choosing from <cite>PLATFORM</cite> list.</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module_loader</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.AutoTvmModuleLoader" title="View documentation for tvm.micro.AutoTvmModuleLoader"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">AutoTvmModuleLoader</span></a><span class="p">(</span>
-    <span class="n">template_project_dir</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;crt&quot;</span><span class="p">)),</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module_loader</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.AutoTvmModuleLoader" title="tvm.micro.AutoTvmModuleLoader" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">AutoTvmModuleLoader</span></a><span class="p">(</span>
+    <span class="n">template_project_dir</span><span class="o">=</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span></a><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;crt&quot;</span><span class="p">)),</span>
     <span class="n">project_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
 <span class="p">)</span>
 <span class="n">builder</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">LocalBuilder</span><span class="p">(</span>
     <span class="n">n_parallel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">build_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;build_option&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;tir.disable_vectorize&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}},</span>
     <span class="n">do_fork</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">build_func</span><span class="o">=</span><a href="../../reference/api/python/micro.html#tvm.micro.autotvm_build_func" title="View documentation for tvm.micro.autotvm_build_func"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">autotvm_build_func</span></a><span class="p">,</span>
+    <span class="n">build_func</span><span class="o">=</span><a href="../../reference/api/python/micro.html#tvm.micro.autotvm_build_func" title="tvm.micro.autotvm_build_func" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">autotvm_build_func</span></a><span class="p">,</span>
     <span class="n">runtime</span><span class="o">=</span><span class="n">RUNTIME</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">runner</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">LocalRunner</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">module_loader</span><span class="o">=</span><span class="n">module_loader</span><span class="p">)</span>
@@ -458,20 +559,20 @@ choose other options by choosing from <cite>PLATFORM</cite> list.</p>
 
 <span class="c1"># Compiling for physical hardware</span>
 <span class="k">if</span> <span class="n">use_physical_hw</span><span class="p">:</span>
-    <span class="n">module_loader</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.AutoTvmModuleLoader" title="View documentation for tvm.micro.AutoTvmModuleLoader"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">AutoTvmModuleLoader</span></a><span class="p">(</span>
-        <span class="n">template_project_dir</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">)),</span>
+    <span class="n">module_loader</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.AutoTvmModuleLoader" title="tvm.micro.AutoTvmModuleLoader" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">AutoTvmModuleLoader</span></a><span class="p">(</span>
+        <span class="n">template_project_dir</span><span class="o">=</span><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span></a><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">)),</span>
         <span class="n">project_options</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;zephyr_board&quot;</span><span class="p">:</span> <span class="n">BOARD</span><span class="p">,</span>
-            <span class="s2">&quot;west_cmd&quot;</span><span class="p">:</span> <span class="s2">&quot;west&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;board&quot;</span><span class="p">:</span> <span class="n">BOARD</span><span class="p">,</span>
             <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
             <span class="s2">&quot;project_type&quot;</span><span class="p">:</span> <span class="s2">&quot;host_driven&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;serial_number&quot;</span><span class="p">:</span> <span class="n">SERIAL</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
     <span class="n">builder</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">LocalBuilder</span><span class="p">(</span>
         <span class="n">n_parallel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">build_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;build_option&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;tir.disable_vectorize&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}},</span>
         <span class="n">do_fork</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">build_func</span><span class="o">=</span><a href="../../reference/api/python/micro.html#tvm.micro.autotvm_build_func" title="View documentation for tvm.micro.autotvm_build_func"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">autotvm_build_func</span></a><span class="p">,</span>
+        <span class="n">build_func</span><span class="o">=</span><a href="../../reference/api/python/micro.html#tvm.micro.autotvm_build_func" title="tvm.micro.autotvm_build_func" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">autotvm_build_func</span></a><span class="p">,</span>
         <span class="n">runtime</span><span class="o">=</span><span class="n">RUNTIME</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">runner</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">LocalRunner</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">module_loader</span><span class="o">=</span><span class="n">module_loader</span><span class="p">)</span>
@@ -481,17 +582,17 @@ choose other options by choosing from <cite>PLATFORM</cite> list.</p>
 </div>
 </div>
 <div class="section" id="run-autotuning">
-<h2>Run Autotuning<a class="headerlink" href="#run-autotuning" title="Permalink to this headline">¶</a></h2>
+<h3>Run Autotuning<a class="headerlink" href="#run-autotuning" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Now we can run autotuning separately on each extracted task on microTVM device.</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">autotune_log_file</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;microtvm_autotune.log.txt&quot;</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">autotune_log_file</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">autotune_log_file</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">autotune_log_file</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;microtvm_autotune.log.txt&quot;</span><span class="p">)</span>
+<span class="k">if</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.exists" title="os.path.exists" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span></a><span class="p">(</span><span class="n">autotune_log_file</span><span class="p">):</span>
+    <a href="https://docs.python.org/3/library/os.html#os.remove" title="os.remove" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">remove</span></a><span class="p">(</span><span class="n">autotune_log_file</span><span class="p">)</span>
 
 <span class="n">num_trials</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
-    <span class="n">tuner</span> <span class="o">=</span> <a href="../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GATuner" title="View documentation for tvm.autotvm.tuner.GATuner"><span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">tuner</span><span class="o">.</span><span class="n">GATuner</span></a><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="n">tuner</span> <span class="o">=</span> <a href="../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GATuner" title="tvm.autotvm.tuner.GATuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">tuner</span><span class="o">.</span><span class="n">GATuner</span></a><span class="p">(</span><span class="n">task</span><span class="p">)</span>
     <span class="n">tuner</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span>
         <span class="n">n_trial</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span>
         <span class="n">measure_option</span><span class="o">=</span><span class="n">measure_option</span><span class="p">,</span>
@@ -505,7 +606,7 @@ choose other options by choosing from <cite>PLATFORM</cite> list.</p>
 </div>
 </div>
 <div class="section" id="timing-the-untuned-program">
-<h2>Timing the untuned program<a class="headerlink" href="#timing-the-untuned-program" title="Permalink to this headline">¶</a></h2>
+<h3>Timing the untuned program<a class="headerlink" href="#timing-the-untuned-program" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>For comparison, let’s compile and run the graph without imposing any autotuning schedules. TVM
 will select a randomly-tuned implementation for each operator, which should not perform as well as
@@ -514,9 +615,9 @@ the tuned operator.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pass_context</span><span class="p">:</span>
     <span class="n">lowered</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">relay_mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">TARGET</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="n">RUNTIME</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
-<span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
-<span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="View documentation for tvm.micro.generate_project"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
-    <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;crt&quot;</span><span class="p">)),</span>
+<span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+<span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="tvm.micro.generate_project" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
+    <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;crt&quot;</span><span class="p">)),</span>
     <span class="n">lowered</span><span class="p">,</span>
     <span class="n">temp_dir</span> <span class="o">/</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span>
     <span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
@@ -524,23 +625,24 @@ the tuned operator.</p>
 
 <span class="c1"># Compiling for physical hardware</span>
 <span class="k">if</span> <span class="n">use_physical_hw</span><span class="p">:</span>
-    <span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
-    <span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="View documentation for tvm.micro.generate_project"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
-        <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">)),</span>
+    <span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+    <span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="tvm.micro.generate_project" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">)),</span>
         <span class="n">lowered</span><span class="p">,</span>
         <span class="n">temp_dir</span> <span class="o">/</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span>
         <span class="p">{</span>
-            <span class="s2">&quot;zephyr_board&quot;</span><span class="p">:</span> <span class="n">BOARD</span><span class="p">,</span>
-            <span class="s2">&quot;west_cmd&quot;</span><span class="p">:</span> <span class="s2">&quot;west&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;board&quot;</span><span class="p">:</span> <span class="n">BOARD</span><span class="p">,</span>
             <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
             <span class="s2">&quot;project_type&quot;</span><span class="p">:</span> <span class="s2">&quot;host_driven&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;serial_number&quot;</span><span class="p">:</span> <span class="n">SERIAL</span><span class="p">,</span>
+            <span class="s2">&quot;config_main_stack_size&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
 
 <span class="n">project</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="n">project</span><span class="o">.</span><span class="n">flash</span><span class="p">()</span>
-<span class="k">with</span> <a href="../../reference/api/python/micro.html#tvm.micro.Session" title="View documentation for tvm.micro.Session"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">Session</span></a><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">transport</span><span class="p">())</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-    <span class="n">debug_module</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.create_local_debug_executor" title="View documentation for tvm.micro.create_local_debug_executor"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">create_local_debug_executor</span></a><span class="p">(</span>
+<span class="k">with</span> <a href="../../reference/api/python/micro.html#tvm.micro.Session" title="tvm.micro.Session" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">Session</span></a><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">transport</span><span class="p">())</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+    <span class="n">debug_module</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.create_local_debug_executor" title="tvm.micro.create_local_debug_executor" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">create_local_debug_executor</span></a><span class="p">(</span>
         <span class="n">lowered</span><span class="o">.</span><span class="n">get_graph_json</span><span class="p">(),</span> <span class="n">session</span><span class="o">.</span><span class="n">get_system_lib</span><span class="p">(),</span> <span class="n">session</span><span class="o">.</span><span class="n">device</span>
     <span class="p">)</span>
     <span class="n">debug_module</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="o">**</span><span class="n">lowered</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
@@ -549,29 +651,19 @@ the tuned operator.</p>
     <span class="k">del</span> <span class="n">debug_module</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>########## Build without Autotuning ##########
-Node Name                                     Ops                                           Time(us)  Time(%)  Shape              Inputs  Outputs
----------                                     ---                                           --------  -------  -----              ------  -------
-tvmgen_default_fused_nn_contrib_conv2d_NCHWc  tvmgen_default_fused_nn_contrib_conv2d_NCHWc  313.3     98.662   (1, 2, 10, 10, 3)  2       1
-tvmgen_default_fused_layout_transform_1       tvmgen_default_fused_layout_transform_1       3.347     1.054    (1, 6, 10, 10)     1       1
-tvmgen_default_fused_layout_transform         tvmgen_default_fused_layout_transform         0.901     0.284    (1, 1, 10, 10, 3)  1       1
-Total_time                                    -                                             317.548   -        -                  -       -
-</pre></div>
-</div>
 </div>
 <div class="section" id="timing-the-tuned-program">
-<h2>Timing the tuned program<a class="headerlink" href="#timing-the-tuned-program" title="Permalink to this headline">¶</a></h2>
+<h3>Timing the tuned program<a class="headerlink" href="#timing-the-tuned-program" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Once autotuning completes, you can time execution of the entire program using the Debug Runtime:</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../reference/api/python/autotvm.html#tvm.autotvm.apply_history_best" title="View documentation for tvm.autotvm.apply_history_best"><span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">apply_history_best</span></a><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">autotune_log_file</span><span class="p">)):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../reference/api/python/autotvm.html#tvm.autotvm.apply_history_best" title="tvm.autotvm.apply_history_best" class="sphx-glr-backref-module-tvm-autotvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">autotvm</span><span class="o">.</span><span class="n">apply_history_best</span></a><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">autotune_log_file</span><span class="p">)):</span>
     <span class="k">with</span> <span class="n">pass_context</span><span class="p">:</span>
         <span class="n">lowered_tuned</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">relay_mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">TARGET</span><span class="p">,</span> <span class="n">runtime</span><span class="o">=</span><span class="n">RUNTIME</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
-<span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
-<span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="View documentation for tvm.micro.generate_project"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
-    <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;crt&quot;</span><span class="p">)),</span>
+<span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+<span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="tvm.micro.generate_project" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
+    <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;crt&quot;</span><span class="p">)),</span>
     <span class="n">lowered_tuned</span><span class="p">,</span>
     <span class="n">temp_dir</span> <span class="o">/</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span>
     <span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
@@ -579,23 +671,24 @@ Total_time                                    -                                 
 
 <span class="c1"># Compiling for physical hardware</span>
 <span class="k">if</span> <span class="n">use_physical_hw</span><span class="p">:</span>
-    <span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
-    <span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="View documentation for tvm.micro.generate_project"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
-        <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="View documentation for tvm.micro.get_microtvm_template_projects"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">)),</span>
+    <span class="n">temp_dir</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+    <span class="n">project</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.generate_project" title="tvm.micro.generate_project" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">generate_project</span></a><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><a href="../../reference/api/python/micro.html#tvm.micro.get_microtvm_template_projects" title="tvm.micro.get_microtvm_template_projects" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">get_microtvm_template_projects</span></a><span class="p">(</span><span class="s2">&quot;zephyr&quot;</span><span class="p">)),</span>
         <span class="n">lowered_tuned</span><span class="p">,</span>
         <span class="n">temp_dir</span> <span class="o">/</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span>
         <span class="p">{</span>
-            <span class="s2">&quot;zephyr_board&quot;</span><span class="p">:</span> <span class="n">BOARD</span><span class="p">,</span>
-            <span class="s2">&quot;west_cmd&quot;</span><span class="p">:</span> <span class="s2">&quot;west&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;board&quot;</span><span class="p">:</span> <span class="n">BOARD</span><span class="p">,</span>
             <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
             <span class="s2">&quot;project_type&quot;</span><span class="p">:</span> <span class="s2">&quot;host_driven&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;serial_number&quot;</span><span class="p">:</span> <span class="n">SERIAL</span><span class="p">,</span>
+            <span class="s2">&quot;config_main_stack_size&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
 
 <span class="n">project</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 <span class="n">project</span><span class="o">.</span><span class="n">flash</span><span class="p">()</span>
-<span class="k">with</span> <a href="../../reference/api/python/micro.html#tvm.micro.Session" title="View documentation for tvm.micro.Session"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">Session</span></a><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">transport</span><span class="p">())</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-    <span class="n">debug_module</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.create_local_debug_executor" title="View documentation for tvm.micro.create_local_debug_executor"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">create_local_debug_executor</span></a><span class="p">(</span>
+<span class="k">with</span> <a href="../../reference/api/python/micro.html#tvm.micro.Session" title="tvm.micro.Session" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">Session</span></a><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">transport</span><span class="p">())</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+    <span class="n">debug_module</span> <span class="o">=</span> <a href="../../reference/api/python/micro.html#tvm.micro.create_local_debug_executor" title="tvm.micro.create_local_debug_executor" class="sphx-glr-backref-module-tvm-micro sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">create_local_debug_executor</span></a><span class="p">(</span>
         <span class="n">lowered_tuned</span><span class="o">.</span><span class="n">get_graph_json</span><span class="p">(),</span> <span class="n">session</span><span class="o">.</span><span class="n">get_system_lib</span><span class="p">(),</span> <span class="n">session</span><span class="o">.</span><span class="n">device</span>
     <span class="p">)</span>
     <span class="n">debug_module</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="o">**</span><span class="n">lowered_tuned</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
@@ -604,25 +697,16 @@ Total_time                                    -                                 
     <span class="k">del</span> <span class="n">debug_module</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>########## Build with Autotuning ##########
-Node Name                                     Ops                                           Time(us)  Time(%)  Shape              Inputs  Outputs
----------                                     ---                                           --------  -------  -----              ------  -------
-tvmgen_default_fused_nn_contrib_conv2d_NCHWc  tvmgen_default_fused_nn_contrib_conv2d_NCHWc  217.7     98.719   (1, 1, 10, 10, 6)  2       1
-tvmgen_default_fused_layout_transform_1       tvmgen_default_fused_layout_transform_1       1.9       0.862    (1, 6, 10, 10)     1       1
-tvmgen_default_fused_layout_transform         tvmgen_default_fused_layout_transform         0.924     0.419    (1, 3, 10, 10, 1)  1       1
-Total_time                                    -                                             220.524   -        -                  -       -
-</pre></div>
-</div>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-microtvm-micro-autotune-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-microtvm-micro-autotune-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9ccca8fd489a1486ac71b55a55c320c5/micro_autotune.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">micro_autotune.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f83ba3df2d52f9b54cf141114359481a/micro_autotune.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">micro_autotune.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
 </div>
 </div>
 
@@ -636,27 +720,27 @@ Total_time                                    -                                 
 
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="micro_ethosu.html" class="btn btn-neutral float-right" title="Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="micro_ethosu.html" class="btn btn-neutral float-right" title="Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Work With microTVM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="micro_aot.html" class="btn btn-neutral float-left" title="microTVM Host-Driven AoT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

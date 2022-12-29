@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Work With microTVM &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Work With microTVM &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -45,7 +48,7 @@
     <script type="text/javascript" src="../../_static/js/tlcpack_theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Autotuning with microTVM" href="micro_autotune.html" />
+    <link rel="next" title="microTVM Host-Driven AoT" href="micro_aot.html" />
     <link rel="prev" title="Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule" href="../tune_with_autoscheduler/tune_sparse_x86.html" /> 
 </head>
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -211,11 +243,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../tune_with_autotvm/index.html">Auto-Tune with Templates and AutoTVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tune_with_autoscheduler/index.html">Use AutoScheduler for Template-Free Scheduling</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Work With microTVM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="micro_aot.html">microTVM Host-Driven AoT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="micro_autotune.html">Autotuning with microTVM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="micro_ethosu.html">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micro_ethosu.html">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micro_pytorch.html">microTVM PyTorch Tutorial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="micro_reference_vm.html">microTVM Reference Virtual Machines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="micro_tflite.html">microTVM with TFLite Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="micro_tvmc.html">Executing a Tiny Model with TVMC Micro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micro_train.html">Training Vision Models for microTVM on Arduino</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../extend_tvm/index.html">Extend TVM</a></li>
@@ -264,7 +298,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -310,7 +344,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/work_with_microtvm/index.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/work_with_microtvm/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -324,41 +360,34 @@
            <div itemprop="articleBody">
             
   <div class="section" id="work-with-microtvm">
-<span id="tutorial-micro"></span><span id="sphx-glr-how-to-work-with-microtvm"></span><h1>Work With microTVM<a class="headerlink" href="#work-with-microtvm" title="Permalink to this headline">¶</a></h1>
+<span id="tutorial-micro"></span><h1>Work With microTVM<a class="headerlink" href="#work-with-microtvm" title="Permalink to this headline">¶</a></h1>
 <p>microTVM enables inference on bare-metal platforms, for example, those without
 a traditional Operating System such as Linux, OS X, or Windows. These how-tos
 demonstrate how to tune and deploy models with microTVM.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial explains how to autotune a model using the C runtime."><div class="figure align-default" id="id1">
-<img alt="../../_images/sphx_glr_micro_autotune_thumb.png" src="../../_images/sphx_glr_micro_autotune_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="micro_autotune.html#sphx-glr-how-to-work-with-microtvm-micro-autotune-py"><span class="std std-ref">Autotuning with microTVM</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This tutorial is showcasing microTVM host-driven AoT compilation with a TFLite model. AoTExecut..."><img alt="microTVM Host-Driven AoT" src="../../_images/sphx_glr_micro_aot_thumb.png" />
+<p><a class="reference internal" href="micro_aot.html#sphx-glr-how-to-work-with-microtvm-micro-aot-py"><span class="std std-ref">microTVM Host-Driven AoT</span></a></p>
+  <div class="sphx-glr-thumbnail-title">microTVM Host-Driven AoT</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial explains how to autotune a model using the C runtime."><img alt="Autotuning with microTVM" src="../../_images/sphx_glr_micro_autotune_thumb.png" />
+<p><a class="reference internal" href="micro_autotune.html#sphx-glr-how-to-work-with-microtvm-micro-autotune-py"><span class="std std-ref">Autotuning with microTVM</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Autotuning with microTVM</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This section contains an example of how to use TVM to run a model on an Arm(R) Cortex(R)-M55 CP..."><img alt="Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN" src="../../_images/sphx_glr_micro_ethosu_thumb.png" />
+<p><a class="reference internal" href="micro_ethosu.html#sphx-glr-how-to-work-with-microtvm-micro-ethosu-py"><span class="std std-ref">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU with CMSIS-NN</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial is showcasing microTVM host-driven AoT compilation with a PyTorch model. This tut..."><img alt="microTVM PyTorch Tutorial" src="../../_images/sphx_glr_micro_pytorch_thumb.png" />
+<p><a class="reference internal" href="micro_pytorch.html#sphx-glr-how-to-work-with-microtvm-micro-pytorch-py"><span class="std std-ref">microTVM PyTorch Tutorial</span></a></p>
+  <div class="sphx-glr-thumbnail-title">microTVM PyTorch Tutorial</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial explains how to launch microTVM Reference Virtual Machines. You can use these to ..."><img alt="microTVM Reference Virtual Machines" src="../../_images/sphx_glr_micro_reference_vm_thumb.png" />
+<p><a class="reference internal" href="micro_reference_vm.html#sphx-glr-how-to-work-with-microtvm-micro-reference-vm-py"><span class="std std-ref">microTVM Reference Virtual Machines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">microTVM Reference Virtual Machines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial is an introduction to working with microTVM and a TFLite model with Relay."><img alt="microTVM with TFLite Models" src="../../_images/sphx_glr_micro_tflite_thumb.png" />
+<p><a class="reference internal" href="micro_tflite.html#sphx-glr-how-to-work-with-microtvm-micro-tflite-py"><span class="std std-ref">microTVM with TFLite Models</span></a></p>
+  <div class="sphx-glr-thumbnail-title">microTVM with TFLite Models</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial shows how MobileNetV1 models can be trained to fit on embedded devices, and how t..."><img alt="Training Vision Models for microTVM on Arduino" src="../../_images/sphx_glr_micro_train_thumb.png" />
+<p><a class="reference internal" href="micro_train.html#sphx-glr-how-to-work-with-microtvm-micro-train-py"><span class="std std-ref">Training Vision Models for microTVM on Arduino</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Training Vision Models for microTVM on Arduino</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This section contains an example of how to use TVM to run a model on an Arm(R) Cortex(R)-M55 CP..."><div class="figure align-default" id="id2">
-<img alt="../../_images/sphx_glr_micro_ethosu_thumb.png" src="../../_images/sphx_glr_micro_ethosu_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="micro_ethosu.html#sphx-glr-how-to-work-with-microtvm-micro-ethosu-py"><span class="std std-ref">Running TVM on bare metal Arm(R) Cortex(R)-M55 CPU and Ethos(TM)-U55 NPU</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial explains how to launch microTVM Reference Virtual Machines. You can use these to ..."><div class="figure align-default" id="id3">
-<img alt="../../_images/sphx_glr_micro_reference_vm_thumb.png" src="../../_images/sphx_glr_micro_reference_vm_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="micro_reference_vm.html#sphx-glr-how-to-work-with-microtvm-micro-reference-vm-py"><span class="std std-ref">microTVM Reference Virtual Machines</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial is an introduction to working with microTVM and a TFLite model with Relay."><div class="figure align-default" id="id4">
-<img alt="../../_images/sphx_glr_micro_tflite_thumb.png" src="../../_images/sphx_glr_micro_tflite_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="micro_tflite.html#sphx-glr-how-to-work-with-microtvm-micro-tflite-py"><span class="std std-ref">microTVM with TFLite Models</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial explains how to compile a tiny model for a micro device, build a program on Zephy..."><div class="figure align-default" id="id5">
-<img alt="../../_images/sphx_glr_micro_tvmc_thumb.png" src="../../_images/sphx_glr_micro_tvmc_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="micro_tvmc.html#sphx-glr-how-to-work-with-microtvm-micro-tvmc-py"><span class="std std-ref">Executing a Tiny Model with TVMC Micro</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
-</div><div class="toctree-wrapper compound">
-</div>
-<div style='clear:both'></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 
 
@@ -371,27 +400,27 @@ demonstrate how to tune and deploy models with microTVM.</p>
 
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="micro_autotune.html" class="btn btn-neutral float-right" title="Autotuning with microTVM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="micro_aot.html" class="btn btn-neutral float-right" title="microTVM Host-Driven AoT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../tune_with_autoscheduler/tune_sparse_x86.html" class="btn btn-neutral float-left" title="Auto-scheduling Sparse Matrix Multiplication on CPU with Custom Sketch Rule" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

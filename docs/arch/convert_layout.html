@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Convert Layout Pass &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Convert Layout Pass &mdash; tvm 0.12.dev56+g88518bdad documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev56+g88518bdad <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev56+g88518bdad (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -272,7 +304,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -318,7 +350,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/arch/convert_layout.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/arch/convert_layout.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -390,7 +424,7 @@
 </ul>
 <p>These steps happen for each operator in sequence, where ConvertLayout pass keeps on passing the new layouts to the next operator properties, finally resulting in modifying the whole graph operator-by-operator. Now, let’s look at a couple of examples of how to define the two properties.</p>
 <p><strong>FTVMConvertLayout - Python callback for layout alteration</strong> - This is used for <em>heavily-layout sensitive</em> operators. For example, one can return a new convolution operator with new data and kernel layout. The other 2 components will infer layout and insert layout transforms if needed. One example for convolution operator is as follows where we are converting to NCHW layout.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@reg.register_convert_op_layout</span><span class="p">(</span><span class="s2">&quot;nn.conv2d&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@reg</span><span class="o">.</span><span class="n">register_convert_op_layout</span><span class="p">(</span><span class="s2">&quot;nn.conv2d&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">convert_conv2d</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">tinfos</span><span class="p">,</span> <span class="n">desired_layouts</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert Layout pass registration for conv2d op.</span>
 
@@ -445,10 +479,10 @@
 <span class="c1">//          .set_attr&lt;FInferCorrectLayout&gt;(&quot;FInferCorrectLayout&quot;, ElemwiseArbitraryLayout);</span>
 
 <span class="c1">// Take arbitrary input layouts and copy to outputs.</span>
-<span class="kr">inline</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">ElemwiseArbitraryLayout</span><span class="p">(</span><span class="k">const</span> <span class="n">Attrs</span><span class="o">&amp;</span> <span class="n">attrs</span><span class="p">,</span>
-                                                     <span class="k">const</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;&amp;</span> <span class="n">new_in_layouts</span><span class="p">,</span>
-                                                     <span class="k">const</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;&amp;</span> <span class="n">old_in_layouts</span><span class="p">,</span>
-                                                     <span class="k">const</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">IndexExpr</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">old_in_shapes</span><span class="p">)</span> <span class="p">{</span>
+<span class="kr">inline</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;&gt;</span> <span class="n">ElemwiseArbitraryLayout</span><span class="p">(</span><span class="k">const</span> <span class="n">Attrs</span><span class="o">&amp;</span> <span class="n">attrs</span><span class="p">,</span>
+                                                    <span class="k">const</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;&amp;</span> <span class="n">new_in_layouts</span><span class="p">,</span>
+                                                    <span class="k">const</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;&amp;</span> <span class="n">old_in_layouts</span><span class="p">,</span>
+                                                    <span class="k">const</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">IndexExpr</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">old_in_shapes</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">Layout</span> <span class="n">ret</span><span class="p">;</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">new_in_layouts</span><span class="p">.</span><span class="n">defined</span><span class="p">())</span> <span class="p">{</span>
@@ -463,7 +497,7 @@
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="k">return</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">{</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;</span><span class="p">(</span><span class="n">old_in_layouts</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">ret</span><span class="p">),</span> <span class="p">{</span><span class="n">ret</span><span class="p">}};</span>
+  <span class="k">return</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;&gt;</span><span class="p">{</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">Layout</span><span class="o">&gt;</span><span class="p">(</span><span class="n">old_in_layouts</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">ret</span><span class="p">),</span> <span class="p">{</span><span class="n">ret</span><span class="p">}};</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -570,20 +604,20 @@
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>
