@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvm.relay.nn &mdash; tvm 0.12.dev57+g7c30d6c23 documentation</title>
+  <title>tvm.relay.nn &mdash; tvm 0.12.dev46+gaf8e90ae2 documentation</title>
   
 
   
@@ -175,7 +175,7 @@
               <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
               <label for="version-toggle" class="version-toggle-label">
                   <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev57+g7c30d6c23 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                    0.12.dev46+gaf8e90ae2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
                   </div>
                 </label>
                 <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -185,7 +185,7 @@
                     
                     
                     
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev57+g7c30d6c23 (main)</a></div></li>
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev46+gaf8e90ae2 (main)</a></div></li>
                     
                     
                     
@@ -381,7 +381,7 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.relay.nn.Constant" title="tvm.relay.nn.Constant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Constant</span></code></a>(data)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.relay.nn.Constant" title="tvm.relay.nn.Constant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Constant</span></code></a>(data[, span])</p></td>
 <td><p>A constant expression in Relay.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tvm.relay.nn.Expr" title="tvm.relay.nn.Expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr</span></code></a></p></td>
@@ -450,7 +450,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#tvm.relay.nn.bitserial_dense" title="tvm.relay.nn.bitserial_dense"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bitserial_dense</span></code></a>(data, weight[, units, ...])</p></td>
 <td><p>Bitserial Dense operator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.relay.nn.const" title="tvm.relay.nn.const"><code class="xref py py-obj docutils literal notranslate"><span class="pre">const</span></code></a>(value[, dtype])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tvm.relay.nn.const" title="tvm.relay.nn.const"><code class="xref py py-obj docutils literal notranslate"><span class="pre">const</span></code></a>(value[, dtype, span])</p></td>
 <td><p>Create a constant value.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tvm.relay.nn.contrib_conv2d_gemm_weight_transform" title="tvm.relay.nn.contrib_conv2d_gemm_weight_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contrib_conv2d_gemm_weight_transform</span></code></a>(...)</p></td>
@@ -643,11 +643,14 @@
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.relay.nn.Constant">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.nn.</span></span><span class="sig-name descname"><span class="pre">Constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.nn.Constant" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.nn.</span></span><span class="sig-name descname"><span class="pre">Constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.nn.Constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>A constant expression in Relay.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<a class="reference internal" href="../ndarray.html#tvm.nd.NDArray" title="tvm.nd.NDArray"><em>tvm.nd.NDArray</em></a>) – The data content of the constant expression.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="../ndarray.html#tvm.nd.NDArray" title="tvm.nd.NDArray"><em>tvm.nd.NDArray</em></a>) – The data content of the constant expression.</p></li>
+<li><p><strong>span</strong> (<em>Optional</em><em>[</em><em>tvm.relay.Span</em><em>]</em>) – Span that points to original source code.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1291,13 +1294,14 @@ using a fast bitserial algorithm.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.relay.nn.const">
-<span class="sig-prename descclassname"><span class="pre">tvm.relay.nn.</span></span><span class="sig-name descname"><span class="pre">const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.nn.const" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.nn.</span></span><span class="sig-name descname"><span class="pre">const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.nn.const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a constant value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><em>numpy.ndarray</em><em>, </em><a class="reference internal" href="../ndarray.html#tvm.nd.NDArray" title="tvm.nd.NDArray"><em>tvm.nd.NDArray</em></a><em>]</em>) – The constant value.</p></li>
 <li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – The data type of the resulting constant.</p></li>
+<li><p><strong>span</strong> (<em>Optional</em><em>[</em><em>tvm.relay.Span</em><em>]</em>) – Span that points to original source code.</p></li>
 </ul>
 </dd>
 </dl>
