@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Bring Your Own Codegen To TVM &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Bring Your Own Codegen To TVM &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -208,6 +240,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Developer Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="how_to.html">Developer How-To Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="debugging_tvm.html">Debugging TVM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relay_add_op.html">Adding an Operator to Relay</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relay_add_pass.html">Adding a Compiler Pass to Relay</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Bring Your Own Codegen To TVM</a><ul>
@@ -263,7 +296,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -309,7 +342,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/dev/how_to/relay_bring_your_own_codegen.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/dev/how_to/relay_bring_your_own_codegen.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -324,7 +359,7 @@
             
   <div class="section" id="bring-your-own-codegen-to-tvm">
 <span id="relay-bring-your-own-codegen"></span><h1>Bring Your Own Codegen To TVM<a class="headerlink" href="#bring-your-own-codegen-to-tvm" title="Permalink to this headline">¶</a></h1>
-<p>As the number of hardware devices targeted by deep learning workloads keeps increasing, the required knowledge for users to achieve high performance on various devices keeps increasing as well. To free data scientists from worrying about the performance when developing a new model, hardware backend providers either provide libraries such as MKLDNN or cuDNN with many commonly used deep learning operators, or provide frameworks such as TensorRT to let users describe their models in a certain way to achieve high performance. However, users have to learn a new programming interface when they attempt to work on a new library or device. As a result, the demand for a unified programming interface becomes more and more important to 1) let all users and hardware backend providers stand on the same page, and 2) provide a feasible solution to allow specialized hardware or library to only support widely used operators with extremely high performance, but fallback unsupported operators to general devices like CPU/GPU.</p>
+<p>As the number of hardware devices targeted by deep learning workloads keeps increasing, the required knowledge for users to achieve high performance on various devices keeps increasing as well. To free data scientists from worrying about the performance when developing a new model, hardware backend providers either provide libraries such as DNNL(Intel OneDNN) or cuDNN with many commonly used deep learning operators, or provide frameworks such as TensorRT to let users describe their models in a certain way to achieve high performance. However, users have to learn a new programming interface when they attempt to work on a new library or device. As a result, the demand for a unified programming interface becomes more and more important to 1) let all users and hardware backend providers stand on the same page, and 2) provide a feasible solution to allow specialized hardware or library to only support widely used operators with extremely high performance, but fallback unsupported operators to general devices like CPU/GPU.</p>
 <p>In this developer guide, we demonstrate how you, as a hardware backend provider, can easily implement your own codegen and register it as a Relay backend compiler to support your hardware device/library. This guide covers two types of codegen based on different graph representations you need:</p>
 <p><strong>1. You want to generate C code.</strong></p>
 <p>If your hardware already has a well-optimized C/C++ library, such as Intel CBLAS/MKL to CPU and NVIDIA CUBLAS to GPU, then this is what you are looking for. Fortunately, C source code module is fully compatible with TVM runtime module, which means the generated code could be compiled by any C/C++ compiler with proper compilation flags, so the only task you have is to implement a codegen that generates C code for subgraphs and a C source module to integrate into TVM runtime module. We will demonstrate how to implement a C code generator for your hardware in the following section.</p>
@@ -448,9 +483,9 @@
 
 <span class="cp">#include</span> <span class="cpf">&quot;codegen_c.h&quot;</span><span class="cp"></span>
 
-<span class="k">namespace</span> <span class="n">tvm</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">relay</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">contrib</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">tvm</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">relay</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">contrib</span> <span class="p">{</span>
 
 <span class="k">class</span> <span class="nc">CodegenC</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ExprVisitor</span><span class="p">,</span> <span class="k">public</span> <span class="n">CodegenCBase</span> <span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
@@ -613,7 +648,7 @@
 <li><p>The TVM runtime compatible function <code class="docutils literal notranslate"><span class="pre">gcc_0</span></code> with TVM unified function arguments that unpacks TVM packed tensors and invokes <code class="docutils literal notranslate"><span class="pre">gcc_0__wrapper_</span></code>.</p></li>
 </ol>
 <p>Accordingly, the only thing we need in <code class="docutils literal notranslate"><span class="pre">JIT</span></code> implementation is passing all subgraph function code we generated to <code class="docutils literal notranslate"><span class="pre">JitImpl</span></code>:</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">JIT</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">JIT</span><span class="p">()</span> <span class="p">{</span>
   <span class="c1">// Write function macros</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">decl</span> <span class="p">:</span> <span class="n">func_decl_</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">code_stream_</span> <span class="o">&lt;&lt;</span> <span class="n">decl</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
@@ -660,7 +695,7 @@
 <div class="section" id="implement-createcsourcemodule">
 <h4>Implement CreateCSourceModule<a class="headerlink" href="#implement-createcsourcemodule" title="Permalink to this headline">¶</a></h4>
 <p>This function creates a runtime module for the external library. In this example, we create a CSourceModule that can be directly compiled and linked together with a TVM generated DSOModule. After you have implemented <code class="docutils literal notranslate"><span class="pre">CodegenC</span></code>, implementing this function is relatively straightforward:</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">::</span><span class="n">Module</span> <span class="n">CreateCSourceModule</span><span class="p">(</span><span class="k">const</span> <span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">::</span><span class="n">Module</span> <span class="nf">CreateCSourceModule</span><span class="p">(</span><span class="k">const</span> <span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
   <span class="c1">// Create headers</span>
   <span class="n">code_stream_</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;#include &lt;cstdint&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="n">code_stream_</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;#include &lt;iostream&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
@@ -717,7 +752,7 @@
 <div class="section" id="register-your-codegen">
 <h3>Register Your Codegen<a class="headerlink" href="#register-your-codegen" title="Permalink to this headline">¶</a></h3>
 <p>The last step is registering your codegen to TVM backend. We first implement a simple function to invoke our codegen and generate a runtime module.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">::</span><span class="n">Module</span> <span class="n">CCompiler</span><span class="p">(</span><span class="k">const</span> <span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">::</span><span class="n">Module</span> <span class="nf">CCompiler</span><span class="p">(</span><span class="k">const</span> <span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">CSourceCodegen</span> <span class="n">csource</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">csource</span><span class="p">.</span><span class="n">CreateCSourceModule</span><span class="p">(</span><span class="n">ref</span><span class="p">);</span>
 <span class="p">}</span>
@@ -769,7 +804,7 @@
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> keyword declares an input tensor with its ID and shape; while the other statements describes computations in <code class="docutils literal notranslate"><span class="pre">&lt;op&gt;</span> <span class="pre">&lt;output</span> <span class="pre">ID&gt;</span> <span class="pre">inputs:</span> <span class="pre">[input</span> <span class="pre">ID]</span> <span class="pre">shape:</span> <span class="pre">[shape]</span></code> syntax.</p>
 <p>In this section, our goal is to implement the following customized TVM runtime module to execute ExampleJSON graphs.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">::</span><span class="n">Module</span> <span class="n">ExampleJsonCompiler</span><span class="p">(</span><span class="k">const</span> <span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">::</span><span class="n">Module</span> <span class="nf">ExampleJsonCompiler</span><span class="p">(</span><span class="k">const</span> <span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">ExampleJsonCodeGen</span> <span class="n">codegen</span><span class="p">(</span><span class="n">ref</span><span class="p">);</span>
     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">code</span> <span class="o">=</span> <span class="n">codegen</span><span class="p">.</span><span class="n">gen</span><span class="p">();</span> <span class="c1">// Note 1</span>
     <span class="k">const</span> <span class="k">auto</span><span class="o">*</span> <span class="n">pf</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">::</span><span class="n">Registry</span><span class="o">::</span><span class="n">Get</span><span class="p">(</span><span class="s">&quot;module.examplejson_module_create&quot;</span><span class="p">);</span> <span class="c1">// Note 2</span>
@@ -794,9 +829,9 @@
 <span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
 
-<span class="k">namespace</span> <span class="n">tvm</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">relay</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">contrib</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">tvm</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">relay</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">contrib</span> <span class="p">{</span>
 
 <span class="k">class</span> <span class="nc">ExampleJsonCodeGen</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ExprVisitor</span> <span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
@@ -807,7 +842,7 @@
     <span class="kt">void</span> <span class="nf">VisitExpr_</span><span class="p">(</span><span class="k">const</span> <span class="n">CallNode</span><span class="o">*</span> <span class="n">call</span><span class="p">)</span> <span class="k">final</span> <span class="p">{</span> <span class="cm">/* Skip in this example. */</span> <span class="p">}</span>
 
     <span class="c1">// Note 2</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">gen</span><span class="p">(</span><span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">gen</span><span class="p">(</span><span class="n">NodeRef</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">this</span><span class="o">-&gt;</span><span class="n">code</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">ref</span><span class="o">-&gt;</span><span class="n">IsInstance</span><span class="o">&lt;</span><span class="n">FunctionNode</span><span class="o">&gt;</span><span class="p">())</span> <span class="p">{</span>
             <span class="k">this</span><span class="o">-&gt;</span><span class="n">visit</span><span class="p">(</span><span class="n">Downcast</span><span class="o">&lt;</span><span class="n">Function</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ref</span><span class="p">));</span>
@@ -852,8 +887,8 @@
 <span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span>
 
-<span class="k">namespace</span> <span class="n">tvm</span> <span class="p">{</span>
-<span class="k">namespace</span> <span class="n">runtime</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">tvm</span> <span class="p">{</span>
+<span class="k">namespace</span> <span class="nn">runtime</span> <span class="p">{</span>
 <span class="k">class</span> <span class="nc">ExampleJsonModule</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ModuleNode</span> <span class="p">{</span>
  <span class="k">public</span><span class="o">:</span>
   <span class="k">explicit</span> <span class="n">ExampleJsonModule</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">graph_json</span><span class="p">);</span>
@@ -869,7 +904,7 @@
 
   <span class="k">static</span> <span class="n">Module</span> <span class="nf">Create</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">path</span><span class="p">);</span>
 
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GetSource</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">GetSource</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
 
   <span class="kt">void</span> <span class="nf">Run</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">inputs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">output</span><span class="p">);</span>
 
@@ -881,7 +916,7 @@
   <span class="cm">/* \brief The subgraph that being processed. */</span>
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">curr_subgraph_</span><span class="p">;</span>
   <span class="cm">/*! \brief A simple graph from subgraph id to node entries. */</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">NodeEntry</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">graph_</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">NodeEntry</span><span class="o">&gt;&gt;</span> <span class="n">graph_</span><span class="p">;</span>
   <span class="cm">/* \brief A simple pool to contain the tensor for each node in the graph. */</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">NDArray</span><span class="o">&gt;</span> <span class="n">data_entry_</span><span class="p">;</span>
   <span class="cm">/* \brief A mapping from node id to op name. */</span>
@@ -899,7 +934,7 @@
 <p>Other functions and class variables will be introduced along with the implementation of above must-have functions.</p>
 <div class="section" id="implement-constructor">
 <h4>Implement Constructor<a class="headerlink" href="#implement-constructor" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">explicit</span> <span class="nf">ExampleJsonModule</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">graph_json</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">explicit</span> <span class="n">ExampleJsonModule</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">graph_json</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">graph_json_</span> <span class="o">=</span> <span class="n">graph_json</span><span class="p">;</span>
   <span class="n">ParseJson</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">graph_json_</span><span class="p">);</span>
 <span class="p">}</span>
@@ -1156,20 +1191,20 @@
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

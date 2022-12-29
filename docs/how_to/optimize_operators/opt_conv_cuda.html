@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>How to optimize convolution on GPU &mdash; tvm 0.9.dev0 documentation</title>
+  <title>How to optimize convolution on GPU &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -270,7 +302,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -318,7 +350,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/optimize_operators/opt_conv_cuda.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/optimize_operators/opt_conv_cuda.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -333,7 +367,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-optimize-operators-opt-conv-cuda-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-optimize-operators-opt-conv-cuda-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/854257a66df713b1f3f82eb3577f95e3/opt_conv_cuda.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="how-to-optimize-convolution-on-gpu">
 <span id="opt-conv-gpu"></span><span id="sphx-glr-how-to-optimize-operators-opt-conv-cuda-py"></span><h1>How to optimize convolution on GPU<a class="headerlink" href="#how-to-optimize-convolution-on-gpu" title="Permalink to this headline">¶</a></h1>
@@ -344,6 +380,9 @@ as an example, and assume the input to convolution has a large batch. In this
 example, we use a different layout to store the data in order to achieve better
 data locality. The buffer layout is HWCN, which stands for height, width,
 channel, batch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="section" id="preparation-and-algorithm">
 <h2>Preparation and Algorithm<a class="headerlink" href="#preparation-and-algorithm" title="Permalink to this headline">¶</a></h2>
 <p>We use the fixed size for input tensors with 256 channels and 14 x 14
@@ -352,7 +391,7 @@ of size 3 x 3.  We use stride size 1 and padding size 1 for the
 convolution. The following code defines the convolution algorithm in TVM.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 
 <span class="c1"># The sizes of inputs and filters</span>
 <span class="n">batch</span> <span class="o">=</span> <span class="mi">256</span>
@@ -364,27 +403,27 @@ convolution. The following code defines the convolution algorithm in TVM.</p>
 <span class="n">stride</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c1"># Algorithm</span>
-<span class="n">A</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">in_size</span><span class="p">,</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
-<span class="n">W</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">kernel</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">out_channel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">in_size</span><span class="p">,</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">W</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">kernel</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">out_channel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
 <span class="n">out_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">in_size</span> <span class="o">-</span> <span class="n">kernel</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pad</span><span class="p">)</span> <span class="o">//</span> <span class="n">stride</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="c1"># Pad input</span>
-<span class="n">Apad</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
+<span class="n">Apad</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
     <span class="p">(</span><span class="n">in_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pad</span><span class="p">,</span> <span class="n">in_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pad</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span>
-    <span class="k">lambda</span> <span class="n">yy</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">nn</span><span class="p">:</span> <a href="../../reference/api/python/tir.html#tvm.tir.if_then_else" title="View documentation for tvm.tir.if_then_else"><span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">if_then_else</span></a><span class="p">(</span>
-        <a href="../../reference/api/python/tir.html#tvm.tir.all" title="View documentation for tvm.tir.all"><span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">all</span></a><span class="p">(</span><span class="n">yy</span> <span class="o">&gt;=</span> <span class="n">pad</span><span class="p">,</span> <span class="n">yy</span> <span class="o">-</span> <span class="n">pad</span> <span class="o">&lt;</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">xx</span> <span class="o">&gt;=</span> <span class="n">pad</span><span class="p">,</span> <span class="n">xx</span> <span class="o">-</span> <span class="n">pad</span> <span class="o">&lt;</span> <span class="n">in_size</span><span class="p">),</span>
+    <span class="k">lambda</span> <span class="n">yy</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">nn</span><span class="p">:</span> <a href="../../reference/api/python/tir.html#tvm.tir.if_then_else" title="tvm.tir.if_then_else" class="sphx-glr-backref-module-tvm-tir sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">if_then_else</span></a><span class="p">(</span>
+        <a href="../../reference/api/python/tir.html#tvm.tir.all" title="tvm.tir.all" class="sphx-glr-backref-module-tvm-tir sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">all</span></a><span class="p">(</span><span class="n">yy</span> <span class="o">&gt;=</span> <span class="n">pad</span><span class="p">,</span> <span class="n">yy</span> <span class="o">-</span> <span class="n">pad</span> <span class="o">&lt;</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">xx</span> <span class="o">&gt;=</span> <span class="n">pad</span><span class="p">,</span> <span class="n">xx</span> <span class="o">-</span> <span class="n">pad</span> <span class="o">&lt;</span> <span class="n">in_size</span><span class="p">),</span>
         <span class="n">A</span><span class="p">[</span><span class="n">yy</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">xx</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">nn</span><span class="p">],</span>
         <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">const</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span>
     <span class="p">),</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Apad&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="c1"># Create reduction variables</span>
-<span class="n">rc</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.reduce_axis" title="View documentation for tvm.te.reduce_axis"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rc&quot;</span><span class="p">)</span>
-<span class="n">ry</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.reduce_axis" title="View documentation for tvm.te.reduce_axis"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">kernel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ry&quot;</span><span class="p">)</span>
-<span class="n">rx</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.reduce_axis" title="View documentation for tvm.te.reduce_axis"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">kernel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rx&quot;</span><span class="p">)</span>
+<span class="n">rc</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.reduce_axis" title="tvm.te.reduce_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rc&quot;</span><span class="p">)</span>
+<span class="n">ry</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.reduce_axis" title="tvm.te.reduce_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">kernel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ry&quot;</span><span class="p">)</span>
+<span class="n">rx</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.reduce_axis" title="tvm.te.reduce_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">kernel</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rx&quot;</span><span class="p">)</span>
 <span class="c1"># Compute the convolution</span>
-<span class="n">B</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
+<span class="n">B</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
     <span class="p">(</span><span class="n">out_size</span><span class="p">,</span> <span class="n">out_size</span><span class="p">,</span> <span class="n">out_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span>
-    <span class="k">lambda</span> <span class="n">yy</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">ff</span><span class="p">,</span> <span class="n">nn</span><span class="p">:</span> <a href="../../reference/api/python/te.html#tvm.te.sum" title="View documentation for tvm.te.sum"><span class="n">te</span><span class="o">.</span><span class="n">sum</span></a><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">yy</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">ff</span><span class="p">,</span> <span class="n">nn</span><span class="p">:</span> <a href="../../reference/api/python/te.html#tvm.te.sum" title="tvm.te.sum" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">sum</span></a><span class="p">(</span>
         <span class="n">Apad</span><span class="p">[</span><span class="n">yy</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">ry</span><span class="p">,</span> <span class="n">xx</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">rx</span><span class="p">,</span> <span class="n">rc</span><span class="p">,</span> <span class="n">nn</span><span class="p">]</span> <span class="o">*</span> <span class="n">W</span><span class="p">[</span><span class="n">ry</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">rc</span><span class="p">,</span> <span class="n">ff</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="n">ry</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">rc</span><span class="p">]</span>
     <span class="p">),</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
@@ -401,13 +440,13 @@ programmers. Thus how to maximize the data reuse in the shared memory is
 critical to achieve high performance in GPU kernels.</p>
 <a class="reference internal image-reference" href="https://github.com/dmlc/web-data/raw/main/tvm/tutorial/gpu_memory_hierarchy.png"><img alt="https://github.com/dmlc/web-data/raw/main/tvm/tutorial/gpu_memory_hierarchy.png" class="align-center" src="https://github.com/dmlc/web-data/raw/main/tvm/tutorial/gpu_memory_hierarchy.png" style="width: 271px; height: 319px;" /></a>
 <p>In this example, we load both Apad and W into buffer AA and WW, which are
-stored in the shared memory. These bufferes will be later shared by all
+stored in the shared memory. These buffers will be later shared by all
 threads within the same thread block to compute the convolution. Each thread
 then loads its own part from shared buffer into their local registers, AL and
 WL. BL is a local cache of output B, which is also stored in the thread local
 registers.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Designate the memory hierarchy</span>
-<span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
 <span class="n">s</span><span class="p">[</span><span class="n">Apad</span><span class="p">]</span><span class="o">.</span><span class="n">compute_inline</span><span class="p">()</span>  <span class="c1"># compute Apad inline</span>
 <span class="n">AA</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cache_read</span><span class="p">(</span><span class="n">Apad</span><span class="p">,</span> <span class="s2">&quot;shared&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">B</span><span class="p">])</span>
 <span class="n">WW</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">cache_read</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="s2">&quot;shared&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">B</span><span class="p">])</span>
@@ -435,13 +474,13 @@ shared memory.</p>
 <span class="n">vthread</span> <span class="o">=</span> <span class="mi">2</span>
 
 <span class="c1"># Get the GPU thread indices</span>
-<span class="n">block_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.x&quot;</span><span class="p">)</span>
-<span class="n">block_y</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.y&quot;</span><span class="p">)</span>
-<span class="n">block_z</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.z&quot;</span><span class="p">)</span>
-<span class="n">thread_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_thread</span><span class="p">),</span> <span class="s2">&quot;threadIdx.x&quot;</span><span class="p">)</span>
-<span class="n">thread_y</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_thread</span><span class="p">),</span> <span class="s2">&quot;threadIdx.y&quot;</span><span class="p">)</span>
-<span class="n">thread_xz</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">vthread</span><span class="p">),</span> <span class="s2">&quot;vthread&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;vx&quot;</span><span class="p">)</span>
-<span class="n">thread_yz</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">vthread</span><span class="p">),</span> <span class="s2">&quot;vthread&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;vy&quot;</span><span class="p">)</span>
+<span class="n">block_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.x&quot;</span><span class="p">)</span>
+<span class="n">block_y</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.y&quot;</span><span class="p">)</span>
+<span class="n">block_z</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.z&quot;</span><span class="p">)</span>
+<span class="n">thread_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_thread</span><span class="p">),</span> <span class="s2">&quot;threadIdx.x&quot;</span><span class="p">)</span>
+<span class="n">thread_y</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_thread</span><span class="p">),</span> <span class="s2">&quot;threadIdx.y&quot;</span><span class="p">)</span>
+<span class="n">thread_xz</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">vthread</span><span class="p">),</span> <span class="s2">&quot;vthread&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;vx&quot;</span><span class="p">)</span>
+<span class="n">thread_yz</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">vthread</span><span class="p">),</span> <span class="s2">&quot;vthread&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;vy&quot;</span><span class="p">)</span>
 
 <span class="c1"># Split the workloads</span>
 <span class="n">hi</span><span class="p">,</span> <span class="n">wi</span><span class="p">,</span> <span class="n">fi</span><span class="p">,</span> <span class="n">ni</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">B</span><span class="p">]</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">axis</span>
@@ -521,27 +560,23 @@ coopertively fetch dependent data from global memory.</p>
 <h2>Generate CUDA Kernel<a class="headerlink" href="#generate-cuda-kernel" title="Permalink to this headline">¶</a></h2>
 <p>Finally we use TVM to generate and compile the CUDA kernel, and evaluate the
 latency of convolution.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="View documentation for tvm.build"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">],</span> <span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="tvm.build" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">],</span> <span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">a_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">in_size</span><span class="p">,</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 <span class="n">w_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">out_channel</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<span class="n">a</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">a_np</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
-<span class="n">w</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">w_np</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">out_size</span><span class="p">,</span> <span class="n">out_size</span><span class="p">,</span> <span class="n">out_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">dev</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">a_np</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">w_np</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">out_size</span><span class="p">,</span> <span class="n">out_size</span><span class="p">,</span> <span class="n">out_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">B</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">dev</span><span class="p">)</span>
 <span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="n">evaluator</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">time_evaluator</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">entry_name</span><span class="p">,</span> <span class="n">dev</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Convolution: </span><span class="si">%f</span><span class="s2"> ms&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">evaluator</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Convolution: 54.145203 ms
-</pre></div>
-</div>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-optimize-operators-opt-conv-cuda-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-optimize-operators-opt-conv-cuda-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3c5c85c3954f3110f16ca084e286f03a/opt_conv_cuda.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">opt_conv_cuda.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/854257a66df713b1f3f82eb3577f95e3/opt_conv_cuda.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">opt_conv_cuda.ipynb</span></code></a></p>
 </div>
 </div>
@@ -566,20 +601,20 @@ latency of convolution.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

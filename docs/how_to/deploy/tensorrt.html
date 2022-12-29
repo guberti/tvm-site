@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Relay TensorRT Integration &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Relay TensorRT Integration &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -211,6 +243,7 @@
 <li class="toctree-l3 current"><a class="reference internal" href="index.html#deploy-optimized-model-on-target-devices">Deploy optimized model on target devices</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="cpp_deploy.html">Deploy TVM Module using C++ API</a></li>
 <li class="toctree-l4"><a class="reference internal" href="android.html">Deploy to Android</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adreno.html">Deploy to Adreno GPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integrate.html">Integrate TVM into Your Project</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hls.html">HLS Backend Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="arm_compute_lib.html">Relay Arm<sup>®</sup> Compute Library Integration</a></li>
@@ -274,7 +307,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -322,7 +355,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/deploy/tensorrt.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/deploy/tensorrt.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -393,7 +428,7 @@ This will build TVM against the installed TensorRT library.</p></li>
 
 <span class="n">dtype</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
 <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
-<span class="n">block</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;resnet18_v1&#39;</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">block</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="s1">&#39;resnet18_v1&#39;</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">input_shape</span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -502,133 +537,139 @@ This will give greater performance, but will consume more memory.</p></li>
 <tr class="row-odd"><td><p>nn.softmax</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>nn.conv2d</p></td>
+<tr class="row-even"><td><p>nn.conv1d</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.dense</p></td>
+<tr class="row-odd"><td><p>nn.conv2d</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>nn.bias_add</p></td>
+<tr class="row-even"><td><p>nn.dense</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>add</p></td>
+<tr class="row-odd"><td><p>nn.bias_add</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>subtract</p></td>
+<tr class="row-even"><td><p>add</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>multiply</p></td>
+<tr class="row-odd"><td><p>subtract</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>divide</p></td>
+<tr class="row-even"><td><p>multiply</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>power</p></td>
+<tr class="row-odd"><td><p>divide</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>maximum</p></td>
+<tr class="row-even"><td><p>power</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>minimum</p></td>
+<tr class="row-odd"><td><p>maximum</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>nn.max_pool2d</p></td>
+<tr class="row-even"><td><p>minimum</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.avg_pool2d</p></td>
+<tr class="row-odd"><td><p>nn.max_pool2d</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>nn.global_max_pool2d</p></td>
+<tr class="row-even"><td><p>nn.avg_pool2d</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.global_avg_pool2d</p></td>
+<tr class="row-odd"><td><p>nn.global_max_pool2d</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>exp</p></td>
+<tr class="row-even"><td><p>nn.global_avg_pool2d</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>log</p></td>
+<tr class="row-odd"><td><p>exp</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>sqrt</p></td>
+<tr class="row-even"><td><p>log</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>abs</p></td>
+<tr class="row-odd"><td><p>sqrt</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>negative</p></td>
+<tr class="row-even"><td><p>abs</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.batch_flatten</p></td>
+<tr class="row-odd"><td><p>negative</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>expand_dims</p></td>
+<tr class="row-even"><td><p>nn.batch_flatten</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>squeeze</p></td>
+<tr class="row-odd"><td><p>expand_dims</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>concatenate</p></td>
+<tr class="row-even"><td><p>squeeze</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.conv2d_transpose</p></td>
+<tr class="row-odd"><td><p>concatenate</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>transpose</p></td>
+<tr class="row-even"><td><p>nn.conv2d_transpose</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>layout_transform</p></td>
+<tr class="row-odd"><td><p>transpose</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>reshape</p></td>
+<tr class="row-even"><td><p>layout_transform</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.pad</p></td>
+<tr class="row-odd"><td><p>reshape</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>sum</p></td>
+<tr class="row-even"><td><p>nn.pad</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>prod</p></td>
+<tr class="row-odd"><td><p>sum</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>max</p></td>
+<tr class="row-even"><td><p>prod</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>min</p></td>
+<tr class="row-odd"><td><p>max</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>mean</p></td>
+<tr class="row-even"><td><p>min</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.adaptive_max_pool2d</p></td>
+<tr class="row-odd"><td><p>mean</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>nn.adaptive_avg_pool2d</p></td>
+<tr class="row-even"><td><p>nn.adaptive_max_pool2d</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>nn.batch_matmul</p></td>
+<tr class="row-odd"><td><p>nn.adaptive_avg_pool2d</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p>clip</p></td>
+<tr class="row-even"><td><p>nn.batch_matmul</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>clip</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
-<tr class="row-odd"><td><p>nn.leaky_relu</p></td>
+<tr class="row-even"><td><p>nn.leaky_relu</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
-<tr class="row-even"><td><p>sin</p></td>
+<tr class="row-odd"><td><p>sin</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
-<tr class="row-odd"><td><p>cos</p></td>
+<tr class="row-even"><td><p>cos</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
-<tr class="row-even"><td><p>atan</p></td>
+<tr class="row-odd"><td><p>atan</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
-<tr class="row-odd"><td><p>ceil</p></td>
+<tr class="row-even"><td><p>ceil</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
-<tr class="row-even"><td><p>floor</p></td>
+<tr class="row-odd"><td><p>floor</p></td>
+<td><p>Requires TensorRT 5.1.5 or greater</p></td>
+</tr>
+<tr class="row-even"><td><p>split</p></td>
 <td><p>Requires TensorRT 5.1.5 or greater</p></td>
 </tr>
 <tr class="row-odd"><td><p>strided_slice</p></td>
@@ -689,20 +730,20 @@ checking the attributes are returning true or false.</p></li>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

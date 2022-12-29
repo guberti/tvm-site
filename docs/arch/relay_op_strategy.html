@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Relay Operator Strategy &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Relay Operator Strategy &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -273,7 +305,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -319,7 +351,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/arch/relay_op_strategy.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/arch/relay_op_strategy.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -388,7 +422,7 @@ It only has one API, which is to add an implementation to the strategy:</p>
     <span class="k">return</span> <span class="n">strategy</span>
 
 <span class="c1"># add to each target file in python/tvm/relay/op/strategy, e.g., x86.py, cuda.py, etc.</span>
-<span class="nd">@topk_strategy.register</span><span class="p">([</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;gpu&quot;</span><span class="p">])</span>
+<span class="nd">@topk_strategy</span><span class="o">.</span><span class="n">register</span><span class="p">([</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;gpu&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">topk_strategy_cuda</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">out_type</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="n">strategy</span> <span class="o">=</span> <span class="n">_op</span><span class="o">.</span><span class="n">OpStrategy</span><span class="p">()</span>
     <span class="n">strategy</span><span class="o">.</span><span class="n">add_implementation</span><span class="p">(</span>
@@ -504,7 +538,7 @@ code snippet shows <code class="docutils literal notranslate"><span class="pre">
         <span class="k">return</span> <span class="n">topi</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">schedule_pool</span><span class="p">(</span><span class="n">outs</span><span class="p">,</span> <span class="n">attrs</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
 
 <span class="c1"># add to each target file in python/tvm/relay/op/strategy, e.g., x86.py, cuda.py, etc.</span>
-<span class="nd">@schedule_pool.register</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="nd">@schedule_pool</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">schedule_pool_cpu</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">outs</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
@@ -525,7 +559,7 @@ strategies for the rest.</p>
 <p>Alternatively, you can also register the strategy for the new target outside the
 TVM python library. The following code snippet shows an example how to do
 so. You can find more examples in <code class="docutils literal notranslate"><span class="pre">vta/python/vta/top/op.py</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@relay.op.strategy.conv2d_strategy.register</span><span class="p">(</span><span class="s2">&quot;mytarget&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@relay</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">conv2d_strategy</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mytarget&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">conv2d_strategy_mytarget</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">out_type</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
@@ -572,20 +606,20 @@ model to learn which implementation is used for each operator.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

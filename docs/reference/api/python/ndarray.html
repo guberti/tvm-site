@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvm.runtime.ndarray &mdash; tvm 0.9.dev0 documentation</title>
+  <title>tvm.runtime.ndarray &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -277,7 +309,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -323,7 +355,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/reference/api/python/ndarray.rst.txt" rel="nofollow"> <img src="../../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/reference/api/python/ndarray.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -341,7 +375,7 @@
 <p>Runtime NDArray API</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.nd.NDArray">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.nd.</span></span><span class="sig-name descname"><span class="pre">NDArray</span></span><a class="headerlink" href="#tvm.nd.NDArray" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.nd.</span></span><span class="sig-name descname"><span class="pre">NDArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_view</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.nd.NDArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lightweight NDArray class of TVM runtime.</p>
 <p>Strictly this is only an Array Container (a buffer object)
 No arthimetic operations are defined.
@@ -367,13 +401,13 @@ how can we use TVM in existing project which might have their own array containe
 <dd><p>Check object identity equality</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – The other object to compare to</p>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The other object to compare to</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>same</strong> – Whether other is same as self.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -381,7 +415,7 @@ how can we use TVM in existing project which might have their own array containe
 <dl class="py method">
 <dt class="sig sig-object py" id="tvm.nd.NDArray.copyfrom">
 <span class="sig-name descname"><span class="pre">copyfrom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.nd.NDArray.copyfrom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform an synchronize copy from the array.</p>
+<dd><p>Perform a synchronous copy from the array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>source_array</strong> (<em>array_like</em>) – The data source we should like to copy from.</p>
@@ -418,18 +452,21 @@ Please use <cite>numpy</cite> instead.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tvm.nd.NDArray.copyto">
-<span class="sig-name descname"><span class="pre">copyto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.nd.NDArray.copyto" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copyto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.nd.NDArray.copyto" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy array to target</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>target</strong> (<a class="reference internal" href="#tvm.nd.NDArray" title="tvm.nd.NDArray"><em>NDArray</em></a>) – The target array to be copied, must have same shape as this array.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference internal" href="#tvm.nd.NDArray" title="tvm.nd.NDArray"><em>NDArray</em></a>) – The target array to be copied, must have same shape as this array.</p></li>
+<li><p><strong>mem_scope</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The memory scope of the array.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="py property">
 <dt class="sig sig-object py" id="tvm.nd.NDArray.shape">
-<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#tvm.nd.NDArray.shape" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#tvm.nd.NDArray.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shape of this array</p>
 </dd></dl>
 
@@ -451,13 +488,14 @@ Please use <cite>numpy</cite> instead.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.nd.array">
-<span class="sig-prename descclassname"><span class="pre">tvm.nd.</span></span><span class="sig-name descname"><span class="pre">array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">cpu(0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.nd.array" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.nd.</span></span><span class="sig-name descname"><span class="pre">array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">cpu(0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mem_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.nd.array" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an array from source arr.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>arr</strong> (<em>numpy.ndarray</em>) – The array to be copied from</p></li>
 <li><p><strong>device</strong> (<a class="reference internal" href="runtime.html#tvm.runtime.Device" title="tvm.runtime.Device"><em>Device</em></a><em>, </em><em>optional</em>) – The device device to create the array</p></li>
+<li><p><strong>mem_scope</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The memory scope of the array</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -476,10 +514,10 @@ Please use <cite>numpy</cite> instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape</strong> (<em>Union</em><em>[</em><a class="reference internal" href="runtime.html#tvm.runtime.ShapeTuple" title="tvm.runtime.ShapeTuple"><em>tvm.runtime.ShapeTuple</em></a><em>, </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.10)"><em>typing.SupportsInt</em></a><em>]</em><em>]</em>) – The shape of the array.</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)"><em>type</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The data type of the array.</p></li>
+<li><p><strong>shape</strong> (<em>Union</em><em>[</em><a class="reference internal" href="runtime.html#tvm.runtime.ShapeTuple" title="tvm.runtime.ShapeTuple"><em>tvm.runtime.ShapeTuple</em></a><em>, </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.11)"><em>typing.SupportsInt</em></a><em>]</em><em>]</em>) – The shape of the array.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.11)"><em>type</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The data type of the array.</p></li>
 <li><p><strong>device</strong> (<a class="reference internal" href="runtime.html#tvm.runtime.Device" title="tvm.runtime.Device"><em>Device</em></a>) – The device of the array.</p></li>
-<li><p><strong>mem_scope</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The memory scope of the array.</p></li>
+<li><p><strong>mem_scope</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The memory scope of the array.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -510,20 +548,20 @@ Please use <cite>numpy</cite> instead.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

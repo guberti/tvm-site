@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Install from Source &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Install from Source &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -218,7 +250,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tlcpack.html">TLCPack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnpack.html">NNPACK Contrib Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">Contributor Guide</a></li>
@@ -267,7 +299,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -313,7 +345,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/install/from_source.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/install/from_source.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -362,8 +396,17 @@ git submodule update
 <p>The minimal building requirements for the <code class="docutils literal notranslate"><span class="pre">TVM</span></code> libraries are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>A recent c++ compiler supporting C++ 14 (g++-5 or higher)</p></li>
-<li><p>CMake 3.10 or higher</p></li>
+<li><dl class="simple">
+<dt>A recent C++ compiler supporting C++ 17, at the minimum</dt><dd><ul>
+<li><p>GCC 7.1</p></li>
+<li><p>Clang 5.0</p></li>
+<li><p>Apple Clang 9.3</p></li>
+<li><p>Visual Studio 2019 (v16.7)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>CMake 3.18 or higher</p></li>
 <li><p>We highly recommend to build with LLVM to enable all the features.</p></li>
 <li><p>If you want to use CUDA, CUDA toolkit version &gt;= 8.0 is required. If you are upgrading from an older version, make sure you purge the older version and reboot after installation.</p></li>
 <li><p>On macOS, you may want to install <a class="reference external" href="https://brew.sh">Homebrew</a> to easily install and manage dependencies.</p></li>
@@ -376,11 +419,25 @@ linux operating systems, execute (in a terminal):</p>
 sudo apt-get install -y python3 python3-dev python3-setuptools gcc libtinfo-dev zlib1g-dev build-essential cmake libedit-dev libxml2-dev
 </pre></div>
 </div>
+<p>Note that the version of CMake on apt may not be sufficiently up to date; it may be necessary to install it directly from <a class="reference external" href="https://apt.kitware.com/">Kitware’s third-party APT repository</a>.</p>
+<p>On Fedora/CentOS and related operating systems use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo dnf update
+sudo dnf groupinstall -y <span class="s2">&quot;Development Tools&quot;</span>
+sudo dnf install -y python-devel ncurses-compat-libs zlib-devel cmake libedit-devel libxml2-devel
+</pre></div>
+</div>
 <p>Use Homebrew to install the required dependencies for macOS running either the Intel or M1 processors. You must follow the post-installation steps specified by
 Homebrew to ensure the dependencies are correctly installed and configured:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install gcc git cmake
 brew install llvm
 brew install python@3.8
+</pre></div>
+</div>
+<p>If you are on macOS with an M1 Processor you may need to use conda to manage dependencies while building. Specifically you may need, <a class="reference external" href="https://github.com/conda-forge/miniforge">Miniforge</a> to ensure that the dependencies obtained using pip are compatible with M1.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install miniforge
+conda init
+conda create --name tvm <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+conda activate tvm
 </pre></div>
 </div>
 <p>We use cmake to build the library.
@@ -402,14 +459,14 @@ you want to build for (OpenCL, RCOM, METAL, VULKAN, …).</p></li>
 <li><p>To help with debugging, ensure the embedded graph executor and debugging functions are enabled with <code class="docutils literal notranslate"><span class="pre">set(USE_GRAPH_EXECUTOR</span> <span class="pre">ON)</span></code> and <code class="docutils literal notranslate"><span class="pre">set(USE_PROFILER</span> <span class="pre">ON)</span></code></p></li>
 <li><p>To debug with IRs, <code class="docutils literal notranslate"><span class="pre">set(USE_RELAY_DEBUG</span> <span class="pre">ON)</span></code> and set environment variable <cite>TVM_LOG_DEBUG</cite>.</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">TVM_LOG_DEBUG</span><span class="o">=</span><span class="s2">&quot;ir/transform.cc=1;relay/ir/transform.cc=1&quot;</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">TVM_LOG_DEBUG</span><span class="o">=</span><span class="s2">&quot;ir/transform.cc=1,relay/ir/transform.cc=1&quot;</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
 </ul>
 </li>
-<li><p>TVM requires LLVM for for CPU codegen. We highly recommend you to build with the LLVM support on.</p>
+<li><p>TVM requires LLVM for CPU codegen. We highly recommend you to build with the LLVM support on.</p>
 <ul class="simple">
 <li><p>LLVM 4.0 or higher is needed for build with LLVM. Note that version of LLVM from default apt may lower than 4.0.</p></li>
 <li><p>Since LLVM takes long time to build from source, you can download pre-built version of LLVM from
@@ -427,6 +484,19 @@ For example, set <code class="docutils literal notranslate"><span class="pre">se
 </li>
 <li><p>If you are a PyTorch user, it is recommended to set <code class="docutils literal notranslate"><span class="pre">(USE_LLVM</span> <span class="pre">&quot;/path/to/llvm-config</span> <span class="pre">--link-static&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">set(HIDE_PRIVATE_SYMBOLS</span> <span class="pre">ON)</span></code>
 to avoid potential symbol conflicts between different versions LLVM used by TVM and PyTorch.</p></li>
+<li><p>On supported platforms, the <a class="reference external" href="https://ccache.dev/">Ccache compiler wrapper</a> may be helpful for
+reducing TVM’s build time.  There are several ways to enable CCache in TVM builds:</p>
+<ul>
+<li><p>Leave <cite>USE_CCACHE=AUTO</cite> in <cite>build/config.cmake</cite>. CCache will be used if it is found.</p></li>
+<li><p>Ccache’s Masquerade mode. This is typically enabled during the Ccache installation process.
+To have TVM use Ccache in masquerade, simply specify the appropriate C/C++ compiler
+paths when configuring TVM’s build system.  For example:
+<code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-DCMAKE_CXX_COMPILER=/usr/lib/ccache/c++</span> <span class="pre">...</span></code>.</p></li>
+<li><p>Ccache as CMake’s C++ compiler prefix.  When configuring TVM’s build system,
+set the CMake variable <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER_LAUNCHER</span></code> to an appropriate value.
+E.g. <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-DCMAKE_CXX_COMPILER_LAUNCHER=ccache</span> <span class="pre">...</span></code>.</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>We can then build tvm and related libraries.</p>
@@ -504,7 +574,7 @@ conda install tvm -c ./conda/pkg
 </div>
 <div class="section" id="building-on-windows">
 <h3>Building on Windows<a class="headerlink" href="#building-on-windows" title="Permalink to this headline">¶</a></h3>
-<p>TVM support build via MSVC using cmake. You will need to ontain a visual studio compiler.
+<p>TVM support build via MSVC using cmake. You will need to obtain a visual studio compiler.
 The minimum required VS version is <strong>Visual Studio Enterprise 2019</strong> (NOTE: we test
 against GitHub Actions’ <a class="reference external" href="https://github.com/actions/virtual-environments/blob/main/images/win/Windows2019-Readme.md">Windows 2019 Runner</a>, so see that page for full details.
 We recommend following <a class="reference internal" href="#build-with-conda"><span class="std std-ref">Building with a Conda Environment</span></a> to obtain necessary dependencies and
@@ -537,7 +607,6 @@ You can then run the following command to build</p>
 <h3>TVM package<a class="headerlink" href="#tvm-package" title="Permalink to this headline">¶</a></h3>
 <p>Depending on your development environment, you may want to use a virtual environment and package manager, such
 as <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>, to manage your python packages and dependencies.</p>
-<p>to install and maintain your python development environment.</p>
 <p>The python package is located at <cite>tvm/python</cite>
 There are two ways to install the package:</p>
 <dl>
@@ -583,7 +652,7 @@ like <code class="docutils literal notranslate"><span class="pre">virtualenv</sp
 <ul class="simple">
 <li><p>If you want to use auto-tuning module</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install --user tornado psutil xgboost cloudpickle
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install --user tornado psutil <span class="s1">&#39;xgboost&lt;1.6.0&#39;</span> cloudpickle
 </pre></div>
 </div>
 </div></blockquote>
@@ -599,7 +668,7 @@ pip install pybind11 cython pythran
 
 pip install scipy --no-use-pep517
 
-pip install xgboost
+pip install <span class="s1">&#39;xgboost&lt;1.6.0&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -649,20 +718,20 @@ sudo make install
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

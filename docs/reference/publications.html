@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Publications &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Publications &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -243,7 +275,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -287,7 +319,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/reference/publications.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/reference/publications.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -305,12 +339,43 @@
 <p>TVM is developed as part of peer-reviewed research in machine learning compiler
 framework for CPUs, GPUs, and machine learning accelerators.</p>
 <p>This document includes references to publications describing the research,
-results, and design underlying TVM.</p>
+results, and design that use or built on top of TVM.</p>
+<p>2018</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://arxiv.org/abs/1802.04799">TVM: An Automated End-to-End Optimizing Compiler for Deep Learning</a></p></li>
-<li><p><a class="reference external" href="https://arxiv.org/pdf/1805.08166.pdf">Learning to Optimize Tensor Programs</a></p></li>
-<li><p><a class="reference external" href="https://arxiv.org/abs/2006.06762">Ansor: Generating High-Performance Tensor Programs for Deep Learning</a></p></li>
-<li><p><a class="reference external" href="https://arxiv.org/abs/2006.03031">Nimble: Efficiently Compiling Dynamic Neural Networks for Model Inference</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1802.04799">TVM: An Automated End-to-End Optimizing Compiler for Deep Learning</a>, [<a class="reference external" href="https://www.usenix.org/system/files/osdi18-chen.pdf">Slides</a>]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1805.08166.pdf">Learning to Optimize Tensor Programs</a>, [Slides]</p></li>
+</ul>
+<p>2020</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2006.06762">Ansor: Generating High-Performance Tensor Programs for Deep Learning</a>, [<a class="reference external" href="https://www.usenix.org/sites/default/files/conference/protected-files/osdi20_slides_zheng.pdf">Slides</a>] [<a class="reference external" href="https://tvm.apache.org/2021/03/03/intro-auto-scheduler">Tutorial</a>]</p></li>
+</ul>
+<p>2021</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2006.03031">Nimble: Efficiently Compiling Dynamic Neural Networks for Model Inference</a>, [<a class="reference external" href="https://shenhaichen.com/slides/nimble_mlsys.pdf">Slides</a>]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2011.01383.pdf">Cortex: A Compiler for Recursive Deep Learning Models</a>, [<a class="reference external" href="https://mlsys.org/media/mlsys-2021/Slides/1507.pdf">Slides</a>]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2101.08458">UNIT: Unifying Tensorized Instruction Compilation</a>, [Slides]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://assets.amazon.science/c2/46/2481c9064a8bbaebcf389dd5ad75/lorien-efficient-deep-learning-workloads-delivery.pdf">Lorien: Efficient Deep Learning Workloads Delivery</a>, [Slides]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2105.03215">Bring Your Own Codegen to Deep Learning Compiler</a>, [Slides] [<a class="reference external" href="https://tvm.apache.org/2020/07/15/how-to-bring-your-own-codegen-to-tvm">Tutorial</a>]</p></li>
+</ul>
+<p>2022</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://proceedings.mlsys.org/paper/2022/file/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Paper.pdf">DietCode: Automatic optimization for dynamic tensor program</a>, [Slides]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://proceedings.mlsys.org/paper/2022/file/38b3eff8baf56627478ec76a704e9b52-Paper.pdf">Bolt: Bridging the Gap between Auto-tuners and Hardware-native Performance</a>, [Slides]</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2110.10221">The CoRa Tensor Compiler: Compilation for Ragged Tensors with Minimal Padding</a>, [Slides]</p></li>
 </ul>
 </div>
 
@@ -331,20 +396,20 @@ results, and design underlying TVM.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

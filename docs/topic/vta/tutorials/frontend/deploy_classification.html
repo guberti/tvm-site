@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Deploy Pretrained Vision Model from MxNet on VTA &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Deploy Pretrained Vision Model from MxNet on VTA &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -46,7 +49,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="Deploy Pretrained Vision Detection Model from Darknet on VTA" href="deploy_detection.html" />
-    <link rel="prev" title="Get Started with VTA" href="../vta_get_started.html" /> 
+    <link rel="prev" title="Compile Deep Learning Models" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -222,13 +254,14 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">VTA Tutorials</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../matrix_multiply.html">Simple Matrix Multiply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../vta_get_started.html">Get Started with VTA</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html#compile-deep-learning-models">Compile Deep Learning Models</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Deploy Pretrained Vision Model from MxNet on VTA</a></li>
-<li class="toctree-l4"><a class="reference internal" href="deploy_detection.html">Deploy Pretrained Vision Detection Model from Darknet on VTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#compile-deep-learning-models">Compile Deep Learning Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#auto-tuning">Auto tuning</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">Compile Deep Learning Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../optimize/index.html">Optimize Tensor Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autotvm/index.html">Auto tuning</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#auto-tuning">Auto tuning</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#literature">Literature</a></li>
@@ -260,7 +293,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -302,13 +335,17 @@
         
           <li><a href="../index.html">VTA Tutorials</a> <span class="br-arrow">></span></li>
         
+          <li><a href="index.html">Compile Deep Learning Models</a> <span class="br-arrow">></span></li>
+        
       <li>Deploy Pretrained Vision Model from MxNet on VTA</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../../_sources/topic/vta/tutorials/frontend/deploy_classification.rst.txt" rel="nofollow"> <img src="../../../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/topic/vta/tutorials/frontend/deploy_classification.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -323,7 +360,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-topic-vta-tutorials-frontend-deploy-classification-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-topic-vta-tutorials-frontend-deploy-classification-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/95395e118195f25266654dd8fbf487d4/deploy_classification.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="deploy-pretrained-vision-model-from-mxnet-on-vta">
 <span id="sphx-glr-topic-vta-tutorials-frontend-deploy-classification-py"></span><h1>Deploy Pretrained Vision Model from MxNet on VTA<a class="headerlink" href="#deploy-pretrained-vision-model-from-mxnet-on-vta" title="Permalink to this headline">¶</a></h1>
@@ -341,31 +380,31 @@ tensorization in the core) to massage the compute graph for the hardware target.
 </pre></div>
 </div>
 <p>Now return to the python code. Import packages.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">argparse</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">isfile</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">join</span></a><span class="p">,</span> <span class="n">isfile</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
-<span class="kn">from</span> <span class="nn">mxnet.gluon.model_zoo</span> <span class="k">import</span> <span class="n">vision</span>
+<span class="kn">from</span> <span class="nn">mxnet.gluon.model_zoo</span> <span class="kn">import</span> <span class="n">vision</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">rpc</span><span class="p">,</span> <span class="n">autotvm</span><span class="p">,</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">graph_executor</span><span class="p">,</span> <span class="n">utils</span><span class="p">,</span> <span class="n">download</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib.debugger</span> <span class="k">import</span> <span class="n">debug_executor</span>
-<span class="kn">from</span> <span class="nn">tvm.relay</span> <span class="k">import</span> <span class="n">transform</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">rpc</span><span class="p">,</span> <span class="n">autotvm</span><span class="p">,</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">graph_executor</span><span class="p">,</span> <span class="n">utils</span><span class="p">,</span> <span class="n">download</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib.debugger</span> <span class="kn">import</span> <span class="n">debug_executor</span>
+<span class="kn">from</span> <span class="nn">tvm.relay</span> <span class="kn">import</span> <span class="n">transform</span>
 
 <span class="kn">import</span> <span class="nn">vta</span>
-<span class="kn">from</span> <span class="nn">vta.testing</span> <span class="k">import</span> <span class="n">simulator</span>
-<span class="kn">from</span> <span class="nn">vta.top</span> <span class="k">import</span> <span class="n">graph_pack</span>
+<span class="kn">from</span> <span class="nn">vta.testing</span> <span class="kn">import</span> <span class="n">simulator</span>
+<span class="kn">from</span> <span class="nn">vta.top</span> <span class="kn">import</span> <span class="n">graph_pack</span>
 
 
 <span class="c1"># Make sure that TVM was compiled with RPC=1</span>
-<span class="k">assert</span> <a href="../../../../reference/api/python/runtime.html#tvm.runtime.enabled" title="View documentation for tvm.runtime.enabled"><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">enabled</span></a><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <a href="../../../../reference/api/python/runtime.html#tvm.runtime.enabled" title="tvm.runtime.enabled" class="sphx-glr-backref-module-tvm-runtime sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">enabled</span></a><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -416,7 +455,7 @@ Otherwise, if target is ‘sim’, execute locally.</p>
     <span class="n">device_host</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;VTA_RPC_HOST&quot;</span><span class="p">,</span> <span class="s2">&quot;192.168.2.99&quot;</span><span class="p">)</span>
     <span class="n">device_port</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;VTA_RPC_PORT&quot;</span><span class="p">,</span> <span class="s2">&quot;9091&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">tracker_host</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">tracker_port</span><span class="p">:</span>
-        <span class="n">remote</span> <span class="o">=</span> <a href="../../../../reference/api/python/rpc.html#tvm.rpc.connect" title="View documentation for tvm.rpc.connect"><span class="n">rpc</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><span class="n">device_host</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">device_port</span><span class="p">))</span>
+        <span class="n">remote</span> <span class="o">=</span> <a href="../../../../reference/api/python/rpc.html#tvm.rpc.connect" title="tvm.rpc.connect" class="sphx-glr-backref-module-tvm-rpc sphx-glr-backref-type-py-function"><span class="n">rpc</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><span class="n">device_host</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">device_port</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">remote</span> <span class="o">=</span> <span class="n">autotvm</span><span class="o">.</span><span class="n">measure</span><span class="o">.</span><span class="n">request_remote</span><span class="p">(</span>
             <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span><span class="p">,</span> <span class="n">tracker_host</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">tracker_port</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span>
@@ -425,15 +464,15 @@ Otherwise, if target is ‘sim’, execute locally.</p>
     <span class="c1"># Reconfigure the JIT runtime and FPGA.</span>
     <span class="c1"># You can program the FPGA with your own custom bitstream</span>
     <span class="c1"># by passing the path to the bitstream file instead of None.</span>
-    <span class="n">reconfig_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">reconfig_start</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
     <span class="n">vta</span><span class="o">.</span><span class="n">reconfig_runtime</span><span class="p">(</span><span class="n">remote</span><span class="p">)</span>
     <span class="n">vta</span><span class="o">.</span><span class="n">program_fpga</span><span class="p">(</span><span class="n">remote</span><span class="p">,</span> <span class="n">bitstream</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">reconfig_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">reconfig_start</span>
+    <span class="n">reconfig_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span> <span class="o">-</span> <span class="n">reconfig_start</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reconfigured FPGA and RPC runtime in </span><span class="si">{0:.2f}</span><span class="s2">s!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reconfig_time</span><span class="p">))</span>
 
 <span class="c1"># In simulation mode, host the RPC server locally.</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">remote</span> <span class="o">=</span> <a href="../../../../reference/api/python/rpc.html#tvm.rpc.LocalSession" title="View documentation for tvm.rpc.LocalSession"><span class="n">rpc</span><span class="o">.</span><span class="n">LocalSession</span></a><span class="p">()</span>
+    <span class="n">remote</span> <span class="o">=</span> <a href="../../../../reference/api/python/rpc.html#tvm.rpc.LocalSession" title="tvm.rpc.LocalSession" class="sphx-glr-backref-module-tvm-rpc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rpc</span><span class="o">.</span><span class="n">LocalSession</span></a><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;intelfocl&quot;</span><span class="p">]:</span>
         <span class="c1"># program intelfocl aocx</span>
@@ -469,10 +508,10 @@ and dense layer which will both be executed in fp32 on the CPU.</p></li>
     <span class="n">gluon_model</span> <span class="o">=</span> <span class="n">vision</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Measure build start time</span>
-    <span class="n">build_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">build_start</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
 
     <span class="c1"># Start front end compilation</span>
-    <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="View documentation for tvm.relay.frontend.from_mxnet"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">gluon_model</span><span class="p">,</span> <span class="n">shape_dict</span><span class="p">)</span>
+    <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="tvm.relay.frontend.from_mxnet" class="sphx-glr-backref-module-tvm-relay-frontend sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">gluon_model</span><span class="p">,</span> <span class="n">shape_dict</span><span class="p">)</span>
 
     <span class="c1"># Update shape and type dictionary</span>
     <span class="n">shape_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
@@ -481,7 +520,7 @@ and dense layer which will both be executed in fp32 on the CPU.</p></li>
     <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;vta&quot;</span><span class="p">:</span>
         <span class="c1"># Perform quantization in Relay</span>
         <span class="c1"># Note: We set opt_level to 3 in order to fold batch norm</span>
-        <span class="k">with</span> <a href="../../../../reference/api/python/ir.html#tvm.transform.PassContext" title="View documentation for tvm.transform.PassContext"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">with</span> <a href="../../../../reference/api/python/ir.html#tvm.transform.PassContext" title="tvm.transform.PassContext" class="sphx-glr-backref-module-tvm-transform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
             <span class="k">with</span> <span class="n">relay</span><span class="o">.</span><span class="n">quantize</span><span class="o">.</span><span class="n">qconfig</span><span class="p">(</span><span class="n">global_scale</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">skip_conv_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
                 <span class="n">mod</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">quantize</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
             <span class="c1"># Perform graph packing and constant folding for VTA target</span>
@@ -501,9 +540,9 @@ and dense layer which will both be executed in fp32 on the CPU.</p></li>
 
     <span class="c1"># Compile Relay program with AlterOpLayout disabled</span>
     <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">device_name</span> <span class="o">!=</span> <span class="s2">&quot;vta&quot;</span><span class="p">:</span>
-        <span class="k">with</span> <a href="../../../../reference/api/python/ir.html#tvm.transform.PassContext" title="View documentation for tvm.transform.PassContext"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">disabled_pass</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AlterOpLayout&quot;</span><span class="p">}):</span>
+        <span class="k">with</span> <a href="../../../../reference/api/python/ir.html#tvm.transform.PassContext" title="tvm.transform.PassContext" class="sphx-glr-backref-module-tvm-transform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">disabled_pass</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AlterOpLayout&quot;</span><span class="p">}):</span>
             <span class="n">graph</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-                <span class="n">relay_prog</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><a href="../../../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span>
+                <span class="n">relay_prog</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><a href="../../../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="o">==</span> <span class="s2">&quot;intelfocl&quot;</span><span class="p">:</span>
@@ -513,33 +552,25 @@ and dense layer which will both be executed in fp32 on the CPU.</p></li>
             <span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">disabled_pass</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;AlterOpLayout&quot;</span><span class="p">,</span> <span class="s2">&quot;tir.CommonSubexprElimTIR&quot;</span><span class="p">}</span>
         <span class="p">):</span>
             <span class="n">graph</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-                <span class="n">relay_prog</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><a href="../../../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span>
+                <span class="n">relay_prog</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><a href="../../../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span>
             <span class="p">)</span>
 
     <span class="c1"># Measure Relay build time</span>
-    <span class="n">build_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">build_start</span>
+    <span class="n">build_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span> <span class="o">-</span> <span class="n">build_start</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">model</span> <span class="o">+</span> <span class="s2">&quot; inference graph built in </span><span class="si">{0:.2f}</span><span class="s2">s!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">build_time</span><span class="p">))</span>
 
     <span class="c1"># Send the inference library over to the remote RPC server</span>
-    <span class="n">temp</span> <span class="o">=</span> <a href="../../../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+    <span class="n">temp</span> <span class="o">=</span> <a href="../../../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
     <span class="n">lib</span><span class="o">.</span><span class="n">export_library</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="s2">&quot;graphlib.tar&quot;</span><span class="p">))</span>
     <span class="n">remote</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="s2">&quot;graphlib.tar&quot;</span><span class="p">))</span>
     <span class="n">lib</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="s2">&quot;graphlib.tar&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="o">==</span> <span class="s2">&quot;intelfocl&quot;</span><span class="p">:</span>
         <span class="n">ctxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">remote</span><span class="o">.</span><span class="n">ext_dev</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">remote</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
-        <span class="n">m</span> <span class="o">=</span> <a href="../../../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.create" title="View documentation for tvm.contrib.graph_executor.create"><span class="n">graph_executor</span><span class="o">.</span><span class="n">create</span></a><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">ctxes</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <a href="../../../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.create" title="tvm.contrib.graph_executor.create" class="sphx-glr-backref-module-tvm-contrib-graph_executor sphx-glr-backref-type-py-function"><span class="n">graph_executor</span><span class="o">.</span><span class="n">create</span></a><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">ctxes</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Graph runtime</span>
-        <span class="n">m</span> <span class="o">=</span> <a href="../../../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.create" title="View documentation for tvm.contrib.graph_executor.create"><span class="n">graph_executor</span><span class="o">.</span><span class="n">create</span></a><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/workspace/python/tvm/relay/build_module.py:439: DeprecationWarning: Please use input parameter mod (tvm.IRModule) instead of deprecated parameter mod (tvm.relay.function.Function)
-  DeprecationWarning,
-/workspace/vta/tutorials/frontend/deploy_classification.py:213: DeprecationWarning: legacy graph executor behavior of producing json / lib / params will be removed in the next release. Please see documents of tvm.contrib.graph_executor.GraphModule for the  new recommended usage.
-  relay_prog, target=tvm.target.Target(target, host=env.target_host), params=params
-resnet18_v1 inference graph built in 20.81s!
+        <span class="n">m</span> <span class="o">=</span> <a href="../../../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.create" title="tvm.contrib.graph_executor.create" class="sphx-glr-backref-module-tvm-contrib-graph_executor sphx-glr-backref-type-py-function"><span class="n">graph_executor</span><span class="o">.</span><span class="n">create</span></a><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -551,7 +582,7 @@ and an input test image.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download ImageNet categories</span>
 <span class="n">categ_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/uwsampl/web-data/raw/main/vta/models/&quot;</span>
 <span class="n">categ_fn</span> <span class="o">=</span> <span class="s2">&quot;synset.txt&quot;</span>
-<span class="n">download</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">categ_url</span><span class="p">,</span> <span class="n">categ_fn</span><span class="p">),</span> <span class="n">categ_fn</span><span class="p">)</span>
+<span class="n">download</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><a href="https://docs.python.org/3/library/os.path.html#os.path.join" title="os.path.join" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">join</span></a><span class="p">(</span><span class="n">categ_url</span><span class="p">,</span> <span class="n">categ_fn</span><span class="p">),</span> <span class="n">categ_fn</span><span class="p">)</span>
 <span class="n">synset</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">categ_fn</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 <span class="c1"># Download test image</span>
@@ -597,7 +628,7 @@ and an input test image.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average per sample inference time: </span><span class="si">%.2f</span><span class="s2">ms&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean</span> <span class="o">/</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">))</span>
 
 <span class="c1"># Get classification results</span>
-<span class="n">tvm_output</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="../../../../reference/api/python/ndarray.html#tvm.nd.empty" title="View documentation for tvm.nd.empty"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">remote</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+<span class="n">tvm_output</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">get_output</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <a href="../../../../reference/api/python/ndarray.html#tvm.nd.empty" title="tvm.nd.empty" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">((</span><span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">remote</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
 <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">):</span>
     <span class="n">top_categories</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">tvm_output</span><span class="o">.</span><span class="n">numpy</span><span class="p">()[</span><span class="n">b</span><span class="p">])</span>
     <span class="c1"># Report top-5 classification results</span>
@@ -619,30 +650,11 @@ and an input test image.</p>
     <span class="k">assert</span> <span class="n">cat_detected</span>
 </pre></div>
 </div>
-<img alt="../../../../_images/sphx_glr_deploy_classification_001.png" class="sphx-glr-single-img" src="../../../../_images/sphx_glr_deploy_classification_001.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Execution statistics:
-        inp_load_nbytes :          5549568
-        wgt_load_nbytes :         12763136
-        acc_load_nbytes :          6051840
-        uop_load_nbytes :            22864
-        out_store_nbytes:          2433536
-        gemm_counter    :          6623232
-        alu_counter     :           699328
-
-resnet18_v1 prediction for sample 0
-        #1: tiger cat
-        #2: Egyptian cat
-        #3: tabby, tabby cat
-        #4: lynx, catamount
-        #5: weasel
-</pre></div>
-</div>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-topic-vta-tutorials-frontend-deploy-classification-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-topic-vta-tutorials-frontend-deploy-classification-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../../../_downloads/9e8de33a5822b31748bfd76861009f92/deploy_classification.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">deploy_classification.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../../../_downloads/95395e118195f25266654dd8fbf487d4/deploy_classification.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">deploy_classification.ipynb</span></code></a></p>
 </div>
 </div>
@@ -663,24 +675,24 @@ resnet18_v1 prediction for sample 0
         <a href="deploy_detection.html" class="btn btn-neutral float-right" title="Deploy Pretrained Vision Detection Model from Darknet on VTA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../vta_get_started.html" class="btn btn-neutral float-left" title="Get Started with VTA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Compile Deep Learning Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

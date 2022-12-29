@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvm.relay.backend &mdash; tvm 0.9.dev0 documentation</title>
+  <title>tvm.relay.backend &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -277,7 +309,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -323,7 +355,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../../_sources/reference/api/python/relay/backend.rst.txt" rel="nofollow"> <img src="../../../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/reference/api/python/relay/backend.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -385,7 +419,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod</strong> (<em>tvm.IRModule</em>) – The module to support the execution.</p></li>
 <li><p><strong>device</strong> (<a class="reference internal" href="../runtime.html#tvm.runtime.Device" title="tvm.runtime.Device"><em>Device</em></a>) – The runtime device to run the code on.</p></li>
-<li><p><strong>target</strong> (<em>tvm.Target</em>) – The target option to build the function.</p></li>
+<li><p><strong>target</strong> (<em>tvm.Target</em>) – The target option to build the function. Only homogeneous execution is supported.</p></li>
 <li><p><strong>CAUTION</strong> (<em>Despite the API the module is prepared upon each call to evaluate</em>) – </p></li>
 <li><p><strong>create_executor.</strong> (<em>rather than once in</em>) – </p></li>
 <li><p><strong>is</strong> (<em>That</em>) – </p></li>
@@ -440,7 +474,7 @@ b = func(args2)</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>op</strong> (<a class="reference internal" href="../ir.html#tvm.ir.Op" title="tvm.ir.Op"><em>tvm.ir.Op</em></a>) – Relay operator.</p></li>
-<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – The op attribute.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The op attribute.</p></li>
 <li><p><strong>inputs</strong> (<em>List</em><em>[</em><a class="reference internal" href="../te.html#tvm.te.Tensor" title="tvm.te.Tensor"><em>tvm.te.Tensor</em></a><em>]</em>) – Input tensors to the op.</p></li>
 <li><p><strong>out_type</strong> (<em>relay.Type</em>) – The output type.</p></li>
 <li><p><strong>target</strong> (<a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><em>tvm.target.Target</em></a>) – The target to compile the op.</p></li>
@@ -469,18 +503,18 @@ highest plevel.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>op</strong> (<a class="reference internal" href="../ir.html#tvm.ir.Op" title="tvm.ir.Op"><em>tvm.ir.Op</em></a>) – Relay operator.</p></li>
-<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><em>object</em></a>) – The op attribute.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><em>object</em></a>) – The op attribute.</p></li>
 <li><p><strong>inputs</strong> (<em>List</em><em>[</em><a class="reference internal" href="../te.html#tvm.te.Tensor" title="tvm.te.Tensor"><em>tvm.te.Tensor</em></a><em>]</em>) – Input tensors to the op.</p></li>
 <li><p><strong>out_type</strong> (<em>relay.Type</em>) – The output type.</p></li>
 <li><p><strong>target</strong> (<a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><em>tvm.target.Target</em></a>) – The target to compile the op.</p></li>
-<li><p><strong>use_autotvm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether query AutoTVM to pick the best.</p></li>
+<li><p><strong>use_autotvm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether query AutoTVM to pick the best.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>ret</strong> – The best op implementation and the corresponding output tensors.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)">tuple</a>(relay.op.OpImplementation, List[<a class="reference internal" href="../te.html#tvm.te.Tensor" title="tvm.te.Tensor">tvm.te.Tensor</a>])</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>(relay.op.OpImplementation, List[<a class="reference internal" href="../te.html#tvm.te.Tensor" title="tvm.te.Tensor">tvm.te.Tensor</a>])</p>
 </dd>
 </dl>
 </dd></dl>
@@ -565,6 +599,26 @@ highest plevel.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="tvm.relay.backend.te_compiler.lower_to_primfunc">
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.backend.te_compiler.</span></span><span class="sig-name descname"><span class="pre">lower_to_primfunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relay_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.backend.te_compiler.lower_to_primfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower Relay Function to TIR PrimFunc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>relay_func</strong> (<em>relay.Function</em>) – The source primitive function, created by FuseOps.</p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><em>Target</em></a>) – The compilation target.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>prim_func</strong> – The created prim func.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../tir.html#tvm.tir.PrimFunc" title="tvm.tir.PrimFunc">tir.PrimFunc</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <span class="target" id="module-tvm.relay.backend.graph_executor_codegen"></span><p>A compiler from a Relay expression to TVM’s graph executor.</p>
 <p>The compiler is built from a few pieces.</p>
 <p>First we define a compiler from a single Relay expression to the
@@ -616,10 +670,9 @@ contrib.graph_executor or any other TVM runtime compatible systems.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod</strong> (<em>tvm.IRModule</em>) – The Relay module to build.</p></li>
-<li><p><strong>target</strong> (str, <a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.target.Target</span></code></a>, or dict of str(i.e.) – device/context name) to str/tvm.target.Target, optional
-For heterogeneous compilation, it is a dictionary indicating context
-to target mapping. For homogeneous compilation, it is a build target.</p></li>
-<li><p><strong>target_host</strong> (str or <a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.target.Target</span></code></a>, optional) – Host compilation target, if target is device.
+<li><p><strong>target</strong> (<em>any multi-target like object</em><em>, </em><em>see Target.canon_multi_target</em>) – For homogeneous compilation, the unique build target.
+For heterogeneous compilation, a dictionary or list of possible build targets.</p></li>
+<li><p><strong>target_host</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><em>None</em></a><em>, or </em><em>any target-like object</em><em>, </em><em>see Target.canon_target</em>) – Host compilation target, if target is device.
 When TVM compiles device specific program such as CUDA,
 we also need host(CPU) side code to interact with the driver
 to setup the dimensions and parameters correctly.
@@ -669,16 +722,9 @@ during inference time. Used for constant folding.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod</strong> (<em>tvm.IRModule</em>) – The Relay module to build.</p></li>
-<li><p><strong>target</strong> (str, <a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.target.Target</span></code></a>, or dict of str(i.e.) – device/context name) to str/tvm.target.Target, optional
-For heterogeneous compilation, it is a dictionary indicating context
-to target mapping. For homogeneous compilation, it is a build target.</p></li>
-<li><p><strong>target_host</strong> (str or <a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.target.Target</span></code></a>, optional) – Host compilation target, if target is device.
-When TVM compiles device specific program such as CUDA,
-we also need host(CPU) side code to interact with the driver
-to setup the dimensions and parameters correctly.
-target_host is used to specify the host side codegen target.
-By default, llvm is used if it is enabled,
-otherwise a stackvm intepreter is used.</p></li>
+<li><p><strong>target</strong> (<em>any multi-target like object</em><em>, </em><em>see Target.canon_multi_target</em>) – For homogeneous compilation, the unique build target.
+For heterogeneous compilation, a dictionary or list of possible build targets.</p></li>
+<li><p><strong>target_host</strong> (<em>any target-like object</em><em>, </em><em>see Target.canon_target</em>) – Host compilation target, if target is device.</p></li>
 </ul>
 </dd>
 </dl>
@@ -698,10 +744,9 @@ otherwise a stackvm intepreter is used.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod</strong> (<em>tvm.IRModule</em>) – </p></li>
-<li><p><strong>target</strong> (str, <a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.target.Target</span></code></a>, or dict of str (i.e.) – device/context name) to str/tvm.target.Target, optional</p></li>
-<li><p><strong>target_host</strong> (str or <a class="reference internal" href="../target.html#tvm.target.Target" title="tvm.target.Target"><code class="xref any py py-class docutils literal notranslate"><span class="pre">tvm.target.Target</span></code></a>, optional) – The compilation target for host.
-By default, llvm is used if it is enabled,
-otherwise a stackvm intepreter is used.</p></li>
+<li><p><strong>target</strong> (<em>any multi-target like object</em><em>, </em><em>see Target.canon_multi_target</em>) – For homogeneous compilation, the unique build target.
+For heterogeneous compilation, a dictionary or list of possible build targets.</p></li>
+<li><p><strong>target_host</strong> (<em>any target-like object</em><em>, </em><em>see Target.canon_target</em>) – Host compilation target, if target is device.</p></li>
 <li><p><strong>params</strong> (<em>dict of str to NDArray</em>) – Input parameters to the graph that do not change
 during inference time. Used for constant folding.</p></li>
 </ul>
@@ -745,7 +790,8 @@ supported by <cite>tvm.runtime.vm</cite>.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">IRModule</span></code>) – The module to support the execution.</p></li>
 <li><p><strong>device</strong> (<a class="reference internal" href="../runtime.html#tvm.runtime.Device" title="tvm.runtime.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>) – The runtime device to run the code on.</p></li>
-<li><p><strong>target</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Target</span></code>) – The target option to build the function.</p></li>
+<li><p><strong>target</strong> (<em>any multi-target like object</em><em>, </em><em>see Target.canon_multi_target</em>) – For homogeneous compilation, the unique build target.
+For heterogeneous compilation, a dictionary or list of possible build targets.</p></li>
 </ul>
 </dd>
 </dl>
@@ -770,20 +816,20 @@ supported by <cite>tvm.runtime.vm</cite>.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

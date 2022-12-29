@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scan and Recurrent Kernel &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Scan and Recurrent Kernel &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -274,7 +306,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -322,7 +354,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/work_with_schedules/scan.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/work_with_schedules/scan.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -337,18 +371,21 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-work-with-schedules-scan-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-work-with-schedules-scan-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/729378592a96230b4f7be71b44da43a4/scan.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="scan-and-recurrent-kernel">
 <span id="sphx-glr-how-to-work-with-schedules-scan-py"></span><h1>Scan and Recurrent Kernel<a class="headerlink" href="#scan-and-recurrent-kernel" title="Permalink to this headline">¶</a></h1>
 <p><strong>Author</strong>: <a class="reference external" href="https://tqchen.github.io">Tianqi Chen</a></p>
 <p>This is an introduction material on how to do recurrent computing in TVM.
 Recurrent computing is a typical pattern in neural networks.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
 
 <span class="kn">import</span> <span class="nn">tvm</span>
 <span class="kn">import</span> <span class="nn">tvm.testing</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
@@ -366,54 +403,32 @@ Note that while it is invalid to refer to <code class="code docutils literal not
 It is also recommended(although not necessary) to list the inputs to the scan cell.
 The result of the scan is a tensor, giving the result of <code class="code docutils literal notranslate"><span class="pre">s_state</span></code> after the
 update over the time domain.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">s_state</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-<span class="n">s_init</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
-<span class="n">s_update</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
-<span class="n">s_scan</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.scan" title="View documentation for tvm.te.scan"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">scan</span></a><span class="p">(</span><span class="n">s_init</span><span class="p">,</span> <span class="n">s_update</span><span class="p">,</span> <span class="n">s_state</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">s_state</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="n">s_init</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+<span class="n">s_update</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+<span class="n">s_scan</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.scan" title="tvm.te.scan" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">scan</span></a><span class="p">(</span><span class="n">s_init</span><span class="p">,</span> <span class="n">s_update</span><span class="p">,</span> <span class="n">s_state</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="section" id="schedule-the-scan-cell">
 <h2>Schedule the Scan Cell<a class="headerlink" href="#schedule-the-scan-cell" title="Permalink to this headline">¶</a></h2>
 <p>We can schedule the body of the scan by scheduling the update and
-init part seperately. Note that it is invalid to schedule the
+init part separately. Note that it is invalid to schedule the
 first iteration dimension of the update part.
 To split on the time iteration, user can schedule on scan_op.scan_axis instead.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">s_scan</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">s_scan</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
 <span class="n">num_thread</span> <span class="o">=</span> <span class="mi">256</span>
-<span class="n">block_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.x&quot;</span><span class="p">)</span>
-<span class="n">thread_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="View documentation for tvm.te.thread_axis"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;threadIdx.x&quot;</span><span class="p">)</span>
+<span class="n">block_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;blockIdx.x&quot;</span><span class="p">)</span>
+<span class="n">thread_x</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.thread_axis" title="tvm.te.thread_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">thread_axis</span></a><span class="p">(</span><span class="s2">&quot;threadIdx.x&quot;</span><span class="p">)</span>
 <span class="n">xo</span><span class="p">,</span> <span class="n">xi</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s_init</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">s_init</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">factor</span><span class="o">=</span><span class="n">num_thread</span><span class="p">)</span>
 <span class="n">s</span><span class="p">[</span><span class="n">s_init</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">block_x</span><span class="p">)</span>
 <span class="n">s</span><span class="p">[</span><span class="n">s_init</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">thread_x</span><span class="p">)</span>
 <span class="n">xo</span><span class="p">,</span> <span class="n">xi</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s_update</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">s_update</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">factor</span><span class="o">=</span><span class="n">num_thread</span><span class="p">)</span>
 <span class="n">s</span><span class="p">[</span><span class="n">s_update</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">block_x</span><span class="p">)</span>
 <span class="n">s</span><span class="p">[</span><span class="n">s_update</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">thread_x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(X_1: handle, scan_1: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {X: Buffer(X_2: Pointer(float32), float32, [(stride: int32*m: int32)], [], type=&quot;auto&quot;),
-             scan: Buffer(scan_2: Pointer(float32), float32, [(stride_1: int32*m)], [], type=&quot;auto&quot;)}
-  buffer_map = {X_1: X, scan_1: scan} {
-  attr [IterVar(blockIdx.x: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;blockIdx.x&quot;)] &quot;thread_extent&quot; = floordiv((n: int32 + 255), 256);
-  attr [IterVar(threadIdx.x: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 256;
-  if @tir.likely((((blockIdx.x*256) + threadIdx.x) &lt; n), dtype=bool) {
-    scan[(((blockIdx.x*256) + threadIdx.x)*stride_2: int32)] = X[(((blockIdx.x*256) + threadIdx.x)*stride_3: int32)]
-  }
-  for (scan.idx: int32, 0, (m - 1)) {
-    attr [IterVar(blockIdx.x, (nullptr), &quot;ThreadIndex&quot;, &quot;blockIdx.x&quot;)] &quot;thread_extent&quot; = floordiv((n + 255), 256);
-    attr [IterVar(threadIdx.x, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 256;
-    if @tir.likely((((blockIdx.x*256) + threadIdx.x) &lt; n), dtype=bool) {
-      let cse_var_1: int32 = (scan.idx + 1)
-      scan[((cse_var_1*stride_1) + (((blockIdx.x*256) + threadIdx.x)*stride_2))] = (scan[((scan.idx*stride_1) + (((blockIdx.x*256) + threadIdx.x)*stride_2))] + X[((cse_var_1*stride) + (((blockIdx.x*256) + threadIdx.x)*stride_3))])
-    }
-  }
-}
+<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -421,13 +436,13 @@ To split on the time iteration, user can schedule on scan_op.scan_axis instead.<
 <h2>Build and Verify<a class="headerlink" href="#build-and-verify" title="Permalink to this headline">¶</a></h2>
 <p>We can build the scan kernel like other TVM kernels, here we use
 numpy to verify the correctness of the result.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fscan</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="View documentation for tvm.build"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan</span><span class="p">],</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;myscan&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fscan</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="tvm.build" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan</span><span class="p">],</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;myscan&quot;</span><span class="p">)</span>
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">1024</span>
 <span class="n">m</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">a_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">s_scan</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<span class="n">a</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">a_np</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">s_scan</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">dev</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">a_np</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">s_scan</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">dev</span><span class="p">)</span>
 <span class="n">fscan</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="n">tvm</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a_np</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 </pre></div>
@@ -440,53 +455,23 @@ computation stage in s_update. It is possible to use multiple
 Tensor stages in the scan cell.</p>
 <p>The following lines demonstrate a scan with two stage operations
 in the scan cell.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">s_state</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-<span class="n">s_init</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
-<span class="n">s_update_s1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;s1&quot;</span><span class="p">)</span>
-<span class="n">s_update_s2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_update_s1</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;s2&quot;</span><span class="p">)</span>
-<span class="n">s_scan</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.scan" title="View documentation for tvm.te.scan"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">scan</span></a><span class="p">(</span><span class="n">s_init</span><span class="p">,</span> <span class="n">s_update_s2</span><span class="p">,</span> <span class="n">s_state</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">s_state</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="n">s_init</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+<span class="n">s_update_s1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;s1&quot;</span><span class="p">)</span>
+<span class="n">s_update_s2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_update_s1</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;s2&quot;</span><span class="p">)</span>
+<span class="n">s_scan</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.scan" title="tvm.te.scan" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">scan</span></a><span class="p">(</span><span class="n">s_init</span><span class="p">,</span> <span class="n">s_update_s2</span><span class="p">,</span> <span class="n">s_state</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>These intermediate tensors can also be scheduled normally.
 To ensure correctness, TVM creates a group constraint to forbid
 the body of scan to be compute_at locations outside the scan loop.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">s_scan</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">s_scan</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
 <span class="n">xo</span><span class="p">,</span> <span class="n">xi</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s_update_s2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">s_update_s2</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">factor</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 <span class="n">s</span><span class="p">[</span><span class="n">s_update_s1</span><span class="p">]</span><span class="o">.</span><span class="n">compute_at</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">s_update_s2</span><span class="p">],</span> <span class="n">xo</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(X_1: handle, scan_1: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {X: Buffer(X_2: Pointer(float32), float32, [(stride: int32*m: int32)], [], type=&quot;auto&quot;),
-             scan: Buffer(scan_2: Pointer(float32), float32, [(stride_1: int32*m)], [], type=&quot;auto&quot;)}
-  buffer_map = {X_1: X, scan_1: scan} {
-  allocate(s1: Pointer(global float32), float32, [32]), storage_scope = global {
-    for (i: int32, 0, n: int32) {
-      scan[(i*stride_2: int32)] = X[(i*stride_3: int32)]
-    }
-    for (scan.idx: int32, 0, (m - 1)) {
-      for (i.outer: int32, 0, floordiv((n + 31), 32)) {
-        for (i_1: int32, 0, 32) {
-          if @tir.likely((((i.outer*32) + i_1) &lt; n), dtype=bool) {
-            s1_1: Buffer(s1, float32, [32], [])[i_1] = (scan[((scan.idx*stride_1) + (((i.outer*32) + i_1)*stride_2))]*2f32)
-          }
-        }
-        for (i.inner: int32, 0, 32) {
-          if @tir.likely((((i.outer*32) + i.inner) &lt; n), dtype=bool) {
-            let cse_var_2: int32 = (scan.idx + 1)
-            let cse_var_1: int32 = ((i.outer*32) + i.inner)
-            scan[((cse_var_2*stride_1) + (cse_var_1*stride_2))] = (s1_1[i.inner] + X[((cse_var_2*stride) + (cse_var_1*stride_3))])
-          }
-        }
-      }
-    }
-  }
-}
+<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -495,46 +480,21 @@ the body of scan to be compute_at locations outside the scan loop.</p>
 <p>For complicated applications like RNN, we might need more than one
 recurrent state. Scan support multiple recurrent states.
 The following example demonstrates how we can build recurrence with two states.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
-<span class="n">l</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="View documentation for tvm.te.var"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-<span class="n">s_state1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-<span class="n">s_state2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span>
-<span class="n">s_init1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
-<span class="n">s_init2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
-<span class="n">s_update1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state1</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
-<span class="n">s_update2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state2</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_state1</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">s_scan1</span><span class="p">,</span> <span class="n">s_scan2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.scan" title="View documentation for tvm.te.scan"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">scan</span></a><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">l</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.var" title="tvm.te.var" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">s_state1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="n">s_state2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span>
+<span class="n">s_init1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+<span class="n">s_init2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">s_update1</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state1</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+<span class="n">s_update2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s_state2</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_state1</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">s_scan1</span><span class="p">,</span> <span class="n">s_scan2</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.scan" title="tvm.te.scan" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">scan</span></a><span class="p">(</span>
     <span class="p">[</span><span class="n">s_init1</span><span class="p">,</span> <span class="n">s_init2</span><span class="p">],</span> <span class="p">[</span><span class="n">s_update1</span><span class="p">,</span> <span class="n">s_update2</span><span class="p">],</span> <span class="p">[</span><span class="n">s_state1</span><span class="p">,</span> <span class="n">s_state2</span><span class="p">],</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">X</span><span class="p">]</span>
 <span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">s_scan1</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan1</span><span class="p">,</span> <span class="n">s_scan2</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(X_1: handle, scan_2: handle, scan_3: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {X: Buffer(X_2: Pointer(float32), float32, [(stride: int32*m: int32)], [], type=&quot;auto&quot;),
-             scan: Buffer(scan_4: Pointer(float32), float32, [(stride_1: int32*m)], [], type=&quot;auto&quot;),
-             scan_1: Buffer(scan_5: Pointer(float32), float32, [(stride_2: int32*m)], [], type=&quot;auto&quot;)}
-  buffer_map = {X_1: X, scan_2: scan, scan_3: scan_1} {
-  for (i: int32, 0, n: int32) {
-    scan[(i*stride_3: int32)] = X[(i*stride_4: int32)]
-  }
-  for (i_1: int32, 0, l: int32) {
-    scan_1[(i_1*stride_5: int32)] = 0f32
-  }
-  for (scan.idx: int32, 0, (m - 1)) {
-    for (i_2: int32, 0, n) {
-      let cse_var_1: int32 = (scan.idx + 1)
-      scan[((cse_var_1*stride_1) + (i_2*stride_3))] = (scan[((scan.idx*stride_1) + (i_2*stride_3))] + X[((cse_var_1*stride) + (i_2*stride_4))])
-    }
-    for (i_3: int32, 0, l) {
-      scan_1[(((scan.idx + 1)*stride_2) + (i_3*stride_5))] = (scan_1[((scan.idx*stride_2) + (i_3*stride_5))] + scan[(scan.idx*stride_1)])
-    }
-  }
-}
+<span class="n">s</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">s_scan1</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="n">s_scan1</span><span class="p">,</span> <span class="n">s_scan2</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -546,11 +506,11 @@ The following example demonstrates how we can build recurrence with two states.<
 <li><p>Schedule the scan cells as normal schedule.</p></li>
 <li><p>For complicated workload, use multiple states and steps in scan cell.</p></li>
 </ul>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-schedules-scan-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-schedules-scan-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8c7d8fd6a4b93bcff1f5573943dd02f4/scan.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">scan.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/729378592a96230b4f7be71b44da43a4/scan.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">scan.ipynb</span></code></a></p>
 </div>
 </div>
@@ -575,20 +535,20 @@ The following example demonstrates how we can build recurrence with two states.<
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

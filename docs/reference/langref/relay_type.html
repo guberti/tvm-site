@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Relay’s Type System &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Relay’s Type System &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -265,7 +297,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -311,7 +343,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/reference/langref/relay_type.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/reference/langref/relay_type.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -390,7 +424,7 @@ is simply the corresponding index into the tuple type.</p>
 <code class="code docutils literal notranslate"><span class="pre">(Tensor[(),</span> <span class="pre">bool],</span> <span class="pre">Tensor[(10,</span> <span class="pre">10),</span> <span class="pre">float32])</span></code>
 and <code class="code docutils literal notranslate"><span class="pre">%c</span></code> is of type <code class="code docutils literal notranslate"><span class="pre">Tensor[(10,</span> <span class="pre">10),</span> <span class="pre">float32]</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="o">%</span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">float32</span><span class="p">));</span>
-<span class="n">let</span> <span class="o">%</span><span class="n">c</span> <span class="o">=</span> <span class="o">%</span><span class="n">t</span><span class="o">.</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">let</span> <span class="o">%</span><span class="n">c</span> <span class="o">=</span> <span class="o">%</span><span class="n">t</span><span class="mf">.1</span><span class="p">;</span>
 <span class="o">%</span><span class="n">c</span>
 </pre></div>
 </div>
@@ -412,10 +446,10 @@ so if type variable <code class="code docutils literal notranslate"><span class=
 <p>Like normal parameters, concrete arguments must be given for type parameters at call sites.</p>
 <p>For example, <code class="code docutils literal notranslate"><span class="pre">s</span></code> below is a type parameter of kind <code class="code docutils literal notranslate"><span class="pre">Shape</span></code> and it will
 be substituted with <code class="code docutils literal notranslate"><span class="pre">(10,</span> <span class="pre">10)</span></code> at the call site below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>def @plus&lt;s : Shape&gt;(%t1 : Tensor[s, float32], %t2 : Tensor[s, float32]) {
-     add(%t1, %t2)
-}
-plus&lt;(10, 10)&gt;(%a, %b)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nd">@plus</span><span class="o">&lt;</span><span class="n">s</span> <span class="p">:</span> <span class="n">Shape</span><span class="o">&gt;</span><span class="p">(</span><span class="o">%</span><span class="n">t1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">float32</span><span class="p">],</span> <span class="o">%</span><span class="n">t2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">float32</span><span class="p">])</span> <span class="p">{</span>
+     <span class="n">add</span><span class="p">(</span><span class="o">%</span><span class="n">t1</span><span class="p">,</span> <span class="o">%</span><span class="n">t2</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">plus</span><span class="o">&lt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="o">%</span><span class="n">a</span><span class="p">,</span> <span class="o">%</span><span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>See <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code> for its definition and documentation.</p>
@@ -643,20 +677,20 @@ the type parameters do not match:</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

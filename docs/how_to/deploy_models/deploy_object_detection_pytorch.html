@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Compile PyTorch Object Detection Models &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Compile PyTorch Object Detection Models &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -267,7 +299,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -317,7 +349,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/deploy_models/deploy_object_detection_pytorch.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/deploy_models/deploy_object_detection_pytorch.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -332,7 +366,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-deploy-models-deploy-object-detection-pytorch-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-deploy-models-deploy-object-detection-pytorch-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/399e1d7889ca66b69d51655784827503/deploy_object_detection_pytorch.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="compile-pytorch-object-detection-models">
 <span id="sphx-glr-how-to-deploy-models-deploy-object-detection-pytorch-py"></span><h1>Compile PyTorch Object Detection Models<a class="headerlink" href="#compile-pytorch-object-detection-models" title="Permalink to this headline">¶</a></h1>
@@ -341,8 +377,8 @@ detection models with Relay VM.</p>
 <p>For us to begin with, PyTorch should be installed.
 TorchVision is also required since we will be using it as our model zoo.</p>
 <p>A quick solution is to install via pip</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.7.0
-pip install <span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.8.1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install torch
+pip install torchvision
 </pre></div>
 </div>
 <p>or please refer to official site
@@ -352,10 +388,10 @@ with the proper TorchVision version.</p>
 <p>Currently, TVM supports PyTorch 1.7 and 1.4. Other versions may
 be unstable.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm.runtime.vm</span> <span class="k">import</span> <span class="n">VirtualMachine</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="k">import</span> <span class="n">download_testdata</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm.runtime.vm</span> <span class="kn">import</span> <span class="n">VirtualMachine</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="kn">import</span> <span class="n">download_testdata</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
@@ -385,7 +421,7 @@ be unstable.</p>
 
 
 <span class="k">class</span> <span class="nc">TraceWrapper</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
 
@@ -405,44 +441,11 @@ be unstable.</p>
     <span class="n">script_module</span> <span class="o">=</span> <span class="n">do_trace</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inp</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading: &quot;https://download.pytorch.org/models/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth&quot; to /workspace/.cache/torch/hub/checkpoints/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth
-
-  0%|          | 0.00/170M [00:00&lt;?, ?B/s]
-  3%|2         | 4.40M/170M [00:00&lt;00:03, 46.1MB/s]
-  5%|5         | 8.80M/170M [00:00&lt;00:03, 44.9MB/s]
- 19%|#8        | 32.0M/170M [00:00&lt;00:01, 134MB/s]
- 33%|###2      | 55.3M/170M [00:00&lt;00:00, 177MB/s]
- 49%|####9     | 83.2M/170M [00:00&lt;00:00, 219MB/s]
- 63%|######2   | 107M/170M [00:00&lt;00:00, 228MB/s]
- 80%|#######9  | 135M/170M [00:00&lt;00:00, 251MB/s]
- 96%|#########6| 164M/170M [00:00&lt;00:00, 266MB/s]
-100%|##########| 170M/170M [00:00&lt;00:00, 215MB/s]
-/usr/local/lib/python3.7/dist-packages/torch/nn/functional.py:3878: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  for i in range(dim)
-/usr/local/lib/python3.7/dist-packages/torchvision/models/detection/anchor_utils.py:127: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the &#39;trunc&#39; function NOT &#39;floor&#39;). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode=&#39;trunc&#39;), or for actual floor division, use torch.div(a, b, rounding_mode=&#39;floor&#39;).
-  for g in grid_sizes
-/usr/local/lib/python3.7/dist-packages/torchvision/models/detection/anchor_utils.py:127: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  for g in grid_sizes
-/usr/local/lib/python3.7/dist-packages/torchvision/models/detection/rpn.py:73: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the &#39;trunc&#39; function NOT &#39;floor&#39;). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode=&#39;trunc&#39;), or for actual floor division, use torch.div(a, b, rounding_mode=&#39;floor&#39;).
-  A = Ax4 // 4
-/usr/local/lib/python3.7/dist-packages/torchvision/models/detection/rpn.py:74: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the &#39;trunc&#39; function NOT &#39;floor&#39;). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode=&#39;trunc&#39;), or for actual floor division, use torch.div(a, b, rounding_mode=&#39;floor&#39;).
-  C = AxC // A
-/usr/local/lib/python3.7/dist-packages/torchvision/ops/boxes.py:156: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  boxes_x = torch.min(boxes_x, torch.tensor(width, dtype=boxes.dtype, device=boxes.device))
-/usr/local/lib/python3.7/dist-packages/torchvision/ops/boxes.py:158: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  boxes_y = torch.min(boxes_y, torch.tensor(height, dtype=boxes.dtype, device=boxes.device))
-/usr/local/lib/python3.7/dist-packages/torchvision/models/detection/transform.py:293: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  for s, s_orig in zip(new_size, original_size)
-/usr/local/lib/python3.7/dist-packages/torchvision/models/detection/roi_heads.py:387: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  return torch.tensor(M + 2 * padding).to(torch.float32) / torch.tensor(M).to(torch.float32)
-</pre></div>
-</div>
 </div>
 <div class="section" id="download-a-test-image-and-pre-process">
 <h2>Download a test image and pre-process<a class="headerlink" href="#download-a-test-image-and-pre-process" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img_url</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;https://raw.githubusercontent.com/dmlc/web-data/&quot;</span> <span class="s2">&quot;master/gluoncv/detection/street_small.jpg&quot;</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/dmlc/web-data/master/gluoncv/detection/street_small.jpg&quot;</span>
 <span class="p">)</span>
 <span class="n">img_path</span> <span class="o">=</span> <span class="n">download_testdata</span><span class="p">(</span><span class="n">img_url</span><span class="p">,</span> <span class="s2">&quot;test_street_small.jpg&quot;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
 
@@ -458,12 +461,7 @@ be unstable.</p>
 <h2>Import the graph to Relay<a class="headerlink" href="#import-the-graph-to-relay" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_name</span> <span class="o">=</span> <span class="s2">&quot;input0&quot;</span>
 <span class="n">shape_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">input_name</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">)]</span>
-<span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_pytorch" title="View documentation for tvm.relay.frontend.from_pytorch"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_pytorch</span></a><span class="p">(</span><span class="n">script_module</span><span class="p">,</span> <span class="n">shape_list</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/workspace/python/tvm/relay/build_module.py:439: DeprecationWarning: Please use input parameter mod (tvm.IRModule) instead of deprecated parameter mod (tvm.relay.function.Function)
-  DeprecationWarning,
+<span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_pytorch" title="tvm.relay.frontend.from_pytorch" class="sphx-glr-backref-module-tvm-relay-frontend sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_pytorch</span></a><span class="p">(</span><span class="n">script_module</span><span class="p">,</span> <span class="n">shape_list</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -478,7 +476,7 @@ torchvision rcnn models.</p>
 <span class="c1"># &quot;llvm -mcpu=skylake-avx512 -libs=mkl&quot;</span>
 <span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;llvm&quot;</span>
 
-<span class="k">with</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="View documentation for tvm.transform.PassContext"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">disabled_pass</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;FoldScaleAxis&quot;</span><span class="p">]):</span>
+<span class="k">with</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="tvm.transform.PassContext" class="sphx-glr-backref-module-tvm-transform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">disabled_pass</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;FoldScaleAxis&quot;</span><span class="p">]):</span>
     <span class="n">vm_exec</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -506,16 +504,11 @@ torchvision rcnn models.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Get </span><span class="si">{}</span><span class="s2"> valid boxes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_boxes</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Get 9 valid boxes
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  57.887 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-deploy-models-deploy-object-detection-pytorch-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-deploy-models-deploy-object-detection-pytorch-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7795da4b258c8feff986668b95ef57ad/deploy_object_detection_pytorch.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">deploy_object_detection_pytorch.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/399e1d7889ca66b69d51655784827503/deploy_object_detection_pytorch.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">deploy_object_detection_pytorch.ipynb</span></code></a></p>
 </div>
 </div>
@@ -540,20 +533,20 @@ torchvision rcnn models.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

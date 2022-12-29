@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Simple Matrix Multiply &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Simple Matrix Multiply &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -265,7 +297,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -313,7 +345,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/topic/vta/tutorials/matrix_multiply.rst.txt" rel="nofollow"> <img src="../../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/topic/vta/tutorials/matrix_multiply.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -328,7 +362,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-topic-vta-tutorials-matrix-multiply-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-topic-vta-tutorials-matrix-multiply-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/1ee0b869c5082223c5dfbb0fe4574252/matrix_multiply.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="simple-matrix-multiply">
 <span id="basic-mat-mult"></span><span id="sphx-glr-topic-vta-tutorials-matrix-multiply-py"></span><h1>Simple Matrix Multiply<a class="headerlink" href="#simple-matrix-multiply" title="Permalink to this headline">¶</a></h1>
@@ -340,16 +376,16 @@ on VTA with the TVM workflow.</p>
 <h2>RPC Setup<a class="headerlink" href="#rpc-setup" title="Permalink to this headline">¶</a></h2>
 <p>We start by programming the Pynq’s FPGA and building its RPC runtime
 as we did in the VTA introductory tutorial.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
 <span class="kn">import</span> <span class="nn">vta</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">rpc</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">vta.testing</span> <span class="k">import</span> <span class="n">simulator</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">rpc</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">vta.testing</span> <span class="kn">import</span> <span class="n">simulator</span>
 
 <span class="c1"># Load VTA parameters from the 3rdparty/vta-hw/config/vta_config.json file</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">vta</span><span class="o">.</span><span class="n">get_env</span><span class="p">()</span>
@@ -363,8 +399,8 @@ as we did in the VTA introductory tutorial.</p>
 <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="o">==</span> <span class="s2">&quot;pynq&quot;</span> <span class="ow">or</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="o">==</span> <span class="s2">&quot;de10nano&quot;</span><span class="p">:</span>
 
     <span class="c1"># Make sure that TVM was compiled with RPC=1</span>
-    <span class="k">assert</span> <a href="../../../reference/api/python/runtime.html#tvm.runtime.enabled" title="View documentation for tvm.runtime.enabled"><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">enabled</span></a><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">)</span>
-    <span class="n">remote</span> <span class="o">=</span> <a href="../../../reference/api/python/rpc.html#tvm.rpc.connect" title="View documentation for tvm.rpc.connect"><span class="n">rpc</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="k">assert</span> <a href="../../../reference/api/python/runtime.html#tvm.runtime.enabled" title="tvm.runtime.enabled" class="sphx-glr-backref-module-tvm-runtime sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">enabled</span></a><span class="p">(</span><span class="s2">&quot;rpc&quot;</span><span class="p">)</span>
+    <span class="n">remote</span> <span class="o">=</span> <a href="../../../reference/api/python/rpc.html#tvm.rpc.connect" title="tvm.rpc.connect" class="sphx-glr-backref-module-tvm-rpc sphx-glr-backref-type-py-function"><span class="n">rpc</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
 
     <span class="c1"># Reconfigure the JIT runtime</span>
     <span class="n">vta</span><span class="o">.</span><span class="n">reconfig_runtime</span><span class="p">(</span><span class="n">remote</span><span class="p">)</span>
@@ -376,7 +412,7 @@ as we did in the VTA introductory tutorial.</p>
 
 <span class="c1"># In simulation mode, host the RPC server locally.</span>
 <span class="k">elif</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="s2">&quot;tsim&quot;</span><span class="p">]:</span>
-    <span class="n">remote</span> <span class="o">=</span> <a href="../../../reference/api/python/rpc.html#tvm.rpc.LocalSession" title="View documentation for tvm.rpc.LocalSession"><span class="n">rpc</span><span class="o">.</span><span class="n">LocalSession</span></a><span class="p">()</span>
+    <span class="n">remote</span> <span class="o">=</span> <a href="../../../reference/api/python/rpc.html#tvm.rpc.LocalSession" title="tvm.rpc.LocalSession" class="sphx-glr-backref-module-tvm-rpc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rpc</span><span class="o">.</span><span class="n">LocalSession</span></a><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -457,13 +493,13 @@ integer.</p>
 <span class="c1"># Batch factor o (we use single batch inference)</span>
 <span class="n">o</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="c1"># A placeholder tensor in tiled data format</span>
-<span class="n">A</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">o</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">inp_dtype</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">o</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">inp_dtype</span><span class="p">)</span>
 <span class="c1"># B placeholder tensor in tiled data format</span>
-<span class="n">B</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">wgt_dtype</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">wgt_dtype</span><span class="p">)</span>
 <span class="c1"># A copy buffer</span>
-<span class="n">A_buf</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">o</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">A</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="s2">&quot;A_buf&quot;</span><span class="p">)</span>
+<span class="n">A_buf</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">o</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">A</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="s2">&quot;A_buf&quot;</span><span class="p">)</span>
 <span class="c1"># B copy buffer</span>
-<span class="n">B_buf</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">B</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="s2">&quot;B_buf&quot;</span><span class="p">)</span>
+<span class="n">B_buf</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">B</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="s2">&quot;B_buf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -485,13 +521,13 @@ accumulator data types.</p>
 <p>No computation happens during this phase, as we are only declaring how
 the computation should be done.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Outer input feature reduction axis</span>
-<span class="n">ko</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.reduce_axis" title="View documentation for tvm.te.reduce_axis"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span>
+<span class="n">ko</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.reduce_axis" title="tvm.te.reduce_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span>
 <span class="c1"># Inner input feature reduction axis</span>
-<span class="n">ki</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.reduce_axis" title="View documentation for tvm.te.reduce_axis"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ki&quot;</span><span class="p">)</span>
+<span class="n">ki</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.reduce_axis" title="tvm.te.reduce_axis" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">reduce_axis</span></a><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ki&quot;</span><span class="p">)</span>
 <span class="c1"># Describe the in-VTA matrix multiplication</span>
-<span class="n">C_buf</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
+<span class="n">C_buf</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
     <span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">),</span>
-    <span class="k">lambda</span> <span class="n">bo</span><span class="p">,</span> <span class="n">co</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">ci</span><span class="p">:</span> <a href="../../../reference/api/python/te.html#tvm.te.sum" title="View documentation for tvm.te.sum"><span class="n">te</span><span class="o">.</span><span class="n">sum</span></a><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">bo</span><span class="p">,</span> <span class="n">co</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">ci</span><span class="p">:</span> <a href="../../../reference/api/python/te.html#tvm.te.sum" title="tvm.te.sum" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">sum</span></a><span class="p">(</span>
         <span class="n">A_buf</span><span class="p">[</span><span class="n">bo</span><span class="p">,</span> <span class="n">ko</span><span class="p">,</span> <span class="n">bi</span><span class="p">,</span> <span class="n">ki</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">acc_dtype</span><span class="p">)</span> <span class="o">*</span> <span class="n">B_buf</span><span class="p">[</span><span class="n">co</span><span class="p">,</span> <span class="n">ko</span><span class="p">,</span> <span class="n">ci</span><span class="p">,</span> <span class="n">ki</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">acc_dtype</span><span class="p">),</span>
         <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="n">ko</span><span class="p">,</span> <span class="n">ki</span><span class="p">],</span>
     <span class="p">),</span>
@@ -519,7 +555,7 @@ layer.</p>
 <p>We perform one last typecast operation to the narrow
 input activation data format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cast to output type, and send to main memory</span>
-<span class="n">C</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
+<span class="n">C</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span>
     <span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">),</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <span class="n">C_buf</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">inp_dtype</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;C&quot;</span>
 <span class="p">)</span>
 </pre></div>
@@ -544,55 +580,8 @@ primitives.</p>
 <p>After we construct the schedule, by default the schedule computes
 <code class="code docutils literal notranslate"><span class="pre">C</span></code> in the following way:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s take a look at the generated schedule</span>
-<span class="n">s</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {A: Buffer(A_2: Pointer(int8), int8, [256], []),
-             B: Buffer(B_2: Pointer(int8), int8, [65536], []),
-             C: Buffer(C_2: Pointer(int8), int8, [256], [])}
-  buffer_map = {A_1: A, B_1: B, C_1: C} {
-  allocate(A_buf: Pointer(global int8), int8, [256]), storage_scope = global;
-  allocate(B_buf: Pointer(global int8), int8, [65536]), storage_scope = global;
-  allocate(C_buf: Pointer(global int32), int32, [256]), storage_scope = global {
-    for (i1: int32, 0, 16) {
-      for (i3: int32, 0, 16) {
-        let cse_var_1: int32 = ((i1*16) + i3)
-        A_buf_1: Buffer(A_buf, int8, [256], [])[cse_var_1] = A[cse_var_1]
-      }
-    }
-    for (i0: int32, 0, 16) {
-      for (i1_1: int32, 0, 16) {
-        for (i2: int32, 0, 16) {
-          for (i3_1: int32, 0, 16) {
-            let cse_var_2: int32 = ((((i0*4096) + (i1_1*256)) + (i2*16)) + i3_1)
-            B_buf_1: Buffer(B_buf, int8, [65536], [])[cse_var_2] = B[cse_var_2]
-          }
-        }
-      }
-    }
-    for (co: int32, 0, 16) {
-      for (ci: int32, 0, 16) {
-        C_buf_1: Buffer(C_buf, int32, [256], [])[((co*16) + ci)] = 0
-        for (ko: int32, 0, 16) {
-          for (ki: int32, 0, 16) {
-            let cse_var_3: int32 = ((co*16) + ci)
-            C_buf_1[cse_var_3] = (C_buf_1[cse_var_3] + (cast(int32, A_buf_1[((ko*16) + ki)])*cast(int32, B_buf_1[((((co*4096) + (ko*256)) + (ci*16)) + ki)])))
-          }
-        }
-      }
-    }
-    for (i1_2: int32, 0, 16) {
-      for (i3_2: int32, 0, 16) {
-        let cse_var_4: int32 = ((i1_2*16) + i3_2)
-        C[cse_var_4] = cast(int8, C_buf_1[cse_var_4])
-      }
-    }
-  }
-}
+<span class="n">s</span> <span class="o">=</span> <a href="../../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">op</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="../../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Although this schedule makes sense, it won’t compile to VTA.
@@ -671,47 +660,7 @@ moving the copy operations into the matrix multiplication loop.</p>
 <span class="n">s</span><span class="p">[</span><span class="n">C</span><span class="p">]</span><span class="o">.</span><span class="n">pragma</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">C</span><span class="p">]</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">env</span><span class="o">.</span><span class="n">dma_copy</span><span class="p">)</span>
 
 <span class="c1"># Let&#39;s take a look at the transformed schedule</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {A: Buffer(A_2: Pointer(int8), int8, [256], []),
-             B: Buffer(B_2: Pointer(int8), int8, [65536], []),
-             C: Buffer(C_2: Pointer(int8), int8, [256], [])}
-  buffer_map = {A_1: A, B_1: B, C_1: C} {
-  allocate(C_buf: Pointer(local.acc_buffer int32), int32, [256]), storage_scope = local.acc_buffer;
-  allocate(A_buf: Pointer(local.inp_buffer int8), int8, [16]), storage_scope = local.inp_buffer;
-  allocate(B_buf: Pointer(local.wgt_buffer int8), int8, [16]), storage_scope = local.wgt_buffer {
-    for (co: int32, 0, 16) {
-      for (ci: int32, 0, 16) {
-        C_buf_1: Buffer(C_buf, int32, [256], [], scope=&quot;local.acc_buffer&quot;, align=16)[((co*16) + ci)] = 0
-        for (ko: int32, 0, 16) {
-          attr [IterVar(i0: int32, (nullptr), &quot;DataPar&quot;, &quot;&quot;)] &quot;pragma_dma_copy&quot; = 1;
-          for (i3: int32, 0, 16) {
-            A_buf_1: Buffer(A_buf, int8, [16], [], scope=&quot;local.inp_buffer&quot;, align=16)[i3] = A[((ko*16) + i3)]
-          }
-          attr [IterVar(i0_1: int32, (nullptr), &quot;DataPar&quot;, &quot;&quot;)] &quot;pragma_dma_copy&quot; = 1;
-          for (i3_1: int32, 0, 16) {
-            B_buf_1: Buffer(B_buf, int8, [16], [], scope=&quot;local.wgt_buffer&quot;, align=256)[i3_1] = B[((((co*4096) + (ko*256)) + (ci*16)) + i3_1)]
-          }
-          for (ki: int32, 0, 16) {
-            let cse_var_1: int32 = ((co*16) + ci)
-            C_buf_1[cse_var_1] = (C_buf_1[cse_var_1] + (cast(int32, A_buf_1[ki])*cast(int32, B_buf_1[ki])))
-          }
-        }
-      }
-    }
-    attr [IterVar(i0_2: int32, (nullptr), &quot;DataPar&quot;, &quot;&quot;)] &quot;pragma_dma_copy&quot; = 1;
-    for (i1: int32, 0, 16) {
-      for (i3_2: int32, 0, 16) {
-        let cse_var_2: int32 = ((i1*16) + i3_2)
-        C[cse_var_2] = cast(int8, C_buf_1[cse_var_2])
-      }
-    }
-  }
-}
+<span class="nb">print</span><span class="p">(</span><a href="../../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -742,48 +691,6 @@ by the VTA runtime JIT compiler.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">vta</span><span class="o">.</span><span class="n">lower</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>@main = primfn(A_1: handle, B_1: handle, C_1: handle) -&gt; ()
-  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
-  buffers = {A: Buffer(A_2: Pointer(int8), int8, [256], []),
-             B: Buffer(B_2: Pointer(int8), int8, [65536], []),
-             C: Buffer(C_2: Pointer(int8), int8, [256], [])}
-  buffer_map = {A_1: A, B_1: B, C_1: C} {
-  attr [IterVar(vta: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;vta&quot;)] &quot;coproc_scope&quot; = 2 {
-    attr [IterVar(vta, (nullptr), &quot;ThreadIndex&quot;, &quot;vta&quot;)] &quot;coproc_uop_scope&quot; = &quot;VTAPushGEMMOp&quot; {
-      @tir.call_extern(&quot;VTAUopLoopBegin&quot;, 16, 1, 0, 0, dtype=int32)
-      @tir.vta.uop_push(0, 1, 0, 0, 0, 0, 0, 0, dtype=int32)
-      @tir.call_extern(&quot;VTAUopLoopEnd&quot;, dtype=int32)
-    }
-    @tir.vta.coproc_dep_push(2, 1, dtype=int32)
-  }
-  for (ko: int32, 0, 16) {
-    attr [IterVar(vta, (nullptr), &quot;ThreadIndex&quot;, &quot;vta&quot;)] &quot;coproc_scope&quot; = 1 {
-      @tir.vta.coproc_dep_pop(2, 1, dtype=int32)
-      @tir.call_extern(&quot;VTALoadBuffer2D&quot;, @tir.tvm_thread_context(@tir.vta.command_handle(, dtype=handle), dtype=handle), A_2, ko, 1, 1, 1, 0, 0, 0, 0, 0, 2, dtype=int32)
-      @tir.call_extern(&quot;VTALoadBuffer2D&quot;, @tir.tvm_thread_context(@tir.vta.command_handle(, dtype=handle), dtype=handle), B_2, ko, 1, 16, 16, 0, 0, 0, 0, 0, 1, dtype=int32)
-      @tir.vta.coproc_dep_push(1, 2, dtype=int32)
-    }
-    attr [IterVar(vta, (nullptr), &quot;ThreadIndex&quot;, &quot;vta&quot;)] &quot;coproc_scope&quot; = 2 {
-      @tir.vta.coproc_dep_pop(1, 2, dtype=int32)
-      attr [IterVar(vta, (nullptr), &quot;ThreadIndex&quot;, &quot;vta&quot;)] &quot;coproc_uop_scope&quot; = &quot;VTAPushGEMMOp&quot; {
-        @tir.call_extern(&quot;VTAUopLoopBegin&quot;, 16, 1, 0, 1, dtype=int32)
-        @tir.vta.uop_push(0, 0, 0, 0, 0, 0, 0, 0, dtype=int32)
-        @tir.call_extern(&quot;VTAUopLoopEnd&quot;, dtype=int32)
-      }
-      @tir.vta.coproc_dep_push(2, 1, dtype=int32)
-    }
-  }
-  @tir.vta.coproc_dep_push(2, 3, dtype=int32)
-  @tir.vta.coproc_dep_pop(2, 1, dtype=int32)
-  attr [IterVar(vta, (nullptr), &quot;ThreadIndex&quot;, &quot;vta&quot;)] &quot;coproc_scope&quot; = 3 {
-    @tir.vta.coproc_dep_pop(2, 3, dtype=int32)
-    @tir.call_extern(&quot;VTAStoreBuffer2D&quot;, @tir.tvm_thread_context(@tir.vta.command_handle(, dtype=handle), dtype=handle), 0, 4, C_2, 0, 16, 1, 16, dtype=int32)
-  }
-  @tir.vta.coproc_sync(, dtype=int32)
-}
-</pre></div>
-</div>
 <p>This concludes the scheduling portion of this tutorial.</p>
 </div>
 </div>
@@ -793,11 +700,11 @@ by the VTA runtime JIT compiler.</p>
 into a TVM function.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build GEMM VTA kernel</span>
 <span class="n">my_gemm</span> <span class="o">=</span> <span class="n">vta</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
-    <span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <a href="../../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;ext_dev&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_gemm&quot;</span>
+    <span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">],</span> <a href="../../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;ext_dev&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_gemm&quot;</span>
 <span class="p">)</span>
 
 <span class="c1"># Write the compiled module into an object file.</span>
-<span class="n">temp</span> <span class="o">=</span> <a href="../../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+<span class="n">temp</span> <span class="o">=</span> <a href="../../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
 <span class="n">my_gemm</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">temp</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="s2">&quot;gemm.o&quot;</span><span class="p">))</span>
 
 <span class="c1"># Send the executable over RPC</span>
@@ -833,9 +740,9 @@ interpreted.</p></li>
 <span class="n">B_packed</span> <span class="o">=</span> <span class="n">B_orig</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_IN</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
 <span class="c1"># Format the input/output arrays with tvm.nd.array to the DLPack standard</span>
-<span class="n">A_nd</span> <span class="o">=</span> <a href="../../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">A_packed</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
-<span class="n">B_nd</span> <span class="o">=</span> <a href="../../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">B_packed</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
-<span class="n">C_nd</span> <span class="o">=</span> <a href="../../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">o</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">A_nd</span> <span class="o">=</span> <a href="../../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">A_packed</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">B_nd</span> <span class="o">=</span> <a href="../../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">B_packed</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">C_nd</span> <span class="o">=</span> <a href="../../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">o</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BATCH</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">BLOCK_OUT</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span> <span class="n">ctx</span><span class="p">)</span>
 
 <span class="c1"># Clear stats</span>
 <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">TARGET</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="s2">&quot;tsim&quot;</span><span class="p">]:</span>
@@ -865,18 +772,6 @@ matrix multiplication indeed is correct</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successful matrix multiply test!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Execution statistics:
-        inp_load_nbytes :              256
-        wgt_load_nbytes :            65536
-        acc_load_nbytes :                0
-        uop_load_nbytes :                8
-        out_store_nbytes:              256
-        gemm_counter    :              256
-        alu_counter     :                0
-Successful matrix multiply test!
-</pre></div>
-</div>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
@@ -890,11 +785,11 @@ The general workflow includes:</p>
 <li><p>Compiling the function to the VTA target.</p></li>
 <li><p>Running the compiled module and verifying it against a numpy implementation.</p></li>
 </ul>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-topic-vta-tutorials-matrix-multiply-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-topic-vta-tutorials-matrix-multiply-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../../_downloads/de1c160863e8a3826753e987a4138298/matrix_multiply.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">matrix_multiply.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../../_downloads/1ee0b869c5082223c5dfbb0fe4574252/matrix_multiply.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">matrix_multiply.ipynb</span></code></a></p>
 </div>
 </div>
@@ -919,20 +814,20 @@ The general workflow includes:</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

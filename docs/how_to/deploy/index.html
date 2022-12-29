@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Deploy Models and Integrate TVM &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Deploy Models and Integrate TVM &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -46,7 +49,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Deploy TVM Module using C++ API" href="cpp_deploy.html" />
-    <link rel="prev" title="Compile PaddlePaddle Models" href="../compile_models/from_paddle.html" /> 
+    <link rel="prev" title="Compile OneFlow Models" href="../compile_models/from_oneflow.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -215,6 +247,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#deploy-optimized-model-on-target-devices">Deploy optimized model on target devices</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cpp_deploy.html">Deploy TVM Module using C++ API</a></li>
 <li class="toctree-l4"><a class="reference internal" href="android.html">Deploy to Android</a></li>
+<li class="toctree-l4"><a class="reference internal" href="adreno.html">Deploy to Adreno GPU</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integrate.html">Integrate TVM into Your Project</a></li>
 <li class="toctree-l4"><a class="reference internal" href="hls.html">HLS Backend Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="arm_compute_lib.html">Relay Arm<sup>®</sup> Compute Library Integration</a></li>
@@ -281,7 +314,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -327,7 +360,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/deploy/index.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/deploy/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -379,7 +414,7 @@ After you get the TVM runtime library, you can link the compiled library</p>
 </div>
 <p>A model (optimized or not by TVM) can be cross compiled by TVM for
 different architectures such as <code class="docutils literal notranslate"><span class="pre">aarch64</span></code> on a <code class="docutils literal notranslate"><span class="pre">x64_64</span></code> host. Once the model
-is cross compiled it is neccessary to have a runtime compatible with the target
+is cross compiled it is necessary to have a runtime compatible with the target
 architecture to be able to run the cross compiled model.</p>
 </div>
 <div class="section" id="cross-compile-the-tvm-runtime-for-other-architectures">
@@ -469,6 +504,13 @@ target device without relying on RPC. See the following resources on how to do s
 <li class="toctree-l2"><a class="reference internal" href="android.html#tvm-runtime-for-android-target">TVM Runtime for Android Target</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="adreno.html">Deploy to Adreno GPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adreno.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adreno.html#advantages-of-the-textures">Advantages of the Textures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adreno.html#building-tvm-for-adreno">Building TVM for Adreno</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adreno.html#build-and-deploy-model-for-adreno">Build and deploy model for Adreno</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="integrate.html">Integrate TVM into Your Project</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integrate.html#dlpack-support">DLPack Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integrate.html#integrate-user-defined-c-array">Integrate User Defined C++ Array</a></li>
@@ -548,24 +590,24 @@ describe how to prepare and deploy models to many of the supported backends.</p>
         <a href="cpp_deploy.html" class="btn btn-neutral float-right" title="Deploy TVM Module using C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../compile_models/from_paddle.html" class="btn btn-neutral float-left" title="Compile PaddlePaddle Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../compile_models/from_oneflow.html" class="btn btn-neutral float-left" title="Compile OneFlow Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Deploy a Framework-prequantized Model with TVM &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Deploy a Framework-prequantized Model with TVM &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -267,7 +299,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -317,7 +349,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/how_to/deploy_models/deploy_prequantized.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/deploy_models/deploy_prequantized.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -332,7 +366,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-deploy-models-deploy-prequantized-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-how-to-deploy-models-deploy-prequantized-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/c20f81a94729f461f33b52cc110fd9d6/deploy_prequantized.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="deploy-a-framework-prequantized-model-with-tvm">
 <span id="sphx-glr-how-to-deploy-models-deploy-prequantized-py"></span><h1>Deploy a Framework-prequantized Model with TVM<a class="headerlink" href="#deploy-a-framework-prequantized-model-with-tvm" title="Permalink to this headline">¶</a></h1>
@@ -343,17 +379,20 @@ the quantization story in TVM can be found
 <a class="reference external" href="https://discuss.tvm.apache.org/t/quantization-story/3920">here</a>.</p>
 <p>Here, we demonstrate how to load and run models quantized by PyTorch, MXNet, and TFLite.
 Once loaded, we can run compiled, quantized models on any hardware TVM supports.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <p>First, necessary imports</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torchvision.models.quantization</span> <span class="k">import</span> <span class="n">mobilenet</span> <span class="k">as</span> <span class="n">qmobilenet</span>
+<span class="kn">from</span> <span class="nn">torchvision.models.quantization</span> <span class="kn">import</span> <span class="n">mobilenet</span> <span class="k">as</span> <span class="n">qmobilenet</span>
 
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="k">import</span> <span class="n">download_testdata</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="kn">import</span> <span class="n">download_testdata</span>
 </pre></div>
 </div>
 <p>Helper functions to run the demo</p>
@@ -400,10 +439,10 @@ Once loaded, we can run compiled, quantized models on any hardware TVM supports.
 
 
 <span class="k">def</span> <span class="nf">run_tvm_model</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">input_name</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">):</span>
-    <span class="k">with</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="View documentation for tvm.transform.PassContext"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">with</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="tvm.transform.PassContext" class="sphx-glr-backref-module-tvm-transform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         <span class="n">lib</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="n">runtime</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="View documentation for tvm.contrib.graph_executor.GraphModule"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">graph_executor</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">tvm</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="n">runtime</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="tvm.contrib.graph_executor.GraphModule" class="sphx-glr-backref-module-tvm-contrib-graph_executor sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">graph_executor</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">tvm</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
 
     <span class="n">runtime</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="n">input_name</span><span class="p">,</span> <span class="n">inp</span><span class="p">)</span>
     <span class="n">runtime</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
@@ -446,13 +485,6 @@ training. Other models require a full post training calibration.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qmodel</span> <span class="o">=</span> <span class="n">qmobilenet</span><span class="o">.</span><span class="n">mobilenet_v2</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading: &quot;https://download.pytorch.org/models/mobilenet_v2-b0353104.pth&quot; to /workspace/.cache/torch/hub/checkpoints/mobilenet_v2-b0353104.pth
-
-  0%|          | 0.00/13.6M [00:00&lt;?, ?B/s]
-100%|##########| 13.6M/13.6M [00:00&lt;00:00, 164MB/s]
-</pre></div>
-</div>
 </div>
 <div class="section" id="quantize-trace-and-run-the-pytorch-mobilenet-v2-model">
 <h2>Quantize, trace and run the PyTorch Mobilenet v2 model<a class="headerlink" href="#quantize-trace-and-run-the-pytorch-mobilenet-v2-model" title="Permalink to this headline">¶</a></h2>
@@ -464,13 +496,6 @@ on the PyTorch website to learn about quantization and jit.</p>
 
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="n">pt_result</span> <span class="o">=</span> <span class="n">script_module</span><span class="p">(</span><span class="n">pt_inp</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/torch/ao/quantization/observer.py:179: UserWarning: Please use quant_min and quant_max to specify the range for observers.                     reduce_range will be deprecated in a future release of PyTorch.
-  reduce_range will be deprecated in a future release of PyTorch.&quot;
-/usr/local/lib/python3.7/dist-packages/torch/ao/quantization/observer.py:1126: UserWarning: must run observer before calling calculate_qparams.                                    Returning default scale and zero point
-  Returning default scale and zero point &quot;
 </pre></div>
 </div>
 </div>
@@ -485,7 +510,7 @@ represented.</p>
 qnn.quantize, qnn.dequantize, qnn.requantize, and qnn.conv2d etc.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_name</span> <span class="o">=</span> <span class="s2">&quot;input&quot;</span>  <span class="c1"># the input name can be be arbitrary for PyTorch frontend.</span>
 <span class="n">input_shapes</span> <span class="o">=</span> <span class="p">[(</span><span class="n">input_name</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">))]</span>
-<span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_pytorch" title="View documentation for tvm.relay.frontend.from_pytorch"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_pytorch</span></a><span class="p">(</span><span class="n">script_module</span><span class="p">,</span> <span class="n">input_shapes</span><span class="p">)</span>
+<span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_pytorch" title="tvm.relay.frontend.from_pytorch" class="sphx-glr-backref-module-tvm-relay-frontend sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_pytorch</span></a><span class="p">(</span><span class="n">script_module</span><span class="p">,</span> <span class="n">input_shapes</span><span class="p">)</span>
 <span class="c1"># print(mod) # comment in to see the QNN IR dump</span>
 </pre></div>
 </div>
@@ -512,19 +537,10 @@ standard Relay operators before compilation.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TVM top3 labels:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">synset</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">tvm_top3_labels</span><span class="p">])</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PyTorch top3 labels: [&#39;tiger cat&#39;, &#39;Egyptian cat&#39;, &#39;tabby, tabby cat&#39;]
-TVM top3 labels: [&#39;tiger cat&#39;, &#39;Egyptian cat&#39;, &#39;tabby, tabby cat&#39;]
-</pre></div>
-</div>
 <p>However, due to the difference in numerics, in general the raw floating point
 outputs are not expected to be identical. Here, we print how many floating point
 output values are identical out of 1000 outputs from mobilenet v2.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> in 1000 raw floating outputs identical.&quot;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">tvm_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pt_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>154 in 1000 raw floating outputs identical.
 </pre></div>
 </div>
 </div>
@@ -534,12 +550,6 @@ output values are identical out of 1000 outputs from mobilenet v2.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_repeat</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># should be bigger to make the measurement more accurate</span>
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cpu</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">rt_mod</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">n_repeat</span><span class="p">))</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Execution time summary:
- mean (ms)   median (ms)    max (ms)     min (ms)     std (ms)
-  90.3418      90.1553      92.8296      90.0365       0.3798
 </pre></div>
 </div>
 <div class="admonition note">
@@ -578,12 +588,11 @@ This includes support for the VNNI 8 bit dot product instruction (CascadeLake or
 <div class="section" id="deploy-a-quantized-tflite-model">
 <h2>Deploy a quantized TFLite Model<a class="headerlink" href="#deploy-a-quantized-tflite-model" title="Permalink to this headline">¶</a></h2>
 <p>TODO</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  3.694 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-deploy-models-deploy-prequantized-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-deploy-models-deploy-prequantized-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/fb8217c13f4351224c6cf3aacf1a87fc/deploy_prequantized.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">deploy_prequantized.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c20f81a94729f461f33b52cc110fd9d6/deploy_prequantized.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">deploy_prequantized.ipynb</span></code></a></p>
 </div>
 </div>
@@ -608,20 +617,20 @@ This includes support for the VNNI 8 bit dot product instruction (CascadeLake or
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

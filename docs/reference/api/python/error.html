@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvm.error &mdash; tvm 0.9.dev0 documentation</title>
+  <title>tvm.error &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -277,7 +309,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -323,7 +355,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../../_sources/reference/api/python/error.rst.txt" rel="nofollow"> <img src="../../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/reference/api/python/error.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -340,7 +374,7 @@
 <span id="tvm-error"></span><h1>tvm.error<a class="headerlink" href="#module-tvm.error" title="Permalink to this headline">¶</a></h1>
 <p>Structured error classes in TVM.</p>
 <p>Each error class takes an error message as its input.
-See the example sections for for suggested message conventions.
+See the example sections for suggested message conventions.
 To make the code more readable, we recommended developers to
 copy the examples and raise errors with the same message convention.</p>
 <div class="admonition note">
@@ -402,7 +436,7 @@ copy the examples and raise errors with the same message convention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>function</em><em> or </em><em>class</em>) – The name of the error function.</p></li>
+<li><p><strong>func_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>function</em><em> or </em><em>class</em>) – The name of the error function.</p></li>
 <li><p><strong>cls</strong> (<em>function</em>) – The function to create the class</p></li>
 </ul>
 </dd>
@@ -414,7 +448,7 @@ copy the examples and raise errors with the same message convention.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm.error.register_error</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">register_error</span>
 <span class="k">class</span> <span class="nc">MyError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="k">pass</span>
 
@@ -464,7 +498,7 @@ copy the examples and raise errors with the same message convention.</p>
 <dd><p>Operator is not implemented.</p>
 <p class="rubric">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="n">OpNotImplemented</span><span class="p">(</span>
-    <span class="s2">&quot;Operator {} is not supported in {} frontend&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="s2">&quot;Operator </span><span class="si">{}</span><span class="s2"> is not supported in </span><span class="si">{}</span><span class="s2"> frontend&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">missing_op</span><span class="p">,</span> <span class="n">frontend_name</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -476,7 +510,7 @@ copy the examples and raise errors with the same message convention.</p>
 <dd><p>Required attribute is not found.</p>
 <p class="rubric">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="n">OpAttributeRequired</span><span class="p">(</span>
-    <span class="s2">&quot;Required attribute {} not found in operator {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="s2">&quot;Required attribute </span><span class="si">{}</span><span class="s2"> not found in operator </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">attr_name</span><span class="p">,</span> <span class="n">op_name</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -488,7 +522,7 @@ copy the examples and raise errors with the same message convention.</p>
 <dd><p>Attribute value is invalid when taking in a frontend operator.</p>
 <p class="rubric">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="n">OpAttributeInvalid</span><span class="p">(</span>
-    <span class="s2">&quot;Value {} in attribute {} of operator {} is not valid&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="s2">&quot;Value </span><span class="si">{}</span><span class="s2"> in attribute </span><span class="si">{}</span><span class="s2"> of operator </span><span class="si">{}</span><span class="s2"> is not valid&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">value</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">op_name</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -500,7 +534,7 @@ copy the examples and raise errors with the same message convention.</p>
 <dd><p>Attribute is not supported in a certain frontend.</p>
 <p class="rubric">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="n">OpAttributeUnImplemented</span><span class="p">(</span>
-    <span class="s2">&quot;Attribute {} is not supported in operator {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="s2">&quot;Attribute </span><span class="si">{}</span><span class="s2"> is not supported in operator </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
         <span class="n">attr_name</span><span class="p">,</span> <span class="n">op_name</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -532,20 +566,20 @@ copy the examples and raise errors with the same message convention.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

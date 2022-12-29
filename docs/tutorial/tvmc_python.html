@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Starting using TVMC Python: a high-level API for TVM &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Getting Starting using TVMC Python: a high-level API for TVM &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -230,6 +262,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tensor_ir_blitz_course.html">Blitz Course to TensorIR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cross_compilation_and_rpc.html">Cross Compilation and RPC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relay_quick_start.html">Quick Start Tutorial for Compiling Deep Learning Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uma.html">Making your Hardware Accelerator TVM-ready with UMA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intro_topi.html">Introduction to TOPI</a></li>
 </ul>
 </li>
@@ -274,7 +307,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -320,7 +353,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tutorial/tvmc_python.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/tutorial/tvmc_python.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -335,7 +370,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorial-tvmc-python-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>This tutorial can be used interactively with Google Colab! You can also click
+<a class="reference internal" href="#sphx-glr-download-tutorial-tvmc-python-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/8d55b8f991fb704002f768367ce2d1a2/tvmc_python.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
 </div>
 <div class="sphx-glr-example-title section" id="getting-starting-using-tvmc-python-a-high-level-api-for-tvm">
 <span id="sphx-glr-tutorial-tvmc-python-py"></span><h1>Getting Starting using TVMC Python: a high-level API for TVM<a class="headerlink" href="#getting-starting-using-tvmc-python-a-high-level-api-for-tvm" title="Permalink to this headline">¶</a></h1>
@@ -347,13 +384,16 @@ Follow the steps to download a resnet model via the terminal:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">myscripts</span>
 <span class="n">cd</span> <span class="n">myscripts</span>
-<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">onnx</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">vision</span><span class="o">/</span><span class="n">classification</span><span class="o">/</span><span class="n">resnet</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">resnet50</span><span class="o">-</span><span class="n">v2</span><span class="o">-</span><span class="mf">7.</span><span class="n">onnx</span>
+<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">onnx</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">b9a54e89508f101a1611cd64f4ef56b9cb62c7cf</span><span class="o">/</span><span class="n">vision</span><span class="o">/</span><span class="n">classification</span><span class="o">/</span><span class="n">resnet</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">resnet50</span><span class="o">-</span><span class="n">v2</span><span class="o">-</span><span class="mf">7.</span><span class="n">onnx</span>
 <span class="n">mv</span> <span class="n">resnet50</span><span class="o">-</span><span class="n">v2</span><span class="o">-</span><span class="mf">7.</span><span class="n">onnx</span> <span class="n">my_model</span><span class="o">.</span><span class="n">onnx</span>
 <span class="n">touch</span> <span class="n">tvmcpythonintro</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Let’s start editing the python file in your favorite text editor.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="section" id="step-0-imports">
 <h2>Step 0: Imports<a class="headerlink" href="#step-0-imports" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -376,7 +416,7 @@ support are: Keras, ONNX, Tensorflow, TFLite, and PyTorch.</p>
 <p>All frameworks support overwriting the input shapes with a shape_dict argument.
 For most frameworks this is optional, but for Pytorch this is necessary as
 TVM cannot automatically search for it.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#model = tvmc.load(my_model, shape_dict={&#39;input1&#39; : [1, 2, 3, 4], &#39;input2&#39; : [1, 2, 3, 4]}) #Step 1: Load + shape_dict</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#model = tvmc.load(&#39;my_model.onnx&#39;, shape_dict={&#39;input1&#39; : [1, 2, 3, 4], &#39;input2&#39; : [1, 2, 3, 4]}) #Step 1: Load + shape_dict</span>
 </pre></div>
 </div>
 <p>A suggested way to see the model’s input/shape_dict is via <a class="reference external" href="https://netron.app/">netron</a>. After opening the model,
@@ -411,7 +451,7 @@ input options are: CPU, Cuda, CL, Metal, and Vulkan.</p>
 </pre></div>
 </div>
 <p>And you can print the results:
-<code class="docutils literal notranslate"><span class="pre">print(results)</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">print(result)</span></code></p>
 </div>
 <div class="section" id="step-1-5-tune-optional-recommended">
 <h2>Step 1.5: Tune [Optional &amp; Recommended]<a class="headerlink" href="#step-1-5-tune-optional-recommended" title="Permalink to this headline">¶</a></h2>
@@ -472,10 +512,10 @@ The model will then appear where you saved it for later in the coverted syntax.<
 <div class="section" id="saving-the-package">
 <h2>Saving the package<a class="headerlink" href="#saving-the-package" title="Permalink to this headline">¶</a></h2>
 <p>After the model has been compiled (Step 2) the package also is also saveable.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tvmc</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">package_path</span><span class="o">=</span><span class="s2">&quot;whatever&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tvmc</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">package_path</span><span class="o">=</span><span class="s2">&quot;whatever&quot;</span><span class="p">)</span> <span class="c1">#Step 2: Compile</span>
 
 <span class="n">new_package</span> <span class="o">=</span> <span class="n">tvmc</span><span class="o">.</span><span class="n">TVMCPackage</span><span class="p">(</span><span class="n">package_path</span><span class="o">=</span><span class="s2">&quot;whatever&quot;</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">tvmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">new_package</span><span class="p">)</span> <span class="c1">#Step 3: Run</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">tvmc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">new_package</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span> <span class="c1">#Step 3: Run</span>
 </pre></div>
 </div>
 </div>
@@ -486,7 +526,7 @@ The search space of the schedules is automatically generated unlike
 previously where they needed to be hand written. (Learn more:
 <a class="reference external" href="https://tvm.apache.org/2021/03/03/intro-auto-scheduler">1</a>,
 <a class="reference external" href="https://arxiv.org/abs/2006.06762">2</a>)</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">enable_autoscheduler</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">enable_autoscheduler</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -497,12 +537,12 @@ previously where they needed to be hand written. (Learn more:
 <dt>Method 1:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;hello.json&quot;</span>
 
 <span class="c1"># Run tuning</span>
-<span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span><span class="n">tuning_records</span><span class="o">=</span><span class="n">log_file</span><span class="p">)</span>
+<span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">tuning_records</span><span class="o">=</span><span class="n">log_file</span><span class="p">)</span>
 
 <span class="o">...</span>
 
 <span class="c1"># Later run tuning and reuse tuning results</span>
-<span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span><span class="n">tuning_records</span><span class="o">=</span><span class="n">log_file</span><span class="p">)</span>
+<span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">prior_records</span><span class="o">=</span><span class="n">log_file</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -512,7 +552,7 @@ previously where they needed to be hand written. (Learn more:
 <span class="o">...</span>
 
 <span class="c1"># Later run tuning and reuse tuning results</span>
-<span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span><span class="n">tuning_records</span><span class="o">=</span><span class="n">tuning_records</span><span class="p">)</span>
+<span class="n">tvmc</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;llvm&quot;</span><span class="p">,</span> <span class="n">prior_records</span><span class="o">=</span><span class="n">tuning_records</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -540,18 +580,18 @@ section in this <a class="reference external" href="https://tvm.apache.org/docs/
      <span class="n">model</span><span class="p">,</span>
      <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="c1"># Compilation target as string // Device to compile for</span>
      <span class="n">target_host</span><span class="o">=</span><span class="n">target_host</span><span class="p">,</span> <span class="c1"># Host processor</span>
-     <span class="n">hostname</span><span class="o">=</span><span class="n">host_ip_address</span><span class="p">,</span> <span class="c1">#The IP address of an RPC tracker, used when benchmarking remotely.</span>
+     <span class="n">hostname</span><span class="o">=</span><span class="n">host_ip_address</span><span class="p">,</span> <span class="c1"># The IP address of an RPC tracker, used when benchmarking remotely.</span>
      <span class="n">port</span><span class="o">=</span><span class="n">port_number</span><span class="p">,</span> <span class="c1"># The port of the RPC tracker to connect to. Defaults to 9090.</span>
      <span class="n">rpc_key</span><span class="o">=</span><span class="n">your_key</span><span class="p">,</span> <span class="c1"># The RPC tracker key of the target device. Required when rpc_tracker is provided</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tvmc-python-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tvmc-python-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/10724e9ad9c29faa223c1d5eab6dbef9/tvmc_python.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tvmc_python.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/8d55b8f991fb704002f768367ce2d1a2/tvmc_python.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tvmc_python.ipynb</span></code></a></p>
 </div>
 </div>
@@ -576,20 +616,20 @@ section in this <a class="reference external" href="https://tvm.apache.org/docs/
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pass Infrastructure &mdash; tvm 0.9.dev0 documentation</title>
+  <title>Pass Infrastructure &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -267,7 +299,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -313,7 +345,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/arch/pass_infra.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/arch/pass_infra.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -354,7 +388,7 @@ Gluon, also have the tendency to enable pass-style layer construction
 scheme through <a class="reference external" href="https://pytorch.org/docs/stable/nn.html?highlight=sequential#torch.nn.Sequential">Sequential</a> and <a class="reference external" href="https://mxnet.apache.org/api/python/docs/api/gluon/block.html#gluon-block">Block</a>, respectively. With such constructs,
 these modern frameworks are able to conveniently add modules/layers to their
 containers and build up neural networks easily.</p>
-<p>The design of the Relay pass infra is largely inspired by the the hierarchical
+<p>The design of the Relay pass infra is largely inspired by the hierarchical
 pass manager used in LLVM and the block-style containers used in the popular
 deep learning frameworks. The major goals of the pass infra include:</p>
 <ol class="arabic simple">
@@ -425,24 +459,24 @@ Python APIs to create a compilation pipeline using pass context.</p>
 <span class="k">class</span> <span class="nc">PassContext</span> <span class="o">:</span> <span class="k">public</span> <span class="n">NodeRef</span> <span class="p">{</span>
  <span class="k">public</span><span class="o">:</span>
   <span class="n">TVM_DLL</span> <span class="k">static</span> <span class="n">PassContext</span> <span class="n">Create</span><span class="p">();</span>
-  <span class="n">TVM_DLL</span> <span class="k">static</span> <span class="n">PassContext</span> <span class="nf">Current</span><span class="p">();</span>
-  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">InstrumentEnterPassContext</span><span class="p">();</span>
-  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">InstrumentExitPassContext</span><span class="p">();</span>
-  <span class="n">TVM_DLL</span> <span class="kt">bool</span> <span class="nf">InstrumentBeforePass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">InstrumentAfterPass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="n">TVM_DLL</span> <span class="k">static</span> <span class="n">PassContext</span> <span class="n">Current</span><span class="p">();</span>
+  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">InstrumentEnterPassContext</span><span class="p">();</span>
+  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">InstrumentExitPassContext</span><span class="p">();</span>
+  <span class="n">TVM_DLL</span> <span class="kt">bool</span> <span class="n">InstrumentBeforePass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">InstrumentAfterPass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
   <span class="cm">/* Other fields are omitted. */</span>
 
  <span class="k">private</span><span class="o">:</span>
   <span class="c1">// The entry of a pass context scope.</span>
   <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">EnterWithScope</span><span class="p">();</span>
   <span class="c1">// The exit of a pass context scope.</span>
-  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">ExitWithScope</span><span class="p">();</span>
+  <span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">ExitWithScope</span><span class="p">();</span>
 
   <span class="c1">// Classes to get the Python `with` like syntax.</span>
   <span class="k">friend</span> <span class="k">class</span> <span class="nc">tvm</span><span class="o">::</span><span class="n">With</span><span class="o">&lt;</span><span class="n">PassContext</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">struct</span> <span class="n">PassContextThreadLocalEntry</span> <span class="p">{</span>
+<span class="k">struct</span> <span class="nc">PassContextThreadLocalEntry</span> <span class="p">{</span>
   <span class="cm">/*! \brief The default pass context. */</span>
   <span class="n">PassContext</span> <span class="n">default_context</span><span class="p">;</span>
   <span class="cm">/*! \brief The current pass context. */</span>
@@ -466,7 +500,7 @@ introduced to serve as the base of the different optimization passes. This class
 contains several virtual methods that must be implemented by the
 subclasses at the level of modules, functions, or sequences of passes.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PassNode</span> <span class="o">:</span> <span class="n">Object</span> <span class="p">{</span>
-  <span class="k">virtual</span> <span class="n">PassInfo</span> <span class="n">Info</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">virtual</span> <span class="n">PassInfo</span> <span class="nf">Info</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">virtual</span> <span class="n">Module</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span>
                             <span class="k">const</span> <span class="n">PassContext</span><span class="o">&amp;</span> <span class="n">pass_ctx</span><span class="p">)</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
@@ -553,9 +587,9 @@ recommended to be fulfilled first. This pass, hence, is an ideal candidate for
 <p>The following code shows how individual passes in a sequential pass are invoked.
 Essentially, we sequentially execute each pass in a sequential pass using the
 order that they were appended to the pass list.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Module</span> <span class="n">SequentialNode</span><span class="o">::</span><span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">Module</span><span class="o">&amp;</span> <span class="n">module</span><span class="p">,</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Module</span> <span class="nf">SequentialNode::operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">Module</span><span class="o">&amp;</span> <span class="k">module</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="n">PassContext</span><span class="o">&amp;</span> <span class="n">pass_ctx</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-  <span class="n">Module</span> <span class="n">mod</span> <span class="o">=</span> <span class="n">module</span><span class="p">;</span>
+  <span class="n">Module</span> <span class="n">mod</span> <span class="o">=</span> <span class="k">module</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">Pass</span><span class="o">&amp;</span> <span class="nl">pass</span> <span class="p">:</span> <span class="n">passes</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">ICHECK</span><span class="p">(</span><span class="n">pass</span><span class="p">.</span><span class="n">defined</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Found undefined pass for optimization.&quot;</span><span class="p">;</span>
     <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">pass_info</span> <span class="o">=</span> <span class="n">pass</span><span class="o">-&gt;</span><span class="n">Info</span><span class="p">();</span>
@@ -637,14 +671,14 @@ developer has to identify and list them.</p>
 <code class="docutils literal notranslate"><span class="pre">relay._transform.FoldConstant</span></code>. This pass, therefore, becomes an entry in the
 registry that can be accessed by both C++ (e.g. the <code class="docutils literal notranslate"><span class="pre">GetPass</span></code> above) and
 Python when needed.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">transform</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nn">transform</span> <span class="p">{</span>
 
-<span class="n">Pass</span> <span class="n">FoldConstant</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">Pass</span> <span class="nf">FoldConstant</span><span class="p">()</span> <span class="p">{</span>
   <span class="n">runtime</span><span class="o">::</span><span class="n">TypedPackedFunc</span><span class="o">&lt;</span><span class="n">Function</span><span class="p">(</span><span class="n">Function</span><span class="p">,</span> <span class="n">IRModule</span><span class="p">,</span> <span class="n">PassContext</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">pass_func</span> <span class="o">=</span>
     <span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="n">Function</span> <span class="n">f</span><span class="p">,</span> <span class="n">IRModule</span> <span class="n">m</span><span class="p">,</span> <span class="n">PassContext</span> <span class="n">pc</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="n">Downcast</span><span class="o">&lt;</span><span class="n">Function</span><span class="o">&gt;</span><span class="p">(</span><span class="n">FoldConstant</span><span class="p">(</span><span class="n">f</span><span class="p">));</span>
   <span class="p">};</span>
-  <span class="k">return</span> <span class="nf">CreateFunctionPass</span><span class="p">(</span><span class="n">pass_func</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;FoldConstant&quot;</span><span class="p">,</span> <span class="p">{});</span>
+  <span class="k">return</span> <span class="n">CreateFunctionPass</span><span class="p">(</span><span class="n">pass_func</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;FoldConstant&quot;</span><span class="p">,</span> <span class="p">{});</span>
 <span class="p">}</span>
 
 <span class="n">TVM_REGISTER_GLOBAL</span><span class="p">(</span><span class="s">&quot;relay._transform.FoldConstant&quot;</span><span class="p">)</span>
@@ -655,7 +689,7 @@ Python when needed.</p>
 </div>
 <p>To allow other C++ modules to apply this pass, we declare a free function in
 <a class="reference external" href="https://github.com/apache/tvm/blob/main/include/tvm/relay/transform.h">include/tvm/relay/transform.h</a> as the following:</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TVM_DLL</span> <span class="n">Pass</span> <span class="nf">FoldConstant</span><span class="p">();</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TVM_DLL</span> <span class="n">Pass</span> <span class="n">FoldConstant</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -665,10 +699,10 @@ Python when needed.</p>
 we can use the infrastructure to know how much time and memory a pass requires
 or how a pass can transform the IR module.</p>
 <p>We introduce four instrument points in the life-cycle of <code class="docutils literal notranslate"><span class="pre">PassContext</span></code>.</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">InstrumentEnterPassContext</span><span class="p">();</span>
-<span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">InstrumentExitPassContext</span><span class="p">();</span>
-<span class="n">TVM_DLL</span> <span class="kt">bool</span> <span class="nf">InstrumentBeforePass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-<span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="nf">InstrumentAfterPass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">InstrumentEnterPassContext</span><span class="p">();</span>
+<span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">InstrumentExitPassContext</span><span class="p">();</span>
+<span class="n">TVM_DLL</span> <span class="kt">bool</span> <span class="n">InstrumentBeforePass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="n">TVM_DLL</span> <span class="kt">void</span> <span class="n">InstrumentAfterPass</span><span class="p">(</span><span class="k">const</span> <span class="n">IRModule</span><span class="o">&amp;</span> <span class="n">mod</span><span class="p">,</span> <span class="k">const</span> <span class="n">PassInfo</span><span class="o">&amp;</span> <span class="n">info</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">InstrumentEnterPassContext</span></code> is called immediately when entering the scope
@@ -691,7 +725,7 @@ Multiple <code class="docutils literal notranslate"><span class="pre">PassInstru
 <code class="docutils literal notranslate"><span class="pre">PassContext</span></code>. <code class="docutils literal notranslate"><span class="pre">PassInstrument</span></code> instances are called sequentially in the order of
 <code class="docutils literal notranslate"><span class="pre">instruments</span></code> argument passed to <code class="docutils literal notranslate"><span class="pre">PassContext</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">PassInstrument</span></code> provides following interfaces:</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="n">instrument</span> <span class="p">{</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nn">instrument</span> <span class="p">{</span>
 
 <span class="k">class</span> <span class="nc">PassInstrumentNode</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Object</span> <span class="p">{</span>
  <span class="k">public</span><span class="o">:</span>
@@ -810,7 +844,7 @@ a Pass object.</p>
 <code class="docutils literal notranslate"><span class="pre">with</span></code> syntax by overriding <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code>. A <code class="docutils literal notranslate"><span class="pre">current</span></code>
 static method is offered for users to get the context that is in use under
 a certain scope.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm._ffi.register_object</span><span class="p">(</span><span class="s2">&quot;transform.PassContext&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">_ffi</span><span class="o">.</span><span class="n">register_object</span><span class="p">(</span><span class="s2">&quot;transform.PassContext&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">PassContext</span><span class="p">(</span><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">_transform</span><span class="o">.</span><span class="n">EnterPassContext</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -863,7 +897,7 @@ const folding has a Python API like the following:</p>
 </pre></div>
 </div>
 <p>Users can build a pass through decoration like the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="nd">@relay.transform.module_pass</span><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="nd">@relay</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">module_pass</span><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
  <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
     <span class="n">tp</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">TensorType</span><span class="p">((</span><span class="mi">10</span><span class="p">,),</span> <span class="s2">&quot;float32&quot;</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">tp</span><span class="p">)</span>
@@ -889,7 +923,7 @@ function.</p>
 </div>
 <p>Correspondingly, we also offer such functionality for <code class="docutils literal notranslate"><span class="pre">function_pass</span></code>. For
 instance, an example function-level pass could be written as the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@relay.transform.function_pass</span><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@relay</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">function_pass</span><span class="p">(</span><span class="n">opt_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TestReplaceFunc</span><span class="p">:</span>
    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_func</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">new_func</span> <span class="o">=</span> <span class="n">new_func</span>
@@ -988,20 +1022,20 @@ new <code class="docutils literal notranslate"><span class="pre">PassInstrument<
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>

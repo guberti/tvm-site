@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TensorFlow Frontend &mdash; tvm 0.9.dev0 documentation</title>
+  <title>TensorFlow Frontend &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
   
 
   
@@ -19,7 +19,10 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -168,8 +171,37 @@
           
             
             
-                <div class="version">
-                  0.9.dev0
+              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
+              <label for="version-toggle" class="version-toggle-label">
+                  <div tabindex="0" class="version version-selector version-selector-show">
+                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
+                  </div>
+                </label>
+                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
+                  <ol style="text-align: left">
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
+                    
+                    
+                    
+                    
+                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
+                    
+                  </ol>
                 </div>
             
           
@@ -270,7 +302,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of content
+              Table of Contents
             </div>
         
       </nav>
@@ -316,7 +348,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/arch/frontend/tensorflow.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
+            
+              <a href="https://github.com/apache/tvm/edit/main/docs/arch/frontend/tensorflow.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -362,14 +396,14 @@
 <h3>Export<a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
 <p>TensorFlow frontend expects a frozen protobuf (.pb) or saved model as input. It currently does not support checkpoint (.ckpt). The graphdef needed by the TensorFlow frontend can be extracted from the active session, or by using the <a class="reference external" href="https://github.com/apache/tvm/blob/main/python/tvm/relay/frontend/tensorflow_parser.py">TFParser</a> helper class.</p>
 <p>The model should be exported with a number of transformations to prepare the model for inference. It is also important to set <code class="docutils literal notranslate"><span class="pre">`add_shapes=True`</span></code>, as this will embed the output shapes of each node into the graph. Here is one function to export a model as a protobuf given a session:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow.tools.graph_transforms</span> <span class="kn">import</span> <span class="n">TransformGraph</span>
 
 <span class="k">def</span> <span class="nf">export_pb</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">GFile</span><span class="p">(</span><span class="s2">&quot;myexportedmodel.pb&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myinput1&quot;</span><span class="p">,</span> <span class="s2">&quot;myinput2&quot;</span><span class="p">]</span> <span class="c1"># replace with your input names</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myoutput1&quot;</span><span class="p">]</span> <span class="c1"># replace with your output names</span>
-        <span class="n">graph_def</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_graph_def</span><span class="p">(</span><span class="n">add_shapes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">graph_def</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">as_graph_def</span><span class="p">(</span><span class="n">add_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">graph_def</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">convert_variables_to_constants</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">graph_def</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
         <span class="n">graph_def</span> <span class="o">=</span> <span class="n">TransformGraph</span><span class="p">(</span>
             <span class="n">graph_def</span><span class="p">,</span>
@@ -573,20 +607,20 @@
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <li class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
-        </li>
-      </ul>
+      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <div class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
+        </div>
+      </div>
 
     </div>
 
-    <ul>
-      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
-    </ul>
+    <div>
+      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
+    </div>
 
 </section>
 </footer>
