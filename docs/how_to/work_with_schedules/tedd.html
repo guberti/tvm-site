@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Use Tensor Expression Debug Display (TEDD) for Visualization &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Use Tensor Expression Debug Display (TEDD) for Visualization &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -304,7 +272,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -352,9 +320,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/work_with_schedules/tedd.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../_sources/how_to/work_with_schedules/tedd.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -369,9 +335,7 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial can be used interactively with Google Colab! You can also click
-<a class="reference internal" href="#sphx-glr-download-how-to-work-with-schedules-tedd-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
-<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/a7aff5918e1b86809a5bd1da8bef7229/tedd.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-work-with-schedules-tedd-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="use-tensor-expression-debug-display-tedd-for-visualization">
 <span id="sphx-glr-how-to-work-with-schedules-tedd-py"></span><h1>Use Tensor Expression Debug Display (TEDD) for Visualization<a class="headerlink" href="#use-tensor-expression-debug-display-tedd-for-visualization" title="Permalink to this headline">¶</a></h1>
@@ -391,9 +355,9 @@ graphs.</p>
 <p>TEDD renders these three graphs from a given schedule.  This tutorial demonstrates
 how to use TEDD and how to interpret the rendered graphs.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">topi</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">tedd</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">topi</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">tedd</span>
 </pre></div>
 </div>
 <div class="section" id="define-and-schedule-convolution-with-bias-and-relu">
@@ -409,14 +373,14 @@ We first connect conv2d, add, and relu TOPIs.  Then, we create a TOPI generic sc
 <span class="n">padding</span> <span class="o">=</span> <span class="s2">&quot;SAME&quot;</span>
 <span class="n">dilation</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="n">A</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">in_size</span><span class="p">,</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
-<span class="n">W</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">kernel</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">num_filter</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
-<span class="n">B</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_filter</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">in_size</span><span class="p">,</span> <span class="n">in_size</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">batch</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">W</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">kernel</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">in_channel</span><span class="p">,</span> <span class="n">num_filter</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_filter</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">)</span>
 
-<span class="k">with</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;llvm&quot;</span><span class="p">):</span>
-    <span class="n">t_conv</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.conv2d_hwcn" title="tvm.topi.nn.conv2d_hwcn" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d_hwcn</span></a><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">)</span>
+<span class="k">with</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;llvm&quot;</span><span class="p">):</span>
+    <span class="n">t_conv</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.conv2d_hwcn" title="View documentation for tvm.topi.nn.conv2d_hwcn"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d_hwcn</span></a><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="p">)</span>
     <span class="n">t_bias</span> <span class="o">=</span> <span class="n">topi</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t_conv</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-    <span class="n">t_relu</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="tvm.topi.nn.relu" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">t_bias</span><span class="p">)</span>
+    <span class="n">t_relu</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="View documentation for tvm.topi.nn.relu"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">t_bias</span><span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">topi</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">schedule_conv2d_hwcn</span><span class="p">([</span><span class="n">t_relu</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -489,11 +453,11 @@ such as ax0.ax1.fused.ax2.fused.ax3.fused.outer with index of 0.</p>
 <p>This tutorial demonstrates the usage of TEDD.  We use an example built
 with TOPI to show the schedules under the hood.  You can also use
 it before and after any schedule primitive to inspect its effect.</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-schedules-tedd-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-work-with-schedules-tedd-py">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c253040abc62eace272e406b7e1a4df5/tedd.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tedd.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a7aff5918e1b86809a5bd1da8bef7229/tedd.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tedd.ipynb</span></code></a></p>
 </div>
 </div>
@@ -518,20 +482,20 @@ it before and after any schedule primitive to inspect its effect.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Deploy a Quantized Model on Cuda &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Deploy a Quantized Model on Cuda &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -299,7 +267,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -349,9 +317,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/deploy_models/deploy_quantized.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../_sources/how_to/deploy_models/deploy_quantized.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -366,9 +332,7 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial can be used interactively with Google Colab! You can also click
-<a class="reference internal" href="#sphx-glr-download-how-to-deploy-models-deploy-quantized-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
-<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/a269cb38341b190be980a0bd3ea8a625/deploy_quantized.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-deploy-models-deploy-quantized-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="deploy-a-quantized-model-on-cuda">
 <span id="sphx-glr-how-to-deploy-models-deploy-quantized-py"></span><h1>Deploy a Quantized Model on Cuda<a class="headerlink" href="#deploy-a-quantized-model-on-cuda" title="Permalink to this headline">¶</a></h1>
@@ -380,11 +344,11 @@ the quantization story in TVM can be found
 In this tutorial, we will import a GluonCV pre-trained model on ImageNet to
 Relay, quantize the Relay model and then perform the inference.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">relay</span>
 <span class="kn">import</span> <span class="nn">mxnet</span> <span class="k">as</span> <span class="nn">mx</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="kn">import</span> <span class="n">download_testdata</span>
-<span class="kn">from</span> <span class="nn">mxnet</span> <span class="kn">import</span> <span class="n">gluon</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="k">import</span> <span class="n">download_testdata</span>
+<span class="kn">from</span> <span class="nn">mxnet</span> <span class="k">import</span> <span class="n">gluon</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -453,7 +417,7 @@ only use a few samples for calibration.</p>
     <span class="n">gluon_model</span> <span class="o">=</span> <span class="n">gluon</span><span class="o">.</span><span class="n">model_zoo</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">img_size</span> <span class="o">=</span> <span class="mi">299</span> <span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s2">&quot;inceptionv3&quot;</span> <span class="k">else</span> <span class="mi">224</span>
     <span class="n">data_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">img_size</span><span class="p">,</span> <span class="n">img_size</span><span class="p">)</span>
-    <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="tvm.relay.frontend.from_mxnet" class="sphx-glr-backref-module-tvm-relay-frontend sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">gluon_model</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data_shape</span><span class="p">})</span>
+    <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="View documentation for tvm.relay.frontend.from_mxnet"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">gluon_model</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data_shape</span><span class="p">})</span>
     <span class="k">return</span> <span class="n">mod</span><span class="p">,</span> <span class="n">params</span>
 </pre></div>
 </div>
@@ -511,11 +475,17 @@ for calibration. But the accuracy might be impacted.</p>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-deploy-models-deploy-quantized-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/workspace/python/tvm/relay/build_module.py:439: DeprecationWarning: Please use input parameter mod (tvm.IRModule) instead of deprecated parameter mod (tvm.relay.function.Function)
+  DeprecationWarning,
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  13.175 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-deploy-models-deploy-quantized-py">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7810ecf51bfc05f7d5e8a400ac3e815d/deploy_quantized.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">deploy_quantized.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a269cb38341b190be980a0bd3ea8a625/deploy_quantized.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">deploy_quantized.ipynb</span></code></a></p>
 </div>
 </div>
@@ -540,20 +510,20 @@ for calibration. But the accuracy might be impacted.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

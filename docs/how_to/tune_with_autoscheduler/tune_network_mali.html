@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Auto-scheduling a Neural Network for mali GPU &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Auto-scheduling a Neural Network for mali GPU &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -304,7 +272,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -352,9 +320,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/tune_with_autoscheduler/tune_network_mali.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../_sources/how_to/tune_with_autoscheduler/tune_network_mali.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -369,9 +335,7 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial can be used interactively with Google Colab! You can also click
-<a class="reference internal" href="#sphx-glr-download-how-to-tune-with-autoscheduler-tune-network-mali-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
-<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/5e4e499c097b16a90c517e630502253a/tune_network_mali.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-tune-with-autoscheduler-tune-network-mali-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="auto-scheduling-a-neural-network-for-mali-gpu">
 <span id="sphx-glr-how-to-tune-with-autoscheduler-tune-network-mali-py"></span><h1>Auto-scheduling a Neural Network for mali GPU<a class="headerlink" href="#auto-scheduling-a-neural-network-for-mali-gpu" title="Permalink to this headline">¶</a></h1>
@@ -398,9 +362,9 @@ get it to run, you will need to wrap the body of this tutorial in a <code class=
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span><span class="p">,</span> <span class="n">auto_scheduler</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">relay</span><span class="p">,</span> <span class="n">auto_scheduler</span>
 <span class="kn">import</span> <span class="nn">tvm.relay.testing</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">graph_executor</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">graph_executor</span>
 <span class="kn">import</span> <span class="nn">os</span>
 </pre></div>
 </div>
@@ -431,7 +395,7 @@ You can use <a class="reference internal" href="../../arch/convert_layout.html#c
 
     <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;resnet-&quot;</span><span class="p">):</span>
         <span class="n">n_layer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.resnet.get_workload" title="tvm.relay.testing.resnet.get_workload" class="sphx-glr-backref-module-tvm-relay-testing-resnet sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">resnet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.resnet.get_workload" title="View documentation for tvm.relay.testing.resnet.get_workload"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">resnet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
             <span class="n">num_layers</span><span class="o">=</span><span class="n">n_layer</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
             <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
@@ -440,7 +404,7 @@ You can use <a class="reference internal" href="../../arch/convert_layout.html#c
         <span class="p">)</span>
     <span class="k">elif</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;resnet3d-&quot;</span><span class="p">):</span>
         <span class="n">n_layer</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.resnet.get_workload" title="tvm.relay.testing.resnet.get_workload" class="sphx-glr-backref-module-tvm-relay-testing-resnet sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">resnet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.resnet.get_workload" title="View documentation for tvm.relay.testing.resnet.get_workload"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">resnet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
             <span class="n">num_layers</span><span class="o">=</span><span class="n">n_layer</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
             <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
@@ -448,12 +412,12 @@ You can use <a class="reference internal" href="../../arch/convert_layout.html#c
             <span class="n">image_shape</span><span class="o">=</span><span class="n">image_shape</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;mobilenet&quot;</span><span class="p">:</span>
-        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.mobilenet.get_workload" title="tvm.relay.testing.mobilenet.get_workload" class="sphx-glr-backref-module-tvm-relay-testing-mobilenet sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">mobilenet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.mobilenet.get_workload" title="View documentation for tvm.relay.testing.mobilenet.get_workload"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">mobilenet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
             <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">image_shape</span><span class="o">=</span><span class="n">image_shape</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;squeezenet_v1.1&quot;</span><span class="p">:</span>
         <span class="k">assert</span> <span class="n">layout</span> <span class="o">==</span> <span class="s2">&quot;NCHW&quot;</span><span class="p">,</span> <span class="s2">&quot;squeezenet_v1.1 only supports NCHW layout&quot;</span>
-        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.squeezenet.get_workload" title="tvm.relay.testing.squeezenet.get_workload" class="sphx-glr-backref-module-tvm-relay-testing-squeezenet sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">squeezenet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.squeezenet.get_workload" title="View documentation for tvm.relay.testing.squeezenet.get_workload"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">squeezenet</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span>
             <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
             <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
@@ -461,18 +425,18 @@ You can use <a class="reference internal" href="../../arch/convert_layout.html#c
         <span class="p">)</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;inception_v3&quot;</span><span class="p">:</span>
         <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">)</span> <span class="k">if</span> <span class="n">layout</span> <span class="o">==</span> <span class="s2">&quot;NCHW&quot;</span> <span class="k">else</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.inception_v3.get_workload" title="tvm.relay.testing.inception_v3.get_workload" class="sphx-glr-backref-module-tvm-relay-testing-inception_v3 sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">inception_v3</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/testing.html#tvm.relay.testing.inception_v3.get_workload" title="View documentation for tvm.relay.testing.inception_v3.get_workload"><span class="n">relay</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">inception_v3</span><span class="o">.</span><span class="n">get_workload</span></a><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;mxnet&quot;</span><span class="p">:</span>
         <span class="c1"># an example for mxnet model</span>
-        <span class="kn">from</span> <span class="nn">mxnet.gluon.model_zoo.vision</span> <span class="kn">import</span> <span class="n">get_model</span>
+        <span class="kn">from</span> <span class="nn">mxnet.gluon.model_zoo.vision</span> <span class="k">import</span> <span class="n">get_model</span>
 
         <span class="k">assert</span> <span class="n">layout</span> <span class="o">==</span> <span class="s2">&quot;NCHW&quot;</span>
 
         <span class="n">block</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="s2">&quot;resnet50_v1&quot;</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="tvm.relay.frontend.from_mxnet" class="sphx-glr-backref-module-tvm-relay-frontend sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">input_shape</span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="View documentation for tvm.relay.frontend.from_mxnet"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">input_shape</span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
         <span class="n">net</span> <span class="o">=</span> <span class="n">mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">]</span>
         <span class="n">net</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span>
-            <span class="n">net</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.softmax" title="tvm.relay.nn.softmax" class="sphx-glr-backref-module-tvm-relay-nn sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span></a><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">body</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">type_params</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">attrs</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <a href="../../reference/api/python/relay/nn.html#tvm.relay.nn.softmax" title="View documentation for tvm.relay.nn.softmax"><span class="n">relay</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span></a><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">body</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">type_params</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">attrs</span>
         <span class="p">)</span>
         <span class="n">mod</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">IRModule</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
 
@@ -486,8 +450,8 @@ You can use <a class="reference internal" href="../../arch/convert_layout.html#c
 <span class="c1"># Set this to True if you use ndk tools for cross compiling</span>
 <span class="n">use_ndk</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># Path to cross compiler</span>
-<a href="https://docs.python.org/3/library/os.html#os.environ" title="os.environ" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-data"><span class="n">os</span><span class="o">.</span><span class="n">environ</span></a><span class="p">[</span><span class="s2">&quot;TVM_NDK_CC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/usr/bin/aarch64-linux-gnu-g++&quot;</span>
-<span class="n">target</span> <span class="o">=</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;opencl -device=mali&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;llvm -mtriple=aarch64-linux-gnu&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TVM_NDK_CC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/usr/bin/aarch64-linux-gnu-g++&quot;</span>
+<span class="n">target</span> <span class="o">=</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;opencl -device=mali&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;llvm -mtriple=aarch64-linux-gnu&quot;</span><span class="p">)</span>
 <span class="n">dtype</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
 <span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">-B</span><span class="si">%d</span><span class="s2">-</span><span class="si">%s</span><span class="s2">.json&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
@@ -515,11 +479,206 @@ The task scheduler will just optimize this objective.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract tasks from the network</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extract tasks...&quot;</span><span class="p">)</span>
 <span class="n">mod</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">,</span> <span class="n">output_shape</span> <span class="o">=</span> <span class="n">get_network</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="n">tasks</span><span class="p">,</span> <span class="n">task_weights</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.extract_tasks" title="tvm.auto_scheduler.extract_tasks" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-function"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">extract_tasks</span></a><span class="p">(</span><span class="n">mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">],</span> <span class="n">params</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+<span class="n">tasks</span><span class="p">,</span> <span class="n">task_weights</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.extract_tasks" title="View documentation for tvm.auto_scheduler.extract_tasks"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">extract_tasks</span></a><span class="p">(</span><span class="n">mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">],</span> <span class="n">params</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========== Task </span><span class="si">%d</span><span class="s2">  (workload key: </span><span class="si">%s</span><span class="s2">) ==========&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">workload_key</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">compute_dag</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Extract tasks...
+========== Task 0  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 7, 7, 1024], [1, 1, 1024, 1024], [1, 1, 1, 1024], [1, 7, 7, 1024]]) ==========
+placeholder = PLACEHOLDER [1, 7, 7, 1024]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 1024, 1024]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 1024]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 1  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 14, 14, 256], [1, 1, 256, 512], [1, 1, 1, 512], [1, 14, 14, 512]]) ==========
+placeholder = PLACEHOLDER [1, 14, 14, 256]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 256, 512]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 512]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 2  (workload key: [&quot;06fce76bd84cb904eee50b905ca9449a&quot;, [1, 28, 28, 256], [3, 3, 256, 1], [1, 1, 1, 256], [1, 28, 28, 256]]) ==========
+placeholder = PLACEHOLDER [1, 28, 28, 256]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 29)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 29)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 256, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, (i + di), (j + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 256]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 3  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 28, 28, 128], [1, 1, 128, 256], [1, 1, 1, 256], [1, 28, 28, 256]]) ==========
+placeholder = PLACEHOLDER [1, 28, 28, 128]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 128, 256]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 256]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 4  (workload key: [&quot;d7b65649a4dd54becea0a52aabbc5af5&quot;, [1, 1000], [1, 1000]]) ==========
+placeholder = PLACEHOLDER [1, 1000]
+T_softmax_maxelem(i0) max= placeholder[i0, k]
+T_softmax_exp(i0, i1) = tir.exp((placeholder[i0, i1] - T_softmax_maxelem[i0]))
+T_softmax_expsum(i0) += T_softmax_exp[i0, k]
+T_softmax_norm(i0, i1) = (T_softmax_exp[i0, i1]/T_softmax_expsum[i0])
+
+========== Task 5  (workload key: [&quot;69115f188984ae34ede37c3b8ca40b43&quot;, [1, 7, 7, 1024], [1, 1, 1, 1024]]) ==========
+placeholder = PLACEHOLDER [1, 7, 7, 1024]
+tensor(ax0, ax1, ax2, ax3) += placeholder[ax0, ((ax1*7) + rv0), ((ax2*7) + rv1), ax3]
+tensor(ax0, ax1, ax2, ax3) = (tensor[ax0, ax1, ax2, ax3]/(float32((select((bool)1, ((ax1 + 1)*7), (((ax1 + 1)*7) + 1)) - (ax1*7)))*float32((select((bool)1, ((ax2 + 1)*7), (((ax2 + 1)*7) + 1)) - (ax2*7)))))
+
+========== Task 6  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 7, 7, 512], [1, 1, 512, 1024], [1, 1, 1, 1024], [1, 7, 7, 1024]]) ==========
+placeholder = PLACEHOLDER [1, 7, 7, 512]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 512, 1024]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 1024]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 7  (workload key: [&quot;c87ba68bc180312f5716af09a77ca15b&quot;, [1, 56, 56, 128], [3, 3, 128, 1], [1, 1, 1, 128], [1, 28, 28, 128]]) ==========
+placeholder = PLACEHOLDER [1, 56, 56, 128]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 57)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 57)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 128, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, ((i*2) + di), ((j*2) + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 128]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 8  (workload key: [&quot;06fce76bd84cb904eee50b905ca9449a&quot;, [1, 56, 56, 128], [3, 3, 128, 1], [1, 1, 1, 128], [1, 56, 56, 128]]) ==========
+placeholder = PLACEHOLDER [1, 56, 56, 128]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 57)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 57)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 128, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, (i + di), (j + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 128]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 9  (workload key: [&quot;c87ba68bc180312f5716af09a77ca15b&quot;, [1, 28, 28, 256], [3, 3, 256, 1], [1, 1, 1, 256], [1, 14, 14, 256]]) ==========
+placeholder = PLACEHOLDER [1, 28, 28, 256]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 29)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 29)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 256, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, ((i*2) + di), ((j*2) + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 256]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 10  (workload key: [&quot;c87ba68bc180312f5716af09a77ca15b&quot;, [1, 14, 14, 512], [3, 3, 512, 1], [1, 1, 1, 512], [1, 7, 7, 512]]) ==========
+placeholder = PLACEHOLDER [1, 14, 14, 512]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 15)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 15)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 512, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, ((i*2) + di), ((j*2) + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 512]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 11  (workload key: [&quot;c87ba68bc180312f5716af09a77ca15b&quot;, [1, 112, 112, 64], [3, 3, 64, 1], [1, 1, 1, 64], [1, 56, 56, 64]]) ==========
+placeholder = PLACEHOLDER [1, 112, 112, 64]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 113)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 113)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 64, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, ((i*2) + di), ((j*2) + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 64]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 12  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 56, 56, 64], [1, 1, 64, 128], [1, 1, 1, 128], [1, 56, 56, 128]]) ==========
+placeholder = PLACEHOLDER [1, 56, 56, 64]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 64, 128]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 128]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 13  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 56, 56, 128], [1, 1, 128, 128], [1, 1, 1, 128], [1, 56, 56, 128]]) ==========
+placeholder = PLACEHOLDER [1, 56, 56, 128]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 128, 128]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 128]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 14  (workload key: [&quot;06fce76bd84cb904eee50b905ca9449a&quot;, [1, 112, 112, 32], [3, 3, 32, 1], [1, 1, 1, 32], [1, 112, 112, 32]]) ==========
+placeholder = PLACEHOLDER [1, 112, 112, 32]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 113)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 113)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 32, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, (i + di), (j + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 32]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 15  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 28, 28, 256], [1, 1, 256, 256], [1, 1, 1, 256], [1, 28, 28, 256]]) ==========
+placeholder = PLACEHOLDER [1, 28, 28, 256]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 256, 256]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 256]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 16  (workload key: [&quot;2ca148ecea6508ce625f85719021344f&quot;, [1, 224, 224, 3], [3, 3, 3, 32], [1, 112, 1, 1], [1, 112, 1, 1], [1, 112, 112, 32]]) ==========
+placeholder = PLACEHOLDER [1, 224, 224, 3]
+pad_temp(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 225)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 225)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 3, 32]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, ((yy*2) + ry), ((xx*2) + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 112, 1, 1]
+T_multiply(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3]*placeholder[ax0, ax1, 0, 0])
+placeholder = PLACEHOLDER [1, 112, 1, 1]
+T_add(ax0, ax1, ax2, ax3) = (T_multiply[ax0, ax1, ax2, ax3] + placeholder[ax0, ax1, 0, 0])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 17  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 14, 14, 512], [1, 1, 512, 512], [1, 1, 1, 512], [1, 14, 14, 512]]) ==========
+placeholder = PLACEHOLDER [1, 14, 14, 512]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 512, 512]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 512]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 18  (workload key: [&quot;7d44c6e3c81cd80f61ff2265b2bae89a&quot;, [1, 1024], [1000, 1024], [1, 1000], [1, 1000]]) ==========
+placeholder = PLACEHOLDER [1, 1024]
+placeholder = PLACEHOLDER [1000, 1024]
+T_matmul_NT(i, j) += (placeholder[i, k]*placeholder[j, k])
+placeholder = PLACEHOLDER [1, 1000]
+T_add(ax0, ax1) = (T_matmul_NT[ax0, ax1] + placeholder[ax0, ax1])
+
+========== Task 19  (workload key: [&quot;06fce76bd84cb904eee50b905ca9449a&quot;, [1, 14, 14, 512], [3, 3, 512, 1], [1, 1, 1, 512], [1, 14, 14, 512]]) ==========
+placeholder = PLACEHOLDER [1, 14, 14, 512]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 15)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 15)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 512, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, (i + di), (j + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 512]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 20  (workload key: [&quot;06fce76bd84cb904eee50b905ca9449a&quot;, [1, 7, 7, 1024], [3, 3, 1024, 1], [1, 1, 1, 1024], [1, 7, 7, 1024]]) ==========
+placeholder = PLACEHOLDER [1, 7, 7, 1024]
+PaddedInput(i0, i1, i2, i3) = tir.if_then_else(((((i1 &gt;= 1) &amp;&amp; (i1 &lt; 8)) &amp;&amp; (i2 &gt;= 1)) &amp;&amp; (i2 &lt; 8)), placeholder[i0, (i1 - 1), (i2 - 1), i3], 0f)
+placeholder = PLACEHOLDER [3, 3, 1024, 1]
+DepthwiseConv2d(b, i, j, c) += (PaddedInput[b, (i + di), (j + dj), c]*placeholder[di, dj, c, 0])
+placeholder = PLACEHOLDER [1, 1, 1, 1024]
+T_add(ax0, ax1, ax2, ax3) = (DepthwiseConv2d[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
+
+========== Task 21  (workload key: [&quot;1037be767e8e18197e87653d81c34558&quot;, [1, 112, 112, 32], [1, 1, 32, 64], [1, 1, 1, 64], [1, 112, 112, 64]]) ==========
+placeholder = PLACEHOLDER [1, 112, 112, 32]
+pad_temp(i0, i1, i2, i3) = placeholder[i0, i1, i2, i3]
+placeholder = PLACEHOLDER [1, 1, 32, 64]
+conv2d_nhwc(nn, yy, xx, ff) += (pad_temp[nn, (yy + ry), (xx + rx), rc]*placeholder[ry, rx, rc, ff])
+placeholder = PLACEHOLDER [1, 1, 1, 64]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nhwc[ax0, ax1, ax2, ax3] + placeholder[ax0, 0, 0, ax3])
+T_relu(ax0, ax1, ax2, ax3) = max(T_add[ax0, ax1, ax2, ax3], 0f)
 </pre></div>
 </div>
 <div class="admonition note">
@@ -544,7 +703,7 @@ The task scheduler will just optimize this objective.</p>
 </div></blockquote>
 <p>Now you could pass it to search task and tune</p>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tasks</span><span class="p">,</span> <span class="n">task_weights</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.extract_tasks" title="tvm.auto_scheduler.extract_tasks" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-function"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">extract_tasks</span></a><span class="p">(</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tasks</span><span class="p">,</span> <span class="n">task_weights</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.extract_tasks" title="View documentation for tvm.auto_scheduler.extract_tasks"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">extract_tasks</span></a><span class="p">(</span>
     <span class="n">mod</span><span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">],</span> <span class="n">params</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">hardware_params</span> <span class="o">=</span> <span class="n">hardware_params</span>
 <span class="p">)</span>
 </pre></div>
@@ -570,43 +729,43 @@ and do more analyses later.</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tune_and_evaluate</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Begin tuning...&quot;</span><span class="p">)</span>
-    <span class="n">tuner</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TaskScheduler" title="tvm.auto_scheduler.TaskScheduler" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TaskScheduler</span></a><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">task_weights</span><span class="p">)</span>
-    <span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="tvm.auto_scheduler.TuningOptions" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
+    <span class="n">tuner</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TaskScheduler" title="View documentation for tvm.auto_scheduler.TaskScheduler"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TaskScheduler</span></a><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">task_weights</span><span class="p">)</span>
+    <span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="View documentation for tvm.auto_scheduler.TuningOptions"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
         <span class="n">num_measure_trials</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>  <span class="c1"># change this to 20000 to achieve the best performance</span>
-        <span class="n">builder</span><span class="o">=</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalBuilder" title="tvm.auto_scheduler.LocalBuilder" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">LocalBuilder</span></a><span class="p">(</span><span class="n">build_func</span><span class="o">=</span><span class="s2">&quot;ndk&quot;</span> <span class="k">if</span> <span class="n">use_ndk</span> <span class="k">else</span> <span class="s2">&quot;default&quot;</span><span class="p">),</span>
-        <span class="n">runner</span><span class="o">=</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RPCRunner" title="tvm.auto_scheduler.RPCRunner" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RPCRunner</span></a><span class="p">(</span>
+        <span class="n">builder</span><span class="o">=</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalBuilder" title="View documentation for tvm.auto_scheduler.LocalBuilder"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">LocalBuilder</span></a><span class="p">(</span><span class="n">build_func</span><span class="o">=</span><span class="s2">&quot;ndk&quot;</span> <span class="k">if</span> <span class="n">use_ndk</span> <span class="k">else</span> <span class="s2">&quot;default&quot;</span><span class="p">),</span>
+        <span class="n">runner</span><span class="o">=</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RPCRunner" title="View documentation for tvm.auto_scheduler.RPCRunner"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RPCRunner</span></a><span class="p">(</span>
             <span class="n">device_key</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9190</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">50</span>
         <span class="p">),</span>
-        <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="tvm.auto_scheduler.RecordToFile" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
+        <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="View documentation for tvm.auto_scheduler.RecordToFile"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
     <span class="p">)</span>
 
     <span class="n">tuner</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">tune_option</span><span class="p">)</span>
 
     <span class="c1"># Compile the whole network</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Compile...&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.ApplyHistoryBest" title="tvm.auto_scheduler.ApplyHistoryBest" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">ApplyHistoryBest</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
-        <span class="k">with</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="tvm.transform.PassContext" class="sphx-glr-backref-module-tvm-transform sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span>
+    <span class="k">with</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.ApplyHistoryBest" title="View documentation for tvm.auto_scheduler.ApplyHistoryBest"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">ApplyHistoryBest</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">):</span>
+        <span class="k">with</span> <a href="../../reference/api/python/ir.html#tvm.transform.PassContext" title="View documentation for tvm.transform.PassContext"><span class="n">tvm</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">PassContext</span></a><span class="p">(</span>
             <span class="n">opt_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;relay.backend.use_auto_scheduler&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
         <span class="p">):</span>
             <span class="n">lib</span> <span class="o">=</span> <span class="n">relay</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
     <span class="c1"># Create graph executor</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=============== Request Remote ===============&quot;</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">tvm.auto_scheduler.utils</span> <span class="kn">import</span> <span class="n">request_remote</span>
+    <span class="kn">from</span> <span class="nn">tvm.auto_scheduler.utils</span> <span class="k">import</span> <span class="n">request_remote</span>
 
     <span class="n">remote</span> <span class="o">=</span> <span class="n">request_remote</span><span class="p">(</span><span class="n">device_key</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">9190</span><span class="p">)</span>
     <span class="n">dev</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">cl</span><span class="p">()</span>
-    <span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">utils</span><span class="p">,</span> <span class="n">ndk</span>
+    <span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">utils</span><span class="p">,</span> <span class="n">ndk</span>
 
-    <span class="n">temp</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="tvm.contrib.utils.tempdir" class="sphx-glr-backref-module-tvm-contrib-utils sphx-glr-backref-type-py-function"><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
+    <span class="n">temp</span> <span class="o">=</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.utils.tempdir" title="View documentation for tvm.contrib.utils.tempdir"><span class="n">utils</span><span class="o">.</span><span class="n">tempdir</span></a><span class="p">()</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;deploy_lib.so&quot;</span>
     <span class="n">path_lib</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="n">lib</span><span class="o">.</span><span class="n">export_library</span><span class="p">(</span><span class="n">path_lib</span><span class="p">,</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.ndk.create_shared" title="tvm.contrib.ndk.create_shared" class="sphx-glr-backref-module-tvm-contrib-ndk sphx-glr-backref-type-py-function"><span class="n">ndk</span><span class="o">.</span><span class="n">create_shared</span></a><span class="p">)</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">export_library</span><span class="p">(</span><span class="n">path_lib</span><span class="p">,</span> <a href="../../reference/api/python/contrib.html#tvm.contrib.ndk.create_shared" title="View documentation for tvm.contrib.ndk.create_shared"><span class="n">ndk</span><span class="o">.</span><span class="n">create_shared</span></a><span class="p">)</span>
     <span class="n">remote</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">path_lib</span><span class="p">)</span>
     <span class="n">loaded_lib</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">load_module</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="n">module</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="tvm.contrib.graph_executor.GraphModule" class="sphx-glr-backref-module-tvm-contrib-graph_executor sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">graph_executor</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">loaded_lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">dev</span><span class="p">))</span>
+    <span class="n">module</span> <span class="o">=</span> <a href="../../reference/api/python/graph_executor.html#tvm.contrib.graph_executor.GraphModule" title="View documentation for tvm.contrib.graph_executor.GraphModule"><span class="n">graph_executor</span><span class="o">.</span><span class="n">GraphModule</span></a><span class="p">(</span><span class="n">loaded_lib</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">](</span><span class="n">dev</span><span class="p">))</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">input_shape</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">data_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">data_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">module</span><span class="o">.</span><span class="n">set_input</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">data_tvm</span><span class="p">)</span>
 
     <span class="c1"># Evaluate</span>
@@ -633,7 +792,7 @@ of the task scheduler. The following table is a sample output.</p>
 <span class="o">-------------------------------------------------</span>
 <span class="o">|</span>    <span class="mi">0</span> <span class="o">|</span>        <span class="mf">0.010</span> <span class="o">|</span>           <span class="mf">0.40</span> <span class="o">|</span>     <span class="mi">64</span> <span class="o">|</span>
 <span class="o">|</span>    <span class="mi">1</span> <span class="o">|</span>        <span class="mf">0.087</span> <span class="o">|</span>          <span class="mf">47.19</span> <span class="o">|</span>     <span class="mi">64</span> <span class="o">|</span>
-<span class="o">|</span>    <span class="mi">2</span> <span class="o">|</span>        <span class="mf">0.008</span> <span class="o">|</span>          <span class="mf">-0.00</span> <span class="o">|</span>     <span class="mi">64</span> <span class="o">|</span>
+<span class="o">|</span>    <span class="mi">2</span> <span class="o">|</span>        <span class="mf">0.008</span> <span class="o">|</span>          <span class="o">-</span><span class="mf">0.00</span> <span class="o">|</span>     <span class="mi">64</span> <span class="o">|</span>
 <span class="o">|</span>    <span class="mi">3</span> <span class="o">|</span>        <span class="mf">0.177</span> <span class="o">|</span>         <span class="mf">582.07</span> <span class="o">|</span>     <span class="mi">64</span> <span class="o">|</span>
 <span class="o">|</span>    <span class="mi">4</span> <span class="o">|</span>        <span class="mf">0.268</span> <span class="o">|</span>         <span class="mf">862.37</span> <span class="o">|</span>    <span class="mi">256</span> <span class="o">|</span>
 <span class="o">|</span>    <span class="mi">5</span> <span class="o">|</span>        <span class="mf">0.166</span> <span class="o">|</span>         <span class="mf">621.13</span> <span class="o">|</span>    <span class="mi">128</span> <span class="o">|</span>
@@ -702,11 +861,11 @@ to learn how to use the RPC Tracker and RPC Server.
 To use the RPC Tracker in auto-scheduler, replace the runner in <code class="code docutils literal notranslate"><span class="pre">TuningOptions</span></code>
 with <a class="reference internal" href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RPCRunner" title="tvm.auto_scheduler.RPCRunner"><code class="xref any py py-class docutils literal notranslate"><span class="pre">auto_scheduler.RPCRunner</span></code></a>.</p></li>
 </ol>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-tune-with-autoscheduler-tune-network-mali-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-tune-with-autoscheduler-tune-network-mali-py">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/67bf7dd99bcfb837cf3e8b461a5eeb48/tune_network_mali.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tune_network_mali.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/5e4e499c097b16a90c517e630502253a/tune_network_mali.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tune_network_mali.ipynb</span></code></a></p>
 </div>
 </div>
@@ -731,20 +890,20 @@ with <a class="reference internal" href="../../reference/api/python/auto_schedul
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

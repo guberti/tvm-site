@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Compiling and Optimizing a Model with TVMC &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Compiling and Optimizing a Model with TVMC &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -261,7 +229,6 @@
 <li class="toctree-l2"><a class="reference internal" href="tensor_ir_blitz_course.html">Blitz Course to TensorIR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cross_compilation_and_rpc.html">Cross Compilation and RPC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="relay_quick_start.html">Quick Start Tutorial for Compiling Deep Learning Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="uma.html">Making your Hardware Accelerator TVM-ready with UMA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="intro_topi.html">Introduction to TOPI</a></li>
 </ul>
 </li>
@@ -306,7 +273,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -352,9 +319,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/tutorial/tvmc_command_line_driver.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../_sources/tutorial/tvmc_command_line_driver.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -369,9 +334,7 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial can be used interactively with Google Colab! You can also click
-<a class="reference internal" href="#sphx-glr-download-tutorial-tvmc-command-line-driver-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
-<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/efe0b02e219b28e0bd85fbdda35ba8ac/tvmc_command_line_driver.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-tutorial-tvmc-command-line-driver-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="compiling-and-optimizing-a-model-with-tvmc">
 <span id="sphx-glr-tutorial-tvmc-command-line-driver-py"></span><h1>Compiling and Optimizing a Model with TVMC<a class="headerlink" href="#compiling-and-optimizing-a-model-with-tvmc" title="Permalink to this headline">¶</a></h1>
@@ -395,9 +358,6 @@ performance.</p></li>
 </ul>
 <p>The goal of this section is to give you an overview of TVM and TVMC’s
 capabilities, and set the stage for understanding how TVM works.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="section" id="using-tvmc">
 <h2>Using TVMC<a class="headerlink" href="#using-tvmc" title="Permalink to this headline">¶</a></h2>
 <p>TVMC is a Python application, part of the TVM Python package.
@@ -429,7 +389,7 @@ million images with 1000 different classifications. The network has an input
 image size of 224x224. If you are interested exploring more of how the
 ResNet-50 model is structured, we recommend downloading <a class="reference external" href="https://netron.app">Netron</a>, a freely available ML model viewer.</p>
 <p>For this tutorial we will be using the model in ONNX format.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/onnx/models/raw/b9a54e89508f101a1611cd64f4ef56b9cb62c7cf/vision/classification/resnet/model/resnet50-v2-7.onnx
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/onnx/models/raw/main/vision/classification/resnet/model/resnet50-v2-7.onnx
 </pre></div>
 </div>
 <div class="admonition-supported-model-formats admonition">
@@ -458,7 +418,6 @@ using the TVM runtime.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># This may take several minutes depending on your machine</span>
 tvmc compile <span class="se">\</span>
 --target <span class="s2">&quot;llvm&quot;</span> <span class="se">\</span>
---input-shapes <span class="s2">&quot;data:[1,3,224,224]&quot;</span> <span class="se">\</span>
 --output resnet50-v2-7-tvm.tar <span class="se">\</span>
 resnet50-v2-7.onnx
 </pre></div>
@@ -519,7 +478,7 @@ requirement for the script.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!python ./preprocess.py</span>
 <span class="kn">from</span> <span class="nn">tvm.contrib.download</span> <span class="kn">import</span> <span class="n">download_testdata</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="n">img_url</span> <span class="o">=</span> <span class="s2">&quot;https://s3.amazonaws.com/model-server/inputs/kitten.jpg&quot;</span>
 <span class="n">img_path</span> <span class="o">=</span> <span class="n">download_testdata</span><span class="p">(</span><span class="n">img_url</span><span class="p">,</span> <span class="s2">&quot;imagenet_cat.png&quot;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
@@ -579,7 +538,7 @@ from the output of our compiled module.</p>
 <div class="code-block-caption"><span class="caption-text">postprocess.py</span><a class="headerlink" href="#postprocess-py" title="Permalink to this code">¶</a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!python ./postprocess.py</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span>
 
@@ -602,7 +561,7 @@ from the output of our compiled module.</p>
         <span class="n">ranks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">ranks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;class=&#39;</span><span class="si">%s</span><span class="s2">&#39; with probability=</span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">rank</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="n">rank</span><span class="p">]))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;class=&#39;</span><span class="si">%s</span><span class="s2">&#39; with probability=</span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">rank</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="n">rank</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
@@ -789,16 +748,14 @@ supports many more features including cross-compilation, remote execution and
 profiling/benchmarking.</p>
 <p>To see what other options are available, please have a look at <code class="docutils literal notranslate"><span class="pre">tvmc</span>
 <span class="pre">--help</span></code>.</p>
-<p>In the <cite>next tutorial &lt;tvmc_python&gt;</cite>, we introduce the Python interface to TVM,
-and in the tutorial after that,
-<cite>Compiling and Optimizing a Model with the Python Interface &lt;autotvm_relay_x86&gt;</cite>,
-we will cover the same compilation and optimization steps using the Python
-interface.</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tvmc-command-line-driver-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p>In the next tutorial, <a class="reference external" href="auto_tuning_with_pyton">Compiling and Optimizing a Model with the Python
+Interface</a>, we will cover the same compilation
+and optimization steps using the Python interface.</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorial-tvmc-command-line-driver-py">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/233ceda3a682ae5df93b4ce0bcfbf870/tvmc_command_line_driver.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tvmc_command_line_driver.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/efe0b02e219b28e0bd85fbdda35ba8ac/tvmc_command_line_driver.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tvmc_command_line_driver.ipynb</span></code></a></p>
 </div>
 </div>
@@ -823,20 +780,20 @@ interface.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

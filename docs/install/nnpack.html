@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>NNPACK Contrib Installation &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>NNPACK Contrib Installation &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -229,18 +197,19 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Installing TVM</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="from_source.html">Install from Source</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="from_source.html">Install from Source</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="from_source.html#developers-get-source-from-github">Developers: Get Source from Github</a></li>
+<li class="toctree-l3"><a class="reference internal" href="from_source.html#build-the-shared-library">Build the Shared Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="from_source.html#python-package-installation">Python Package Installation</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="from_source.html#install-contrib-libraries">Install Contrib Libraries</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NNPACK Contrib Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="from_source.html#enable-c-tests">Enable C++ Tests</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Images</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">NNPACK Contrib Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#conditions">Conditions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-install-nnpack">Build/Install NNPACK</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#build-ninja">Build Ninja</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#build-nnpack">Build NNPACK</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#build-tvm-with-nnpack-support">Build TVM with NNPACK support</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="tlcpack.html">TLCPack</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute/index.html">Contributor Guide</a></li>
@@ -289,7 +258,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -337,9 +306,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/install/nnpack.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../_sources/install/nnpack.rst.txt" rel="nofollow"> <img src="../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -379,7 +346,7 @@ When favorable conditions for running NNPACKS are not met,</p>
 <p>If the trained model meets some conditions of using NNPACK,
 you can build TVM with NNPACK support.
 Follow these simple steps:</p>
-<p>build NNPACK shared library with the following commands. TVM will link NNPACK dynamically.</p>
+<p>uild NNPACK shared library with the following commands. TVM will link NNPACK dynamically.</p>
 <p>Note: The following NNPACK installation instructions have been tested on Ubuntu 16.04.</p>
 <div class="section" id="build-ninja">
 <h3>Build Ninja<a class="headerlink" href="#build-ninja" title="Permalink to this headline">¶</a></h3>
@@ -450,20 +417,20 @@ sudo ldconfig
       
     </div>
 
-<div id="button" class="backtop"><img src="../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Hybrid Frontend Language Reference &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Hybrid Frontend Language Reference &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -286,7 +254,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -332,9 +300,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/reference/langref/hybrid_script.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../_sources/reference/langref/hybrid_script.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -360,7 +326,7 @@ been supported by TVM officially.</p>
 <h3>Software Emulation<a class="headerlink" href="#software-emulation" title="Permalink to this headline">¶</a></h3>
 <p>Both software emulation and compilation are supported. To define a function,
 you need to use <code class="docutils literal notranslate"><span class="pre">tvm.te.hybrid.script</span></code> decorator to indicate this is a hybrid function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">hybrid</span><span class="o">.</span><span class="n">script</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm.te.hybrid.script</span>
 <span class="k">def</span> <span class="nf">outer_product</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">output_tensor</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">99</span><span class="p">),</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -421,12 +387,12 @@ fusing and reorderding imperfect loops.</p>
 <p>In HalideIR, loops have in total 4 types: <code class="docutils literal notranslate"><span class="pre">serial</span></code>, <code class="docutils literal notranslate"><span class="pre">unrolled</span></code>, <code class="docutils literal notranslate"><span class="pre">parallel</span></code>, and <code class="docutils literal notranslate"><span class="pre">vectorized</span></code>.</p>
 <p>Here we use <code class="docutils literal notranslate"><span class="pre">range</span></code> aka <code class="docutils literal notranslate"><span class="pre">serial</span></code>, <code class="docutils literal notranslate"><span class="pre">unroll</span></code>, <code class="docutils literal notranslate"><span class="pre">parallel</span></code>, and <code class="docutils literal notranslate"><span class="pre">vectorize</span></code>,
 these <strong>4</strong> keywords to annotate the corresponding types of for loops.
-The usage is roughly the same as Python standard <code class="docutils literal notranslate"><span class="pre">range</span></code>.</p>
+The the usage is roughly the same as Python standard <code class="docutils literal notranslate"><span class="pre">range</span></code>.</p>
 <p>Besides all the loop types supported in Halide, <code class="docutils literal notranslate"><span class="pre">const_range</span></code> is supported for some specific conditions.
 Sometimes, <code class="docutils literal notranslate"><span class="pre">tvm.container.Array</span></code> is desired to pass as an argument, but in TVM-HalideIR, there is no
 such support that converts <code class="docutils literal notranslate"><span class="pre">tvm.container.Array</span></code> to an <code class="docutils literal notranslate"><span class="pre">Expr</span></code>. Thus, a limited feature is supported.
 Users can access containers by either constants or constants loops annotated.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">hybrid</span><span class="o">.</span><span class="n">script</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tvm.te.hybrid.script</span>
 <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="c1"># b is a tvm.container.Array</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">output_tensor</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">const_range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span> <span class="c1"># because you have b access, i should be explicitly annotated as const_range</span>
@@ -546,20 +512,20 @@ presented above — condition followed by message. It fits both Python AST and H
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

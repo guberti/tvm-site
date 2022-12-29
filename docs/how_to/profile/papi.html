@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started With PAPI &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Getting Started With PAPI &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -297,7 +265,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -345,9 +313,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/profile/papi.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../_sources/how_to/profile/papi.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -374,7 +340,6 @@ available while profiling.</p>
 <p>PAPI can either be installed using your package manager (<code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libpapi-dev</span></code>
 on Ubuntu), or from source here:
 <a class="reference external" href="https://bitbucket.org/icl/papi/src/master/">https://bitbucket.org/icl/papi/src/master/</a>.</p>
-<p>Pulling the latest version of PAPI from source has caused build issues before. Therefore, it is recommended to checkout tagged version <code class="docutils literal notranslate"><span class="pre">papi-6-0-0-1-t</span></code>.</p>
 </div>
 <div class="section" id="building-tvm-with-papi">
 <h2>Building TVM With PAPI<a class="headerlink" href="#building-tvm-with-papi" title="Permalink to this headline">¶</a></h2>
@@ -393,13 +358,7 @@ on Ubuntu), or from source here:
 <code class="xref py py-class docutils literal notranslate"><span class="pre">tvm.runtime.profiling.PAPIMetricCollector</span></code> to
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">tvm.runtime.GraphModule.profile()</span></code> to collect performance metrics. Here
 is an example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm.relay.testing</span> <span class="kn">import</span> <span class="n">mlp</span>
-<span class="kn">from</span> <span class="nn">tvm.runtime</span> <span class="kn">import</span> <span class="n">profiler_vm</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;llvm&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s2">&quot;llvm&quot;</span>
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
 <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">mlp</span><span class="o">.</span><span class="n">get_workload</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
@@ -408,11 +367,11 @@ is an example:</p>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
 <span class="n">report</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">data</span><span class="p">],</span>
     <span class="n">func_name</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
     <span class="n">collectors</span><span class="o">=</span><span class="p">[</span><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">profiling</span><span class="o">.</span><span class="n">PAPIMetricCollector</span><span class="p">()],</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span>                                    <span class="n">perf</span><span class="p">::</span><span class="n">CACHE</span><span class="o">-</span><span class="n">MISSES</span>   <span class="n">perf</span><span class="p">::</span><span class="n">CYCLES</span>  <span class="n">perf</span><span class="p">::</span><span class="n">STALLED</span><span class="o">-</span><span class="n">CYCLES</span><span class="o">-</span><span class="n">BACKEND</span>  <span class="n">perf</span><span class="p">::</span><span class="n">INSTRUCTIONS</span>  <span class="n">perf</span><span class="p">::</span><span class="n">STALLED</span><span class="o">-</span><span class="n">CYCLES</span><span class="o">-</span><span class="n">FRONTEND</span>
@@ -428,7 +387,7 @@ is an example:</p>
 </div>
 <p>You can also change which metrics are collected:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">data</span><span class="p">],</span>
     <span class="n">func_name</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="p">,</span>
     <span class="n">collectors</span><span class="o">=</span><span class="p">[</span><span class="n">tvm</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">profiling</span><span class="o">.</span><span class="n">PAPIMetricCollector</span><span class="p">({</span><span class="n">dev</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PAPI_FP_OPS&quot;</span><span class="p">])],</span>
 <span class="p">)</span>
@@ -467,20 +426,20 @@ is an example:</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

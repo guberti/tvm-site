@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Auto-scheduling a Convolution Layer for GPU &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Auto-scheduling a Convolution Layer for GPU &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -304,7 +272,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -352,9 +320,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/how_to/tune_with_autoscheduler/tune_conv2d_layer_cuda.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../_sources/how_to/tune_with_autoscheduler/tune_conv2d_layer_cuda.rst.txt" rel="nofollow"> <img src="../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -369,9 +335,7 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial can be used interactively with Google Colab! You can also click
-<a class="reference internal" href="#sphx-glr-download-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
-<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/5f1f7bd7d90710fd404f7bcdc4965622/tune_conv2d_layer_cuda.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="auto-scheduling-a-convolution-layer-for-gpu">
 <span id="auto-scheduler-conv-gpu"></span><span id="sphx-glr-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py"></span><h1>Auto-scheduling a Convolution Layer for GPU<a class="headerlink" href="#auto-scheduling-a-convolution-layer-for-gpu" title="Permalink to this headline">¶</a></h1>
@@ -390,8 +354,8 @@ get it to run, you will need to wrap the body of this tutorial in a <code class=
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span><span class="p">,</span> <span class="n">auto_scheduler</span><span class="p">,</span> <span class="n">topi</span>
-<span class="kn">from</span> <span class="nn">tvm.topi.testing</span> <span class="kn">import</span> <span class="n">conv2d_nchw_python</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span><span class="p">,</span> <span class="n">auto_scheduler</span><span class="p">,</span> <span class="n">topi</span>
+<span class="kn">from</span> <span class="nn">tvm.topi.testing</span> <span class="k">import</span> <span class="n">conv2d_nchw_python</span>
 </pre></div>
 </div>
 <div class="section" id="define-the-computation">
@@ -401,11 +365,11 @@ The function should return the list of input/output tensors.
 From these tensors, the auto-scheduler can get the whole computational graph.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@auto_scheduler</span><span class="o">.</span><span class="n">register_workload</span>
 <span class="k">def</span> <span class="nf">conv2d_layer</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">CO</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">KH</span><span class="p">,</span> <span class="n">KW</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-    <span class="n">kernel</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">CO</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">KH</span><span class="p">,</span> <span class="n">KW</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;kernel&quot;</span><span class="p">)</span>
-    <span class="n">bias</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="tvm.te.placeholder" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">CO</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">)</span>
-    <span class="n">conv</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.conv2d_nchw" title="tvm.topi.nn.conv2d_nchw" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d_nchw</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">out_dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="tvm.topi.nn.relu" class="sphx-glr-backref-module-tvm-topi-nn sphx-glr-backref-type-py-function"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">conv</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+    <span class="n">kernel</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="n">CO</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">KH</span><span class="p">,</span> <span class="n">KW</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;kernel&quot;</span><span class="p">)</span>
+    <span class="n">bias</span> <span class="o">=</span> <a href="../../reference/api/python/te.html#tvm.te.placeholder" title="View documentation for tvm.te.placeholder"><span class="n">te</span><span class="o">.</span><span class="n">placeholder</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">CO</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bias&quot;</span><span class="p">)</span>
+    <span class="n">conv</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.conv2d_nchw" title="View documentation for tvm.topi.nn.conv2d_nchw"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">conv2d_nchw</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">out_dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <a href="../../reference/api/python/topi.html#tvm.topi.nn.relu" title="View documentation for tvm.topi.nn.relu"><span class="n">topi</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span></a><span class="p">(</span><span class="n">conv</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">data</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">out</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -413,11 +377,11 @@ From these tensors, the auto-scheduler can get the whole computational graph.</p
 <div class="section" id="create-the-search-task">
 <h2>Create the search task<a class="headerlink" href="#create-the-search-task" title="Permalink to this headline">¶</a></h2>
 <p>We then create a search task for the last convolution layer in the resnet.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <a href="../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 
 <span class="c1"># Use the last layer in ResNet-50</span>
 <span class="n">N</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">CO</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">KH</span><span class="p">,</span> <span class="n">KW</span><span class="p">,</span> <span class="n">strides</span><span class="p">,</span> <span class="n">padding</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">task</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SearchTask" title="tvm.auto_scheduler.SearchTask" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SearchTask</span></a><span class="p">(</span>
+<span class="n">task</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SearchTask" title="View documentation for tvm.auto_scheduler.SearchTask"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SearchTask</span></a><span class="p">(</span>
     <span class="n">func</span><span class="o">=</span><span class="n">conv2d_layer</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">CO</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">KH</span><span class="p">,</span> <span class="n">KW</span><span class="p">,</span> <span class="n">strides</span><span class="p">,</span> <span class="n">padding</span><span class="p">),</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span>
 <span class="p">)</span>
 
@@ -426,11 +390,22 @@ From these tensors, the auto-scheduler can get the whole computational graph.</p
 <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">compute_dag</span><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Computational DAG:
+data = PLACEHOLDER [1, 512, 7, 7]
+pad_temp(i0, i1, i2, i3) = tir.if_then_else(((((i2 &gt;= 1) &amp;&amp; (i2 &lt; 8)) &amp;&amp; (i3 &gt;= 1)) &amp;&amp; (i3 &lt; 8)), data[i0, i1, (i2 - 1), (i3 - 1)], 0f)
+kernel = PLACEHOLDER [512, 512, 3, 3]
+conv2d_nchw(nn, ff, yy, xx) += (pad_temp[nn, rc, (yy + ry), (xx + rx)]*kernel[ff, rc, ry, rx])
+bias = PLACEHOLDER [1, 512, 1, 1]
+T_add(ax0, ax1, ax2, ax3) = (conv2d_nchw[ax0, ax1, ax2, ax3] + bias[ax0, ax1, 0, 0])
+compute(i0, i1, i2, i3) = max(T_add[i0, i1, i2, i3], 0f)
+</pre></div>
+</div>
 <p>Next, we set parameters for the auto-scheduler. These parameters
 mainly specify how we do the measurement during the search.</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">measure_ctx</span></code> launches a different process for measurement to
-provide isolation. It can protect the main process from GPU crashes
+provide isolation. It can protect the master process from GPU crashes
 during measurement and avoid other runtime conflicts.</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">min_repeat_ms</span></code> defines the minimum duration of one “repeat” in every measurement.
 This can warmup the GPU, which is necessary to get accurate measurement results.
@@ -445,13 +420,17 @@ and do more analyses later.</p></li>
 <a class="reference internal" href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalRPCMeasureContext" title="tvm.auto_scheduler.LocalRPCMeasureContext"><code class="xref any py py-class docutils literal notranslate"><span class="pre">auto_scheduler.LocalRPCMeasureContext</span></code></a> for more parameters.</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log_file</span> <span class="o">=</span> <span class="s2">&quot;conv2d.json&quot;</span>
-<span class="n">measure_ctx</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalRPCMeasureContext" title="tvm.auto_scheduler.LocalRPCMeasureContext" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">LocalRPCMeasureContext</span></a><span class="p">(</span><span class="n">min_repeat_ms</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-<span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="tvm.auto_scheduler.TuningOptions" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
+<span class="n">measure_ctx</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalRPCMeasureContext" title="View documentation for tvm.auto_scheduler.LocalRPCMeasureContext"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">LocalRPCMeasureContext</span></a><span class="p">(</span><span class="n">min_repeat_ms</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="View documentation for tvm.auto_scheduler.TuningOptions"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
     <span class="n">num_measure_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># change this to 1000 to achieve the best performance</span>
     <span class="n">runner</span><span class="o">=</span><span class="n">measure_ctx</span><span class="o">.</span><span class="n">runner</span><span class="p">,</span>
-    <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="tvm.auto_scheduler.RecordToFile" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
+    <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="View documentation for tvm.auto_scheduler.RecordToFile"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
     <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Get devices for measurement successfully!
 </pre></div>
 </div>
 </div>
@@ -470,18 +449,209 @@ file and apply it.</p>
 <span class="k">del</span> <span class="n">measure_ctx</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <p>We can lower the schedule to see the IR after auto-scheduling.
 The auto-scheduler correctly performs optimizations including multi-level tiling,
 cooperative fetching, unrolling and operator fusion.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lowered TIR:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="tvm.lower" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><a href="../../reference/api/python/driver.html#tvm.lower" title="View documentation for tvm.lower"><span class="n">tvm</span><span class="o">.</span><span class="n">lower</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">simple_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Lowered TIR:
+@main = primfn(data_1: handle, kernel_1: handle, bias_1: handle, compute_1: handle) -&gt; ()
+  attr = {&quot;from_legacy_te_schedule&quot;: True, &quot;global_symbol&quot;: &quot;main&quot;, &quot;tir.noalias&quot;: True}
+  buffers = {data: Buffer(data_2: Pointer(float32), float32, [25088], []),
+             kernel: Buffer(kernel_2: Pointer(float32), float32, [2359296], []),
+             bias: Buffer(bias_2: Pointer(float32), float32, [512], []),
+             compute: Buffer(compute_2: Pointer(float32), float32, [25088], [])}
+  buffer_map = {data_1: data, kernel_1: kernel, bias_1: bias, compute_1: compute} {
+  attr [IterVar(blockIdx.x: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;blockIdx.x&quot;)] &quot;thread_extent&quot; = 16;
+  allocate(conv2d_nchw: Pointer(local float32), float32, [28]), storage_scope = local;
+  allocate(pad_temp.shared: Pointer(shared float32), float32, [504]), storage_scope = shared;
+  allocate(kernel.shared: Pointer(shared float32), float32, [768]), storage_scope = shared;
+  attr [IterVar(threadIdx.x: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56 {
+    conv2d_nchw_1: Buffer(conv2d_nchw, float32, [28], [], scope=&quot;local&quot;, align=64)[0] = 0f32
+    conv2d_nchw_1[1] = 0f32
+    conv2d_nchw_1[2] = 0f32
+    conv2d_nchw_1[3] = 0f32
+    conv2d_nchw_1[4] = 0f32
+    conv2d_nchw_1[5] = 0f32
+    conv2d_nchw_1[6] = 0f32
+    conv2d_nchw_1[7] = 0f32
+    conv2d_nchw_1[8] = 0f32
+    conv2d_nchw_1[9] = 0f32
+    conv2d_nchw_1[10] = 0f32
+    conv2d_nchw_1[11] = 0f32
+    conv2d_nchw_1[12] = 0f32
+    conv2d_nchw_1[13] = 0f32
+    conv2d_nchw_1[14] = 0f32
+    conv2d_nchw_1[15] = 0f32
+    conv2d_nchw_1[16] = 0f32
+    conv2d_nchw_1[17] = 0f32
+    conv2d_nchw_1[18] = 0f32
+    conv2d_nchw_1[19] = 0f32
+    conv2d_nchw_1[20] = 0f32
+    conv2d_nchw_1[21] = 0f32
+    conv2d_nchw_1[22] = 0f32
+    conv2d_nchw_1[23] = 0f32
+    conv2d_nchw_1[24] = 0f32
+    conv2d_nchw_1[25] = 0f32
+    conv2d_nchw_1[26] = 0f32
+    conv2d_nchw_1[27] = 0f32
+    for (rc.outer.outer: int32, 0, 64) {
+      for (ry.outer.outer: int32, 0, 3) {
+        let cse_var_4: int32 = (rc.outer.outer*392)
+        let cse_var_3: int32 = (ry.outer.outer*7)
+        let cse_var_2: int32 = (rc.outer.outer*72)
+        let cse_var_1: int32 = (ry.outer.outer*3)
+         {
+          attr [IterVar(threadIdx.x_1: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1: Buffer(pad_temp.shared, float32, [504], [], scope=&quot;shared&quot;)[threadIdx.x_1] = @tir.if_then_else(((((1 &lt;= (floordiv(threadIdx.x_1, 9) + ry.outer.outer)) &amp;&amp; ((floordiv(threadIdx.x_1, 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod(threadIdx.x_1, 9))) &amp;&amp; (floormod(threadIdx.x_1, 9) &lt; 8)), data[((((cse_var_4 + (floordiv(threadIdx.x_1, 9)*7)) + cse_var_3) + floormod(threadIdx.x_1, 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 56)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 56), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 56), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 2), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 2), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 56), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 2), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 112)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 112), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 112), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 4), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 4), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 112), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 4), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 168)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 168), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 168), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 6), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 6), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 168), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 6), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 224)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 224), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 224), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 8), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 8), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 224), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 8), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 280)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 280), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 280), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 1), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 1), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 280), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 1), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 336)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 336), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 336), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 3), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 3), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 336), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 3), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 392)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 392), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 392), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 5), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 5), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 392), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 5), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_1, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          pad_temp.shared_1[(threadIdx.x_1 + 448)] = @tir.if_then_else(((((1 &lt;= (floordiv(floormod((threadIdx.x_1 + 448), 63), 9) + ry.outer.outer)) &amp;&amp; ((floordiv(floormod((threadIdx.x_1 + 448), 63), 9) + ry.outer.outer) &lt; 8)) &amp;&amp; (1 &lt;= floormod((threadIdx.x_1 + 7), 9))) &amp;&amp; (floormod((threadIdx.x_1 + 7), 9) &lt; 8)), data[((((cse_var_4 + (floordiv((threadIdx.x_1 + 448), 9)*7)) + cse_var_3) + floormod((threadIdx.x_1 + 7), 9)) - 8)], 0f32, dtype=float32)
+          attr [IterVar(threadIdx.x_2: int32, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1: Buffer(kernel.shared, float32, [768], [], scope=&quot;shared&quot;)[threadIdx.x_2] = kernel[((((((blockIdx.x*147456) + (floordiv(threadIdx.x_2, 24)*4608)) + cse_var_2) + (floordiv(floormod(threadIdx.x_2, 24), 3)*9)) + cse_var_1) + floormod(threadIdx.x_2, 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 56)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 7), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 56), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 2), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 112)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 14), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 112), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 1), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 168)] = kernel[(((((((blockIdx.x*147456) + (floordiv(floordiv(threadIdx.x_2, 8), 3)*4608)) + cse_var_2) + (floordiv(floormod(threadIdx.x_2, 24), 3)*9)) + cse_var_1) + floormod(threadIdx.x_2, 3)) + 32256)]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 224)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 28), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 224), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 2), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 280)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 35), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 280), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 1), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 336)] = kernel[(((((((blockIdx.x*147456) + (floordiv(floordiv(threadIdx.x_2, 8), 3)*4608)) + cse_var_2) + (floordiv(floormod(threadIdx.x_2, 24), 3)*9)) + cse_var_1) + floormod(threadIdx.x_2, 3)) + 64512)]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 392)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 49), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 392), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 2), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 448)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 56), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 448), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 1), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 504)] = kernel[(((((((blockIdx.x*147456) + (floordiv(floordiv(threadIdx.x_2, 8), 3)*4608)) + cse_var_2) + (floordiv(floormod(threadIdx.x_2, 24), 3)*9)) + cse_var_1) + floormod(threadIdx.x_2, 3)) + 96768)]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 560)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 70), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 560), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 2), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 616)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 77), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 616), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 1), 3))]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          kernel.shared_1[(threadIdx.x_2 + 672)] = kernel[(((((((blockIdx.x*147456) + (floordiv(floordiv(threadIdx.x_2, 8), 3)*4608)) + cse_var_2) + (floordiv(floormod(threadIdx.x_2, 24), 3)*9)) + cse_var_1) + floormod(threadIdx.x_2, 3)) + 129024)]
+          attr [IterVar(threadIdx.x_2, (nullptr), &quot;ThreadIndex&quot;, &quot;threadIdx.x&quot;)] &quot;thread_extent&quot; = 56;
+          if @tir.likely((threadIdx.x_2 &lt; 40), dtype=bool) {
+            kernel.shared_1[(threadIdx.x_2 + 728)] = kernel[((((((blockIdx.x*147456) + (floordiv((floordiv(threadIdx.x_2, 8) + 91), 3)*4608)) + cse_var_2) + (floordiv(floormod((threadIdx.x_2 + 728), 24), 3)*9)) + cse_var_1) + floormod((threadIdx.x_2 + 2), 3))]
+          }
+          for (rc.outer.inner: int32, 0, 2) {
+            for (rx.outer.inner: int32, 0, 3) {
+              for (ff.outer.inner: int32, 0, 2) {
+                let cse_var_18: int32 = (ff.outer.inner*14)
+                let cse_var_17: int32 = (cse_var_18 + 9)
+                let cse_var_16: int32 = (cse_var_18 + 8)
+                let cse_var_15: int32 = (cse_var_18 + 7)
+                let cse_var_14: int32 = (cse_var_18 + 6)
+                let cse_var_13: int32 = (cse_var_18 + 5)
+                let cse_var_12: int32 = (cse_var_18 + 4)
+                let cse_var_11: int32 = (cse_var_18 + 3)
+                let cse_var_10: int32 = (cse_var_18 + 2)
+                let cse_var_9: int32 = (cse_var_18 + 13)
+                let cse_var_8: int32 = (cse_var_18 + 12)
+                let cse_var_7: int32 = (cse_var_18 + 11)
+                let cse_var_6: int32 = (cse_var_18 + 10)
+                let cse_var_5: int32 = (cse_var_18 + 1)
+                 {
+                  conv2d_nchw_1[cse_var_18] = (conv2d_nchw_1[cse_var_18] + (pad_temp.shared_1[(((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_5] = (conv2d_nchw_1[cse_var_5] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 1)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_10] = (conv2d_nchw_1[cse_var_10] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 2)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_11] = (conv2d_nchw_1[cse_var_11] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 3)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_12] = (conv2d_nchw_1[cse_var_12] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 4)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_13] = (conv2d_nchw_1[cse_var_13] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 5)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_14] = (conv2d_nchw_1[cse_var_14] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 6)]*kernel.shared_1[((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner)]))
+                  conv2d_nchw_1[cse_var_15] = (conv2d_nchw_1[cse_var_15] + (pad_temp.shared_1[(((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_16] = (conv2d_nchw_1[cse_var_16] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 1)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_17] = (conv2d_nchw_1[cse_var_17] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 2)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_6] = (conv2d_nchw_1[cse_var_6] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 3)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_7] = (conv2d_nchw_1[cse_var_7] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 4)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_8] = (conv2d_nchw_1[cse_var_8] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 5)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_9] = (conv2d_nchw_1[cse_var_9] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 6)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 24)]))
+                  conv2d_nchw_1[cse_var_18] = (conv2d_nchw_1[cse_var_18] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 63)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_5] = (conv2d_nchw_1[cse_var_5] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 64)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_10] = (conv2d_nchw_1[cse_var_10] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 65)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_11] = (conv2d_nchw_1[cse_var_11] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 66)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_12] = (conv2d_nchw_1[cse_var_12] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 67)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_13] = (conv2d_nchw_1[cse_var_13] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 68)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_14] = (conv2d_nchw_1[cse_var_14] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 69)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 3)]))
+                  conv2d_nchw_1[cse_var_15] = (conv2d_nchw_1[cse_var_15] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 63)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_16] = (conv2d_nchw_1[cse_var_16] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 64)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_17] = (conv2d_nchw_1[cse_var_17] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 65)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_6] = (conv2d_nchw_1[cse_var_6] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 66)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_7] = (conv2d_nchw_1[cse_var_7] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 67)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_8] = (conv2d_nchw_1[cse_var_8] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 68)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_9] = (conv2d_nchw_1[cse_var_9] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 69)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 27)]))
+                  conv2d_nchw_1[cse_var_18] = (conv2d_nchw_1[cse_var_18] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 126)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_5] = (conv2d_nchw_1[cse_var_5] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 127)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_10] = (conv2d_nchw_1[cse_var_10] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 128)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_11] = (conv2d_nchw_1[cse_var_11] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 129)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_12] = (conv2d_nchw_1[cse_var_12] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 130)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_13] = (conv2d_nchw_1[cse_var_13] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 131)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_14] = (conv2d_nchw_1[cse_var_14] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 132)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 6)]))
+                  conv2d_nchw_1[cse_var_15] = (conv2d_nchw_1[cse_var_15] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 126)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_16] = (conv2d_nchw_1[cse_var_16] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 127)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_17] = (conv2d_nchw_1[cse_var_17] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 128)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_6] = (conv2d_nchw_1[cse_var_6] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 129)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_7] = (conv2d_nchw_1[cse_var_7] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 130)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_8] = (conv2d_nchw_1[cse_var_8] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 131)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_9] = (conv2d_nchw_1[cse_var_9] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 132)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 30)]))
+                  conv2d_nchw_1[cse_var_18] = (conv2d_nchw_1[cse_var_18] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 189)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_5] = (conv2d_nchw_1[cse_var_5] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 190)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_10] = (conv2d_nchw_1[cse_var_10] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 191)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_11] = (conv2d_nchw_1[cse_var_11] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 192)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_12] = (conv2d_nchw_1[cse_var_12] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 193)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_13] = (conv2d_nchw_1[cse_var_13] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 194)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_14] = (conv2d_nchw_1[cse_var_14] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 195)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 9)]))
+                  conv2d_nchw_1[cse_var_15] = (conv2d_nchw_1[cse_var_15] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 189)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                  conv2d_nchw_1[cse_var_16] = (conv2d_nchw_1[cse_var_16] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 190)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                  conv2d_nchw_1[cse_var_17] = (conv2d_nchw_1[cse_var_17] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 191)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                  conv2d_nchw_1[cse_var_6] = (conv2d_nchw_1[cse_var_6] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 192)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                  conv2d_nchw_1[cse_var_7] = (conv2d_nchw_1[cse_var_7] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 193)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                  conv2d_nchw_1[cse_var_8] = (conv2d_nchw_1[cse_var_8] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 194)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                  conv2d_nchw_1[cse_var_9] = (conv2d_nchw_1[cse_var_9] + (pad_temp.shared_1[((((rc.outer.inner*252) + (floormod(threadIdx.x, 7)*9)) + rx.outer.inner) + 195)]*kernel.shared_1[(((((floordiv(threadIdx.x, 7)*96) + (ff.outer.inner*48)) + (rc.outer.inner*12)) + rx.outer.inner) + 33)]))
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    for (i1.inner: int32, 0, 4) {
+      for (i3.inner: int32, 0, 7) {
+        compute[(((((blockIdx.x*1568) + (floordiv(threadIdx.x, 7)*196)) + (i1.inner*49)) + (floormod(threadIdx.x, 7)*7)) + i3.inner)] = max((conv2d_nchw_1[((i1.inner*7) + i3.inner)] + bias[(((blockIdx.x*32) + (floordiv(threadIdx.x, 7)*4)) + i1.inner)]), 0f32)
+      }
+    }
+  }
+}
 </pre></div>
 </div>
 </div>
 <div class="section" id="check-correctness-and-evaluate-performance">
 <h2>Check correctness and evaluate performance<a class="headerlink" href="#check-correctness-and-evaluate-performance" title="Permalink to this headline">¶</a></h2>
 <p>We build the binary and check its correctness and performance.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="tvm.build" class="sphx-glr-backref-module-tvm sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="o">=</span> <a href="../../reference/api/python/driver.html#tvm.build" title="View documentation for tvm.build"><span class="n">tvm</span><span class="o">.</span><span class="n">build</span></a><span class="p">(</span><span class="n">sch</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 
 <span class="c1"># Check correctness</span>
 <span class="n">data_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">CI</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -491,10 +661,10 @@ cooperative fetching, unrolling and operator fusion.</p>
 <span class="n">out_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">conv_np</span> <span class="o">+</span> <span class="n">bias_np</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
 <span class="n">dev</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-<span class="n">data_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">data_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">weight_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">weight_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">bias_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="tvm.nd.array" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">bias_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
-<span class="n">out_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="tvm.nd.empty" class="sphx-glr-backref-module-tvm-nd sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">out_np</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">data_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">data_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">weight_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">weight_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">bias_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.array" title="View documentation for tvm.nd.array"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">bias_np</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
+<span class="n">out_tvm</span> <span class="o">=</span> <a href="../../reference/api/python/ndarray.html#tvm.nd.empty" title="View documentation for tvm.nd.empty"><span class="n">tvm</span><span class="o">.</span><span class="n">nd</span><span class="o">.</span><span class="n">empty</span></a><span class="p">(</span><span class="n">out_np</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
 <span class="n">func</span><span class="p">(</span><span class="n">data_tvm</span><span class="p">,</span> <span class="n">weight_tvm</span><span class="p">,</span> <span class="n">bias_tvm</span><span class="p">,</span> <span class="n">out_tvm</span><span class="p">)</span>
 
 <span class="c1"># Check results</span>
@@ -506,6 +676,10 @@ cooperative fetching, unrolling and operator fusion.</p>
     <span class="s2">&quot;Execution time of this operator: </span><span class="si">%.3f</span><span class="s2"> ms&quot;</span>
     <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">evaluator</span><span class="p">(</span><span class="n">data_tvm</span><span class="p">,</span> <span class="n">weight_tvm</span><span class="p">,</span> <span class="n">bias_tvm</span><span class="p">,</span> <span class="n">out_tvm</span><span class="p">)</span><span class="o">.</span><span class="n">results</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Execution time of this operator: 0.303 ms
 </pre></div>
 </div>
 </div>
@@ -524,22 +698,240 @@ They can be used for debugging and learning the behavior of the auto-scheduler.<
 <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">print_best</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">print_mode</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Equivalent python schedule:
+pad_temp_i0, pad_temp_i1, pad_temp_i2, pad_temp_i3 = tuple(pad_temp.op.axis) + tuple(pad_temp.op.reduce_axis)
+conv2d_nchw_nn, conv2d_nchw_ff, conv2d_nchw_yy, conv2d_nchw_xx, conv2d_nchw_rc, conv2d_nchw_ry, conv2d_nchw_rx = tuple(conv2d_nchw.op.axis) + tuple(conv2d_nchw.op.reduce_axis)
+T_add_ax0, T_add_ax1, T_add_ax2, T_add_ax3 = tuple(T_add.op.axis) + tuple(T_add.op.reduce_axis)
+compute_i0, compute_i1, compute_i2, compute_i3 = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+s[T_add].compute_inline()
+conv2d_nchw_nn_o_i, conv2d_nchw_nn_i = s[conv2d_nchw].split(conv2d_nchw_nn, factor=1)
+conv2d_nchw_nn_o_o_i, conv2d_nchw_nn_o_i = s[conv2d_nchw].split(conv2d_nchw_nn_o_i, factor=1)
+conv2d_nchw_nn_o_o_o_i, conv2d_nchw_nn_o_o_i = s[conv2d_nchw].split(conv2d_nchw_nn_o_o_i, factor=1)
+conv2d_nchw_nn_o_o_o_o, conv2d_nchw_nn_o_o_o_i = s[conv2d_nchw].split(conv2d_nchw_nn_o_o_o_i, factor=1)
+conv2d_nchw_ff_o_i, conv2d_nchw_ff_i = s[conv2d_nchw].split(conv2d_nchw_ff, factor=2)
+conv2d_nchw_ff_o_o_i, conv2d_nchw_ff_o_i = s[conv2d_nchw].split(conv2d_nchw_ff_o_i, factor=2)
+conv2d_nchw_ff_o_o_o_i, conv2d_nchw_ff_o_o_i = s[conv2d_nchw].split(conv2d_nchw_ff_o_o_i, factor=8)
+conv2d_nchw_ff_o_o_o_o, conv2d_nchw_ff_o_o_o_i = s[conv2d_nchw].split(conv2d_nchw_ff_o_o_o_i, factor=1)
+conv2d_nchw_yy_o_i, conv2d_nchw_yy_i = s[conv2d_nchw].split(conv2d_nchw_yy, factor=1)
+conv2d_nchw_yy_o_o_i, conv2d_nchw_yy_o_i = s[conv2d_nchw].split(conv2d_nchw_yy_o_i, factor=1)
+conv2d_nchw_yy_o_o_o_i, conv2d_nchw_yy_o_o_i = s[conv2d_nchw].split(conv2d_nchw_yy_o_o_i, factor=7)
+conv2d_nchw_yy_o_o_o_o, conv2d_nchw_yy_o_o_o_i = s[conv2d_nchw].split(conv2d_nchw_yy_o_o_o_i, factor=1)
+conv2d_nchw_xx_o_i, conv2d_nchw_xx_i = s[conv2d_nchw].split(conv2d_nchw_xx, factor=7)
+conv2d_nchw_xx_o_o_i, conv2d_nchw_xx_o_i = s[conv2d_nchw].split(conv2d_nchw_xx_o_i, factor=1)
+conv2d_nchw_xx_o_o_o_i, conv2d_nchw_xx_o_o_i = s[conv2d_nchw].split(conv2d_nchw_xx_o_o_i, factor=1)
+conv2d_nchw_xx_o_o_o_o, conv2d_nchw_xx_o_o_o_i = s[conv2d_nchw].split(conv2d_nchw_xx_o_o_o_i, factor=1)
+conv2d_nchw_rc_o_i, conv2d_nchw_rc_i = s[conv2d_nchw].split(conv2d_nchw_rc, factor=4)
+conv2d_nchw_rc_o_o, conv2d_nchw_rc_o_i = s[conv2d_nchw].split(conv2d_nchw_rc_o_i, factor=2)
+conv2d_nchw_ry_o_i, conv2d_nchw_ry_i = s[conv2d_nchw].split(conv2d_nchw_ry, factor=1)
+conv2d_nchw_ry_o_o, conv2d_nchw_ry_o_i = s[conv2d_nchw].split(conv2d_nchw_ry_o_i, factor=1)
+conv2d_nchw_rx_o_i, conv2d_nchw_rx_i = s[conv2d_nchw].split(conv2d_nchw_rx, factor=1)
+conv2d_nchw_rx_o_o, conv2d_nchw_rx_o_i = s[conv2d_nchw].split(conv2d_nchw_rx_o_i, factor=3)
+s[conv2d_nchw].reorder(conv2d_nchw_nn_o_o_o_o, conv2d_nchw_ff_o_o_o_o, conv2d_nchw_yy_o_o_o_o, conv2d_nchw_xx_o_o_o_o, conv2d_nchw_nn_o_o_o_i, conv2d_nchw_ff_o_o_o_i, conv2d_nchw_yy_o_o_o_i, conv2d_nchw_xx_o_o_o_i, conv2d_nchw_nn_o_o_i, conv2d_nchw_ff_o_o_i, conv2d_nchw_yy_o_o_i, conv2d_nchw_xx_o_o_i, conv2d_nchw_rc_o_o, conv2d_nchw_ry_o_o, conv2d_nchw_rx_o_o, conv2d_nchw_rc_o_i, conv2d_nchw_ry_o_i, conv2d_nchw_rx_o_i, conv2d_nchw_nn_o_i, conv2d_nchw_ff_o_i, conv2d_nchw_yy_o_i, conv2d_nchw_xx_o_i, conv2d_nchw_rc_i, conv2d_nchw_ry_i, conv2d_nchw_rx_i, conv2d_nchw_nn_i, conv2d_nchw_ff_i, conv2d_nchw_yy_i, conv2d_nchw_xx_i)
+compute_i0_o_i, compute_i0_i = s[compute].split(compute_i0, factor=1)
+compute_i0_o_o_i, compute_i0_o_i = s[compute].split(compute_i0_o_i, factor=1)
+compute_i0_o_o_o, compute_i0_o_o_i = s[compute].split(compute_i0_o_o_i, factor=1)
+compute_i1_o_i, compute_i1_i = s[compute].split(compute_i1, factor=4)
+compute_i1_o_o_i, compute_i1_o_i = s[compute].split(compute_i1_o_i, factor=8)
+compute_i1_o_o_o, compute_i1_o_o_i = s[compute].split(compute_i1_o_o_i, factor=1)
+compute_i2_o_i, compute_i2_i = s[compute].split(compute_i2, factor=1)
+compute_i2_o_o_i, compute_i2_o_i = s[compute].split(compute_i2_o_i, factor=7)
+compute_i2_o_o_o, compute_i2_o_o_i = s[compute].split(compute_i2_o_o_i, factor=1)
+compute_i3_o_i, compute_i3_i = s[compute].split(compute_i3, factor=7)
+compute_i3_o_o_i, compute_i3_o_i = s[compute].split(compute_i3_o_i, factor=1)
+compute_i3_o_o_o, compute_i3_o_o_i = s[compute].split(compute_i3_o_o_i, factor=1)
+s[compute].reorder(compute_i0_o_o_o, compute_i1_o_o_o, compute_i2_o_o_o, compute_i3_o_o_o, compute_i0_o_o_i, compute_i1_o_o_i, compute_i2_o_o_i, compute_i3_o_o_i, compute_i0_o_i, compute_i1_o_i, compute_i2_o_i, compute_i3_o_i, compute_i0_i, compute_i1_i, compute_i2_i, compute_i3_i)
+s[conv2d_nchw].compute_at(s[compute], compute_i3_o_i)
+kernel_shared = s.cache_read(kernel, &quot;shared&quot;, [conv2d_nchw])
+kernel_shared_ax0, kernel_shared_ax1, kernel_shared_ax2, kernel_shared_ax3 = tuple(kernel_shared.op.axis)
+s[kernel_shared].compute_at(s[conv2d_nchw], conv2d_nchw_rx_o_o)
+pad_temp_shared = s.cache_read(pad_temp, &quot;shared&quot;, [conv2d_nchw])
+pad_temp_shared_ax0, pad_temp_shared_ax1, pad_temp_shared_ax2, pad_temp_shared_ax3 = tuple(pad_temp_shared.op.axis)
+s[pad_temp_shared].compute_at(s[conv2d_nchw], conv2d_nchw_rx_o_o)
+s[pad_temp].compute_inline()
+compute_i0_o_o_o_i1_o_o_o_fused_i2_o_o_o_fused_i3_o_o_o_fused = s[compute].fuse(compute_i0_o_o_o, compute_i1_o_o_o, compute_i2_o_o_o, compute_i3_o_o_o)
+s[compute].bind(compute_i0_o_o_o_i1_o_o_o_fused_i2_o_o_o_fused_i3_o_o_o_fused, te.thread_axis(&quot;blockIdx.x&quot;))
+compute_i0_o_o_i_i1_o_o_i_fused_i2_o_o_i_fused_i3_o_o_i_fused = s[compute].fuse(compute_i0_o_o_i, compute_i1_o_o_i, compute_i2_o_o_i, compute_i3_o_o_i)
+s[compute].bind(compute_i0_o_o_i_i1_o_o_i_fused_i2_o_o_i_fused_i3_o_o_i_fused, te.thread_axis(&quot;vthread&quot;))
+compute_i0_o_i_i1_o_i_fused_i2_o_i_fused_i3_o_i_fused = s[compute].fuse(compute_i0_o_i, compute_i1_o_i, compute_i2_o_i, compute_i3_o_i)
+s[compute].bind(compute_i0_o_i_i1_o_i_fused_i2_o_i_fused_i3_o_i_fused, te.thread_axis(&quot;threadIdx.x&quot;))
+kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused = s[kernel_shared].fuse(kernel_shared_ax0, kernel_shared_ax1, kernel_shared_ax2, kernel_shared_ax3)
+kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o, kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_i = s[kernel_shared].split(kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused, factor=1)
+s[kernel_shared].vectorize(kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_i)
+kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o_o, kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o_i = s[kernel_shared].split(kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o, factor=56)
+s[kernel_shared].bind(kernel_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o_i, te.thread_axis(&quot;threadIdx.x&quot;))
+pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused = s[pad_temp_shared].fuse(pad_temp_shared_ax0, pad_temp_shared_ax1, pad_temp_shared_ax2, pad_temp_shared_ax3)
+pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o, pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_i = s[pad_temp_shared].split(pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused, factor=1)
+s[pad_temp_shared].vectorize(pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_i)
+pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o_o, pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o_i = s[pad_temp_shared].split(pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o, factor=56)
+s[pad_temp_shared].bind(pad_temp_shared_ax0_ax1_fused_ax2_fused_ax3_fused_o_i, te.thread_axis(&quot;threadIdx.x&quot;))
+s[conv2d_nchw].pragma(conv2d_nchw_nn_o_o_o_o, &quot;auto_unroll_max_step&quot;, 64)
+s[conv2d_nchw].pragma(conv2d_nchw_nn_o_o_o_o, &quot;unroll_explicit&quot;, True)
+
+CUDA source code:
+
+#ifdef _WIN32
+  using uint = unsigned int;
+  using uchar = unsigned char;
+  using ushort = unsigned short;
+  using int64_t = long long;
+  using uint64_t = unsigned long long;
+#else
+  #define uint unsigned int
+  #define uchar unsigned char
+  #define ushort unsigned short
+  #define int64_t long long
+  #define uint64_t unsigned long long
+#endif
+extern &quot;C&quot; __global__ void __launch_bounds__(56) default_function_kernel0(float* __restrict__ data, float* __restrict__ kernel, float* __restrict__ compute, float* __restrict__ bias) {
+  float conv2d_nchw[28];
+  __shared__ float pad_temp_shared[504];
+  __shared__ float kernel_shared[768];
+  conv2d_nchw[0] = 0.000000e+00f;
+  conv2d_nchw[1] = 0.000000e+00f;
+  conv2d_nchw[2] = 0.000000e+00f;
+  conv2d_nchw[3] = 0.000000e+00f;
+  conv2d_nchw[4] = 0.000000e+00f;
+  conv2d_nchw[5] = 0.000000e+00f;
+  conv2d_nchw[6] = 0.000000e+00f;
+  conv2d_nchw[7] = 0.000000e+00f;
+  conv2d_nchw[8] = 0.000000e+00f;
+  conv2d_nchw[9] = 0.000000e+00f;
+  conv2d_nchw[10] = 0.000000e+00f;
+  conv2d_nchw[11] = 0.000000e+00f;
+  conv2d_nchw[12] = 0.000000e+00f;
+  conv2d_nchw[13] = 0.000000e+00f;
+  conv2d_nchw[14] = 0.000000e+00f;
+  conv2d_nchw[15] = 0.000000e+00f;
+  conv2d_nchw[16] = 0.000000e+00f;
+  conv2d_nchw[17] = 0.000000e+00f;
+  conv2d_nchw[18] = 0.000000e+00f;
+  conv2d_nchw[19] = 0.000000e+00f;
+  conv2d_nchw[20] = 0.000000e+00f;
+  conv2d_nchw[21] = 0.000000e+00f;
+  conv2d_nchw[22] = 0.000000e+00f;
+  conv2d_nchw[23] = 0.000000e+00f;
+  conv2d_nchw[24] = 0.000000e+00f;
+  conv2d_nchw[25] = 0.000000e+00f;
+  conv2d_nchw[26] = 0.000000e+00f;
+  conv2d_nchw[27] = 0.000000e+00f;
+  for (int rc_outer_outer = 0; rc_outer_outer &lt; 64; ++rc_outer_outer) {
+    for (int ry_outer_outer = 0; ry_outer_outer &lt; 3; ++ry_outer_outer) {
+      __syncthreads();
+      pad_temp_shared[((int)threadIdx.x)] = (((((1 &lt;= ((((int)threadIdx.x) / 9) + ry_outer_outer)) &amp;&amp; (((((int)threadIdx.x) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= (((int)threadIdx.x) % 9))) &amp;&amp; ((((int)threadIdx.x) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + ((((int)threadIdx.x) / 9) * 7)) + (ry_outer_outer * 7)) + (((int)threadIdx.x) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 56)] = (((((1 &lt;= ((((((int)threadIdx.x) + 56) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 56) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 2) % 9))) &amp;&amp; (((((int)threadIdx.x) + 2) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 56) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 2) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 112)] = (((((1 &lt;= ((((((int)threadIdx.x) + 49) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 49) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 4) % 9))) &amp;&amp; (((((int)threadIdx.x) + 4) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 112) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 4) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 168)] = (((((1 &lt;= ((((((int)threadIdx.x) + 42) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 42) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 6) % 9))) &amp;&amp; (((((int)threadIdx.x) + 6) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 168) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 6) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 224)] = (((((1 &lt;= ((((((int)threadIdx.x) + 35) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 35) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 8) % 9))) &amp;&amp; (((((int)threadIdx.x) + 8) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 224) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 8) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 280)] = (((((1 &lt;= ((((((int)threadIdx.x) + 28) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 28) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 1) % 9))) &amp;&amp; (((((int)threadIdx.x) + 1) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 280) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 1) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 336)] = (((((1 &lt;= ((((((int)threadIdx.x) + 21) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 21) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 3) % 9))) &amp;&amp; (((((int)threadIdx.x) + 3) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 336) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 3) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 392)] = (((((1 &lt;= ((((((int)threadIdx.x) + 14) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 14) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 5) % 9))) &amp;&amp; (((((int)threadIdx.x) + 5) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 392) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 5) % 9)) - 8)] : 0.000000e+00f);
+      pad_temp_shared[(((int)threadIdx.x) + 448)] = (((((1 &lt;= ((((((int)threadIdx.x) + 7) % 63) / 9) + ry_outer_outer)) &amp;&amp; (((((((int)threadIdx.x) + 7) % 63) / 9) + ry_outer_outer) &lt; 8)) &amp;&amp; (1 &lt;= ((((int)threadIdx.x) + 7) % 9))) &amp;&amp; (((((int)threadIdx.x) + 7) % 9) &lt; 8)) ? data[(((((rc_outer_outer * 392) + (((((int)threadIdx.x) + 448) / 9) * 7)) + (ry_outer_outer * 7)) + ((((int)threadIdx.x) + 7) % 9)) - 8)] : 0.000000e+00f);
+      kernel_shared[((int)threadIdx.x)] = kernel[((((((((int)blockIdx.x) * 147456) + ((((int)threadIdx.x) / 24) * 4608)) + (rc_outer_outer * 72)) + (((((int)threadIdx.x) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + (((int)threadIdx.x) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 56)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 56) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 8) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 2) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 112)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 112) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 16) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 1) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 168)] = kernel[(((((((((int)blockIdx.x) * 147456) + ((((int)threadIdx.x) / 24) * 4608)) + (rc_outer_outer * 72)) + (((((int)threadIdx.x) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + (((int)threadIdx.x) % 3)) + 32256)];
+      kernel_shared[(((int)threadIdx.x) + 224)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 224) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 8) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 2) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 280)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 280) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 16) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 1) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 336)] = kernel[(((((((((int)blockIdx.x) * 147456) + ((((int)threadIdx.x) / 24) * 4608)) + (rc_outer_outer * 72)) + (((((int)threadIdx.x) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + (((int)threadIdx.x) % 3)) + 64512)];
+      kernel_shared[(((int)threadIdx.x) + 392)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 392) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 8) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 2) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 448)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 448) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 16) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 1) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 504)] = kernel[(((((((((int)blockIdx.x) * 147456) + ((((int)threadIdx.x) / 24) * 4608)) + (rc_outer_outer * 72)) + (((((int)threadIdx.x) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + (((int)threadIdx.x) % 3)) + 96768)];
+      kernel_shared[(((int)threadIdx.x) + 560)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 560) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 8) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 2) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 616)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 616) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 16) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 1) % 3))];
+      kernel_shared[(((int)threadIdx.x) + 672)] = kernel[(((((((((int)blockIdx.x) * 147456) + ((((int)threadIdx.x) / 24) * 4608)) + (rc_outer_outer * 72)) + (((((int)threadIdx.x) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + (((int)threadIdx.x) % 3)) + 129024)];
+      if (((int)threadIdx.x) &lt; 40) {
+        kernel_shared[(((int)threadIdx.x) + 728)] = kernel[((((((((int)blockIdx.x) * 147456) + (((((int)threadIdx.x) + 728) / 24) * 4608)) + (rc_outer_outer * 72)) + ((((((int)threadIdx.x) + 8) % 24) / 3) * 9)) + (ry_outer_outer * 3)) + ((((int)threadIdx.x) + 2) % 3))];
+      }
+      __syncthreads();
+      for (int rc_outer_inner = 0; rc_outer_inner &lt; 2; ++rc_outer_inner) {
+        for (int rx_outer_inner = 0; rx_outer_inner &lt; 3; ++rx_outer_inner) {
+          for (int ff_outer_inner = 0; ff_outer_inner &lt; 2; ++ff_outer_inner) {
+            conv2d_nchw[(ff_outer_inner * 14)] = (conv2d_nchw[(ff_outer_inner * 14)] + (pad_temp_shared[(((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 1)] = (conv2d_nchw[((ff_outer_inner * 14) + 1)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 1)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 2)] = (conv2d_nchw[((ff_outer_inner * 14) + 2)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 2)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 3)] = (conv2d_nchw[((ff_outer_inner * 14) + 3)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 3)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 4)] = (conv2d_nchw[((ff_outer_inner * 14) + 4)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 4)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 5)] = (conv2d_nchw[((ff_outer_inner * 14) + 5)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 5)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 6)] = (conv2d_nchw[((ff_outer_inner * 14) + 6)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 6)] * kernel_shared[(((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 7)] = (conv2d_nchw[((ff_outer_inner * 14) + 7)] + (pad_temp_shared[(((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 8)] = (conv2d_nchw[((ff_outer_inner * 14) + 8)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 1)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 9)] = (conv2d_nchw[((ff_outer_inner * 14) + 9)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 2)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 10)] = (conv2d_nchw[((ff_outer_inner * 14) + 10)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 3)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 11)] = (conv2d_nchw[((ff_outer_inner * 14) + 11)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 4)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 12)] = (conv2d_nchw[((ff_outer_inner * 14) + 12)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 5)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 13)] = (conv2d_nchw[((ff_outer_inner * 14) + 13)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 6)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 24)]));
+            conv2d_nchw[(ff_outer_inner * 14)] = (conv2d_nchw[(ff_outer_inner * 14)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 63)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 1)] = (conv2d_nchw[((ff_outer_inner * 14) + 1)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 64)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 2)] = (conv2d_nchw[((ff_outer_inner * 14) + 2)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 65)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 3)] = (conv2d_nchw[((ff_outer_inner * 14) + 3)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 66)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 4)] = (conv2d_nchw[((ff_outer_inner * 14) + 4)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 67)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 5)] = (conv2d_nchw[((ff_outer_inner * 14) + 5)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 68)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 6)] = (conv2d_nchw[((ff_outer_inner * 14) + 6)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 69)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 3)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 7)] = (conv2d_nchw[((ff_outer_inner * 14) + 7)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 63)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 8)] = (conv2d_nchw[((ff_outer_inner * 14) + 8)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 64)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 9)] = (conv2d_nchw[((ff_outer_inner * 14) + 9)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 65)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 10)] = (conv2d_nchw[((ff_outer_inner * 14) + 10)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 66)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 11)] = (conv2d_nchw[((ff_outer_inner * 14) + 11)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 67)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 12)] = (conv2d_nchw[((ff_outer_inner * 14) + 12)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 68)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 13)] = (conv2d_nchw[((ff_outer_inner * 14) + 13)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 69)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 27)]));
+            conv2d_nchw[(ff_outer_inner * 14)] = (conv2d_nchw[(ff_outer_inner * 14)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 126)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 1)] = (conv2d_nchw[((ff_outer_inner * 14) + 1)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 127)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 2)] = (conv2d_nchw[((ff_outer_inner * 14) + 2)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 128)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 3)] = (conv2d_nchw[((ff_outer_inner * 14) + 3)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 129)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 4)] = (conv2d_nchw[((ff_outer_inner * 14) + 4)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 130)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 5)] = (conv2d_nchw[((ff_outer_inner * 14) + 5)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 131)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 6)] = (conv2d_nchw[((ff_outer_inner * 14) + 6)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 132)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 6)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 7)] = (conv2d_nchw[((ff_outer_inner * 14) + 7)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 126)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 8)] = (conv2d_nchw[((ff_outer_inner * 14) + 8)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 127)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 9)] = (conv2d_nchw[((ff_outer_inner * 14) + 9)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 128)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 10)] = (conv2d_nchw[((ff_outer_inner * 14) + 10)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 129)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 11)] = (conv2d_nchw[((ff_outer_inner * 14) + 11)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 130)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 12)] = (conv2d_nchw[((ff_outer_inner * 14) + 12)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 131)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 13)] = (conv2d_nchw[((ff_outer_inner * 14) + 13)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 132)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 30)]));
+            conv2d_nchw[(ff_outer_inner * 14)] = (conv2d_nchw[(ff_outer_inner * 14)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 189)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 1)] = (conv2d_nchw[((ff_outer_inner * 14) + 1)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 190)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 2)] = (conv2d_nchw[((ff_outer_inner * 14) + 2)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 191)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 3)] = (conv2d_nchw[((ff_outer_inner * 14) + 3)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 192)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 4)] = (conv2d_nchw[((ff_outer_inner * 14) + 4)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 193)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 5)] = (conv2d_nchw[((ff_outer_inner * 14) + 5)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 194)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 6)] = (conv2d_nchw[((ff_outer_inner * 14) + 6)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 195)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 9)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 7)] = (conv2d_nchw[((ff_outer_inner * 14) + 7)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 189)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 8)] = (conv2d_nchw[((ff_outer_inner * 14) + 8)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 190)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 9)] = (conv2d_nchw[((ff_outer_inner * 14) + 9)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 191)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 10)] = (conv2d_nchw[((ff_outer_inner * 14) + 10)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 192)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 11)] = (conv2d_nchw[((ff_outer_inner * 14) + 11)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 193)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 12)] = (conv2d_nchw[((ff_outer_inner * 14) + 12)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 194)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+            conv2d_nchw[((ff_outer_inner * 14) + 13)] = (conv2d_nchw[((ff_outer_inner * 14) + 13)] + (pad_temp_shared[((((rc_outer_inner * 252) + ((((int)threadIdx.x) % 7) * 9)) + rx_outer_inner) + 195)] * kernel_shared[((((((((int)threadIdx.x) / 7) * 96) + (ff_outer_inner * 48)) + (rc_outer_inner * 12)) + rx_outer_inner) + 33)]));
+          }
+        }
+      }
+    }
+  }
+  for (int i1_inner = 0; i1_inner &lt; 4; ++i1_inner) {
+    for (int i3_inner = 0; i3_inner &lt; 7; ++i3_inner) {
+      compute[(((((((int)blockIdx.x) * 1568) + ((((int)threadIdx.x) / 7) * 196)) + (i1_inner * 49)) + ((((int)threadIdx.x) % 7) * 7)) + i3_inner)] = max((conv2d_nchw[((i1_inner * 7) + i3_inner)] + bias[(((((int)blockIdx.x) * 32) + ((((int)threadIdx.x) / 7) * 4)) + i1_inner)]), 0.000000e+00f);
+    }
+  }
+}
+</pre></div>
+</div>
 <p>A more complicated example is to resume the search.
 In this case, we need to create the search policy and cost model by ourselves
 and resume the status of search policy and cost model with the log file.
 In the example below we resume the status and do more 5 trials.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resume_search</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">log_file</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resume search:&quot;</span><span class="p">)</span>
-    <span class="n">cost_model</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.XGBModel" title="tvm.auto_scheduler.XGBModel" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">XGBModel</span></a><span class="p">()</span>
+    <span class="n">cost_model</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.XGBModel" title="View documentation for tvm.auto_scheduler.XGBModel"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">XGBModel</span></a><span class="p">()</span>
     <span class="n">cost_model</span><span class="o">.</span><span class="n">update_from_file</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
-    <span class="n">search_policy</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SketchPolicy" title="tvm.auto_scheduler.SketchPolicy" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SketchPolicy</span></a><span class="p">(</span>
-        <span class="n">task</span><span class="p">,</span> <span class="n">cost_model</span><span class="p">,</span> <span class="n">init_search_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadMeasuredStates" title="tvm.auto_scheduler.PreloadMeasuredStates" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadMeasuredStates</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)]</span>
+    <span class="n">search_policy</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.SketchPolicy" title="View documentation for tvm.auto_scheduler.SketchPolicy"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">SketchPolicy</span></a><span class="p">(</span>
+        <span class="n">task</span><span class="p">,</span> <span class="n">cost_model</span><span class="p">,</span> <span class="n">init_search_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.PreloadMeasuredStates" title="View documentation for tvm.auto_scheduler.PreloadMeasuredStates"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">PreloadMeasuredStates</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)]</span>
     <span class="p">)</span>
-    <span class="n">measure_ctx</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalRPCMeasureContext" title="tvm.auto_scheduler.LocalRPCMeasureContext" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">LocalRPCMeasureContext</span></a><span class="p">(</span><span class="n">min_repeat_ms</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-    <span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="tvm.auto_scheduler.TuningOptions" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
+    <span class="n">measure_ctx</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.LocalRPCMeasureContext" title="View documentation for tvm.auto_scheduler.LocalRPCMeasureContext"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">LocalRPCMeasureContext</span></a><span class="p">(</span><span class="n">min_repeat_ms</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">tune_option</span> <span class="o">=</span> <a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.TuningOptions" title="View documentation for tvm.auto_scheduler.TuningOptions"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">TuningOptions</span></a><span class="p">(</span>
         <span class="n">num_measure_trials</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
         <span class="n">runner</span><span class="o">=</span><span class="n">measure_ctx</span><span class="o">.</span><span class="n">runner</span><span class="p">,</span>
-        <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="tvm.auto_scheduler.RecordToFile" class="sphx-glr-backref-module-tvm-auto_scheduler sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
+        <span class="n">measure_callbacks</span><span class="o">=</span><span class="p">[</span><a href="../../reference/api/python/auto_scheduler.html#tvm.auto_scheduler.RecordToFile" title="View documentation for tvm.auto_scheduler.RecordToFile"><span class="n">auto_scheduler</span><span class="o">.</span><span class="n">RecordToFile</span></a><span class="p">(</span><span class="n">log_file</span><span class="p">)],</span>
     <span class="p">)</span>
     <span class="n">task</span><span class="o">.</span><span class="n">tune</span><span class="p">(</span><span class="n">tune_option</span><span class="p">,</span> <span class="n">search_policy</span><span class="o">=</span><span class="n">search_policy</span><span class="p">)</span>
 
@@ -550,11 +942,19 @@ In the example below we resume the status and do more 5 trials.</p>
 <span class="n">resume_search</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">log_file</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Resume search:
+/usr/local/lib/python3.7/dist-packages/xgboost/training.py:17: UserWarning: Old style callback is deprecated.  See: https://xgboost.readthedocs.io/en/latest/python/callbacks.html
+  warnings.warn(f&#39;Old style callback is deprecated.  See: {link}&#39;, UserWarning)
+Get devices for measurement successfully!
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  18.016 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-how-to-tune-with-autoscheduler-tune-conv2d-layer-cuda-py">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e3e540f3b477c0c52d8eb73e674e8ffd/tune_conv2d_layer_cuda.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tune_conv2d_layer_cuda.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/5f1f7bd7d90710fd404f7bcdc4965622/tune_conv2d_layer_cuda.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tune_conv2d_layer_cuda.ipynb</span></code></a></p>
 </div>
 </div>
@@ -579,20 +979,20 @@ In the example below we resume the status and do more 5 trials.</p>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

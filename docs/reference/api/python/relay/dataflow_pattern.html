@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tvm.relay.dataflow_pattern &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>tvm.relay.dataflow_pattern &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -309,7 +277,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -355,9 +323,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/reference/api/python/relay/dataflow_pattern.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../../../_sources/reference/api/python/relay/dataflow_pattern.rst.txt" rel="nofollow"> <img src="../../../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -383,7 +349,7 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr</span></code></p></td>
 <td><p>alias of <a class="reference internal" href="../ir.html#tvm.ir.RelayExpr" title="tvm.ir.expr.RelayExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">tvm.ir.expr.RelayExpr</span></code></a></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFPattern</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">DFPattern</span></code></p></td>
 <td><p>Base class of all Patterns.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExprPattern</span></code>(expr)</p></td>
@@ -533,8 +499,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The type key of the node.</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – The fields of the node.</p></li>
+<li><p><strong>type_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The type key of the node.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The fields of the node.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -565,7 +531,7 @@ default value setup as supported by Attrs.</p>
 <dd><p>Get the Op for a given name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>op_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The operator name</p>
+<dd class="field-odd"><p><strong>op_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The operator name</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>op</strong> – The op of the corresponding name</p>
@@ -582,7 +548,7 @@ default value setup as supported by Attrs.</p>
 <dd><p>Register a Relay node type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>type_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>cls</em>) – The type key of the node.</p>
+<dd class="field-odd"><p><strong>type_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>cls</em>) – The type key of the node.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -626,11 +592,11 @@ default value setup as supported by Attrs.</p>
 </table>
 <dl class="py method">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.DFPattern.has_attr">
-<span class="sig-name descname"><span class="pre">has_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.object.Object"><span class="pre">tvm.runtime.object.Object</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DFPattern.has_attr" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">has_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.object.Object"><span class="pre">tvm.runtime.object.Object</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DFPattern.has_attr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an attribute constraint to this pattern</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>attrs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>attrs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em>) – </p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>result</strong> – The resulting AttrPattern</p>
@@ -660,11 +626,11 @@ default value setup as supported by Attrs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.DFPattern.has_dtype">
-<span class="sig-name descname"><span class="pre">has_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DFPattern.has_dtype" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">has_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DFPattern.has_dtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a type constraint to this pattern</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The dtype to match</p>
+<dd class="field-odd"><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The dtype to match</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>result</strong> – The resulting DataTypePattern</p>
@@ -694,7 +660,7 @@ default value setup as supported by Attrs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.DFPattern.match">
-<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ir.html#tvm.ir.RelayExpr" title="tvm.ir.expr.RelayExpr"><span class="pre">tvm.ir.expr.RelayExpr</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DFPattern.match" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ir.html#tvm.ir.RelayExpr" title="tvm.ir.expr.RelayExpr"><span class="pre">tvm.ir.expr.RelayExpr</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DFPattern.match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Match this pattern to an expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -704,7 +670,7 @@ default value setup as supported by Attrs.</p>
 <dd class="field-even"><p><strong>result</strong> – Whether or not the expression matches the pattern</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -717,8 +683,8 @@ default value setup as supported by Attrs.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>expr</strong> (<em>tvm.relay.Expr</em>) – The expression to match.</p></li>
-<li><p><strong>attrs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em><em>]</em>) – A dictionary of Attribute name/values to add to the paritioned function</p></li>
-<li><p><strong>check</strong> (<em>Callable</em><em>[</em><em>[</em><em>Expr</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – A function to perform more complicated checks on the matched expression.
+<li><p><strong>attrs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em><em>]</em>) – A dictionary of Attribute name/values to add to the paritioned function</p></li>
+<li><p><strong>check</strong> (<em>Callable</em><em>[</em><em>[</em><em>Expr</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – A function to perform more complicated checks on the matched expression.
 Returns true if partitioning should proceed, false otherwise.</p></li>
 </ul>
 </dd>
@@ -773,11 +739,11 @@ a constructed pattern matching the option</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.is_var">
-<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">is_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.is_var" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">is_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.is_var" title="Permalink to this definition">¶</a></dt>
 <dd><p>Syntatic sugar for creating an optionally named VarPattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the input pattern to match.</p>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the input pattern to match.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>result</strong> – The resulting pattern.</p>
@@ -794,7 +760,7 @@ a constructed pattern matching the option</p>
 <dd><p>Syntatic sugar for creating a ConstantPattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the input pattern to match.</p>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the input pattern to match.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>result</strong> – The resulting pattern.</p>
@@ -824,7 +790,7 @@ a constructed pattern matching the option</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.is_op">
-<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">is_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.is_op" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">is_op</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.is_op" title="Permalink to this definition">¶</a></dt>
 <dd><p>Syntatic sugar for creating an operator ExprPattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -858,13 +824,13 @@ a constructed pattern matching the option</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.is_tuple_get_item">
-<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">is_tuple_get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tuple_value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.is_tuple_get_item" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">is_tuple_get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tuple_value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.is_tuple_get_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Syntatic sugar for creating an ExprPattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tuple_value</strong> (<a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><em>tvm.relay.dataflow_pattern.DFPattern</em></a>) – The input tuple expression.</p></li>
-<li><p><strong>index</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – The index to match; Default (None) to match a TupleGetItem with any index.</p></li>
+<li><p><strong>index</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The index to match; Default (None) to match a TupleGetItem with any index.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -954,12 +920,12 @@ a constructed pattern matching the option</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.has_dtype">
-<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">has_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.has_dtype" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">has_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.has_dtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Syntatic sugar for creating a DataTypePattern</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The dtype to match</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The dtype to match</p></li>
 <li><p><strong>pattern</strong> (<a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><em>tvm.relay.dataflow_pattern.DFPattern</em></a>) – The pattern that needs type annotation</p></li>
 </ul>
 </dd>
@@ -999,7 +965,7 @@ a constructed pattern matching the option</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attrs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em>) – The attributes to match</p></li>
+<li><p><strong>attrs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em>) – The attributes to match</p></li>
 <li><p><strong>pattern</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><em>tvm.relay.dataflow_pattern.DFPattern</em></a><em>]</em>) – The input pattern.</p></li>
 </ul>
 </dd>
@@ -1035,7 +1001,7 @@ a constructed pattern matching the option</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.match">
-<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ir.html#tvm.ir.RelayExpr" title="tvm.ir.expr.RelayExpr"><span class="pre">tvm.ir.expr.RelayExpr</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.match" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ir.html#tvm.ir.RelayExpr" title="tvm.ir.expr.RelayExpr"><span class="pre">tvm.ir.expr.RelayExpr</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#tvm.relay.dataflow_pattern.match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Match a pattern to an expression</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1060,14 +1026,14 @@ a constructed pattern matching the option</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.VarPattern">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">VarPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_hint</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.VarPattern" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">VarPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_hint</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.VarPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>A local variable in Relay.</p>
 <p>Local variable can be used to declare input
 arguments to a function, or intermediate variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name_hint</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the variable. Optional, if not provided,
+<li><p><strong>name_hint</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the variable. Optional, if not provided,
 the pattern will match any VarNode.</p></li>
 <li><p><strong>type_annotation</strong> (<a class="reference internal" href="../ir.html#tvm.ir.Type" title="tvm.ir.type.Type"><em>tvm.ir.type.Type</em></a><em>, </em><em>optional</em>) – The type annotation on the variable.</p></li>
 </ul>
@@ -1152,13 +1118,13 @@ the pattern will match any VarNode.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.TupleGetItemPattern">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">TupleGetItemPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tuple_value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.TupleGetItemPattern" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">TupleGetItemPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tuple_value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.TupleGetItemPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get index-th item from a TuplePattern.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tuple_value</strong> (<a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><em>tvm.relay.dataflow_pattern.DFPattern</em></a>) – The input tuple expression.</p></li>
-<li><p><strong>index</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – The index to match; Default (None) to match a TupleGetItem with any index.</p></li>
+<li><p><strong>index</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – The index to match; Default (None) to match a TupleGetItem with any index.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1200,13 +1166,13 @@ the pattern will match any VarNode.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tvm.relay.dataflow_pattern.DataTypePattern">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">DataTypePattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DataTypePattern" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tvm.relay.dataflow_pattern.</span></span><span class="sig-name descname"><span class="pre">DataTypePattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><span class="pre">tvm.relay.dataflow_pattern.DFPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tvm.relay.dataflow_pattern.DataTypePattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>A pattern that matches another pattern with certain data type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pattern</strong> (<a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><em>tvm.relay.dataflow_pattern.DFPattern</em></a>) – The input pattern that needs type annotation.</p></li>
-<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The dtype to match.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The dtype to match.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1270,8 +1236,8 @@ the callback returns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>require_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether InferType is required to be run before the callback.</p></li>
-<li><p><strong>rewrite_once</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, run the callback only once.</p></li>
+<li><p><strong>require_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether InferType is required to be run before the callback.</p></li>
+<li><p><strong>rewrite_once</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, run the callback only once.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1360,8 +1326,8 @@ the callback returns.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pattern</strong> (<a class="reference internal" href="#tvm.relay.dataflow_pattern.DFPattern" title="tvm.relay.dataflow_pattern.DFPattern"><em>tvm.relay.dataflow_pattern.DFPattern</em></a>) – The pattern to match</p></li>
 <li><p><strong>expr</strong> (<em>tvm.relay.Expr</em>) – The expression to split into functions</p></li>
-<li><p><strong>attrs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em><em>]</em>) – A dict of attributes to apply to the partitioned function</p></li>
-<li><p><strong>check</strong> (<em>Callable</em><em>[</em><em>[</em><em>Expr</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – A function to perform more complicated checks on the matched expression.
+<li><p><strong>attrs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference internal" href="../runtime.html#tvm.runtime.Object" title="tvm.runtime.Object"><em>Object</em></a><em>]</em><em>]</em>) – A dict of attributes to apply to the partitioned function</p></li>
+<li><p><strong>check</strong> (<em>Callable</em><em>[</em><em>[</em><em>Expr</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – A function to perform more complicated checks on the matched expression.
 Returns true if partitioning should proceed, false otherwise.</p></li>
 </ul>
 </dd>
@@ -1393,20 +1359,20 @@ Returns true if partitioning should proceed, false otherwise.</p></li>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>

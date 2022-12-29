@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Auto-tuning a ALU fused op on VTA &mdash; tvm 0.12.dev55+g8e1a43db2 documentation</title>
+  <title>Auto-tuning a ALU fused op on VTA &mdash; tvm 0.9.dev0 documentation</title>
   
 
   
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/tlcpack_theme.css" type="text/css" />
 
@@ -49,7 +46,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="Auto-tuning a convolutional network on VTA" href="tune_relay_vta.html" />
-    <link rel="prev" title="Auto tuning" href="index.html" /> 
+    <link rel="prev" title="Matrix Multiply Blocking" href="../optimize/matrix_multiply_opt.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -171,37 +168,8 @@
           
             
             
-              <input type="checkbox" class="version-toggle-box" hidden id="version-toggle">
-              <label for="version-toggle" class="version-toggle-label">
-                  <div tabindex="0" class="version version-selector version-selector-show">
-                    0.12.dev55+g8e1a43db2 <span class="chevron versions-hidden"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m8 4 8 8-8 8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span><span class="chevron versions-shown"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m4 8 8 8 8-8" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></span>
-                  </div>
-                </label>
-                <div class="version-details wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                  <p class="caption" role="heading"><span class="caption-text">Versions</span></p>
-                  <ol style="text-align: left">
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="/">0.12.dev55+g8e1a43db2 (main)</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.8.0/">v0.8.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.9.0/">v0.9.0</a></div></li>
-                    
-                    
-                    
-                    
-                      <li><div class="version"><a style="font-size: 0.8em; padding: 4px" href="v0.10.0/">v0.10.0</a></div></li>
-                    
-                  </ol>
+                <div class="version">
+                  0.9.dev0
                 </div>
             
           
@@ -257,9 +225,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../index.html#compile-deep-learning-models">Compile Deep Learning Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../index.html#optimize-tensor-operators">Optimize Tensor Operators</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#auto-tuning">Auto tuning</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../frontend/index.html">Compile Deep Learning Models</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../optimize/index.html">Optimize Tensor Operators</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">Auto tuning</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Auto-tuning a ALU fused op on VTA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile-network">Compile network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-tuning-options">Set Tuning Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tune_relay_vta.html">Auto-tuning a convolutional network on VTA</a></li>
 </ul>
 </li>
 </ul>
@@ -293,7 +262,7 @@
             </div>
             <div class="nav-content">
               <!-- tvm -->
-              Table of Contents
+              Table of content
             </div>
         
       </nav>
@@ -335,17 +304,13 @@
         
           <li><a href="../index.html">VTA Tutorials</a> <span class="br-arrow">></span></li>
         
-          <li><a href="index.html">Auto tuning</a> <span class="br-arrow">></span></li>
-        
       <li>Auto-tuning a ALU fused op on VTA</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            
-              <a href="https://github.com/apache/tvm/edit/main/docs/topic/vta/tutorials/autotvm/tune_alu_vta.rst" class="fa fa-github"> Edit on GitHub</a>
-            
+            <a href="../../../../_sources/topic/vta/tutorials/autotvm/tune_alu_vta.rst.txt" rel="nofollow"> <img src="../../../../_static//img/source.svg" alt="viewsource"/></a>
           
         
       </li>
@@ -360,29 +325,27 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial can be used interactively with Google Colab! You can also click
-<a class="reference internal" href="#sphx-glr-download-topic-vta-tutorials-autotvm-tune-alu-vta-py"><span class="std std-ref">here</span></a> to run the Jupyter notebook locally.</p>
-<a class="reference external image-reference" href="https://colab.research.google.com/github/apache/tvm-site/blob/asf-site/docs/_downloads/178b6f23dffc01ac92f2cf95f41a5679/tune_alu_vta.ipynb"><img alt="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" class="align-center" src="https://raw.githubusercontent.com/apache/web-data/main/images/utilities/colab_button.svg" width="300px" /></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-topic-vta-tutorials-autotvm-tune-alu-vta-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="auto-tuning-a-alu-fused-op-on-vta">
 <span id="sphx-glr-topic-vta-tutorials-autotvm-tune-alu-vta-py"></span><h1>Auto-tuning a ALU fused op on VTA<a class="headerlink" href="#auto-tuning-a-alu-fused-op-on-vta" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">mxnet.gluon.model_zoo</span> <span class="kn">import</span> <span class="n">vision</span>
+<span class="kn">from</span> <span class="nn">mxnet.gluon.model_zoo</span> <span class="k">import</span> <span class="n">vision</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
 
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">topi</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">topi</span>
 <span class="kn">import</span> <span class="nn">tvm</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">te</span>
-<span class="kn">from</span> <span class="nn">tvm</span> <span class="kn">import</span> <span class="n">rpc</span><span class="p">,</span> <span class="n">autotvm</span><span class="p">,</span> <span class="n">relay</span>
-<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="kn">import</span> <span class="n">download</span>
-<span class="kn">from</span> <span class="nn">tvm.autotvm.measure.measure_methods</span> <span class="kn">import</span> <span class="n">request_remote</span>
-<span class="kn">from</span> <span class="nn">tvm.autotvm.tuner</span> <span class="kn">import</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.XGBTuner" title="tvm.autotvm.tuner.XGBTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">XGBTuner</span></a><span class="p">,</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GATuner" title="tvm.autotvm.tuner.GATuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GATuner</span></a><span class="p">,</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.RandomTuner" title="tvm.autotvm.tuner.RandomTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RandomTuner</span></a><span class="p">,</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GridSearchTuner" title="tvm.autotvm.tuner.GridSearchTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GridSearchTuner</span></a>
-<span class="kn">from</span> <span class="nn">tvm.autotvm</span> <span class="kn">import</span> <span class="n">record</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">te</span>
+<span class="kn">from</span> <span class="nn">tvm</span> <span class="k">import</span> <span class="n">rpc</span><span class="p">,</span> <span class="n">autotvm</span><span class="p">,</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">tvm.contrib</span> <span class="k">import</span> <span class="n">download</span>
+<span class="kn">from</span> <span class="nn">tvm.autotvm.measure.measure_methods</span> <span class="k">import</span> <span class="n">request_remote</span>
+<span class="kn">from</span> <span class="nn">tvm.autotvm.tuner</span> <span class="k">import</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.XGBTuner" title="View documentation for tvm.autotvm.tuner.XGBTuner"><span class="n">XGBTuner</span></a><span class="p">,</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GATuner" title="View documentation for tvm.autotvm.tuner.GATuner"><span class="n">GATuner</span></a><span class="p">,</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.RandomTuner" title="View documentation for tvm.autotvm.tuner.RandomTuner"><span class="n">RandomTuner</span></a><span class="p">,</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GridSearchTuner" title="View documentation for tvm.autotvm.tuner.GridSearchTuner"><span class="n">GridSearchTuner</span></a>
+<span class="kn">from</span> <span class="nn">tvm.autotvm</span> <span class="k">import</span> <span class="n">record</span>
 
 <span class="kn">import</span> <span class="nn">vta</span>
-<span class="kn">from</span> <span class="nn">vta.testing</span> <span class="kn">import</span> <span class="n">simulator</span>
-<span class="kn">from</span> <span class="nn">vta.top</span> <span class="kn">import</span> <span class="n">graph_pack</span>
+<span class="kn">from</span> <span class="nn">vta.testing</span> <span class="k">import</span> <span class="n">simulator</span>
+<span class="kn">from</span> <span class="nn">vta.top</span> <span class="k">import</span> <span class="n">graph_pack</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 </pre></div>
 </div>
@@ -398,7 +361,7 @@
 
     <span class="c1"># Get off the shelf gluon model, and convert to relay</span>
     <span class="n">gluon_model</span> <span class="o">=</span> <span class="n">vision</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="tvm.relay.frontend.from_mxnet" class="sphx-glr-backref-module-tvm-relay-frontend sphx-glr-backref-type-py-function"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">gluon_model</span><span class="p">,</span> <span class="n">shape_dict</span><span class="p">)</span>
+    <span class="n">mod</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <a href="../../../../reference/api/python/relay/frontend.html#tvm.relay.frontend.from_mxnet" title="View documentation for tvm.relay.frontend.from_mxnet"><span class="n">relay</span><span class="o">.</span><span class="n">frontend</span><span class="o">.</span><span class="n">from_mxnet</span></a><span class="p">(</span><span class="n">gluon_model</span><span class="p">,</span> <span class="n">shape_dict</span><span class="p">)</span>
 
     <span class="c1"># Update shape and type dictionary</span>
     <span class="n">shape_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
@@ -493,15 +456,15 @@ Here we use an Pynq-Z1 board as an example.</p>
     <span class="k">def</span> <span class="nf">_callback</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_out</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.encode" title="tvm.autotvm.record.encode" class="sphx-glr-backref-module-tvm-autotvm-record sphx-glr-backref-type-py-function"><span class="n">record</span><span class="o">.</span><span class="n">encode</span></a><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.encode" title="View documentation for tvm.autotvm.record.encode"><span class="n">record</span><span class="o">.</span><span class="n">encode</span></a><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
                 <span class="c1"># we only consider task with same lhs and rhs</span>
                 <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">inp</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
                     <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">(),</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
-                    <span class="n">inp_copy</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/copy.html#copy.deepcopy" title="copy.deepcopy" class="sphx-glr-backref-module-copy sphx-glr-backref-type-py-function"><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span></a><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+                    <span class="n">inp_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
                     <span class="n">inp_copy</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.encode" title="tvm.autotvm.record.encode" class="sphx-glr-backref-module-tvm-autotvm-record sphx-glr-backref-type-py-function"><span class="n">record</span><span class="o">.</span><span class="n">encode</span></a><span class="p">(</span><span class="n">inp_copy</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.encode" title="View documentation for tvm.autotvm.record.encode"><span class="n">record</span><span class="o">.</span><span class="n">encode</span></a><span class="p">(</span><span class="n">inp_copy</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">protocol</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">_callback</span>
 
@@ -518,29 +481,29 @@ Here we use an Pynq-Z1 board as an example.</p>
 
     <span class="c1"># create tmp log file</span>
     <span class="n">tmp_log_file</span> <span class="o">=</span> <span class="n">log_filename</span> <span class="o">+</span> <span class="s2">&quot;.tmp&quot;</span>
-    <span class="k">if</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.exists" title="os.path.exists" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">):</span>
-        <a href="https://docs.python.org/3/library/os.html#os.remove" title="os.remove" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">remove</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tsk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">tasks</span><span class="p">)):</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;[Task </span><span class="si">%2d</span><span class="s2">/</span><span class="si">%2d</span><span class="s2">] &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">))</span>
 
         <span class="c1"># create tuner</span>
         <span class="k">if</span> <span class="n">tuner</span> <span class="o">==</span> <span class="s2">&quot;xgb&quot;</span> <span class="ow">or</span> <span class="n">tuner</span> <span class="o">==</span> <span class="s2">&quot;xgb-rank&quot;</span><span class="p">:</span>
-            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.XGBTuner" title="tvm.autotvm.tuner.XGBTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">XGBTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">,</span> <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span>
+            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.XGBTuner" title="View documentation for tvm.autotvm.tuner.XGBTuner"><span class="n">XGBTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">,</span> <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">tuner</span> <span class="o">==</span> <span class="s2">&quot;xgb_knob&quot;</span><span class="p">:</span>
-            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.XGBTuner" title="tvm.autotvm.tuner.XGBTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">XGBTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">,</span> <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;knob&quot;</span><span class="p">)</span>
+            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.XGBTuner" title="View documentation for tvm.autotvm.tuner.XGBTuner"><span class="n">XGBTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">,</span> <span class="n">loss_type</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;knob&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">tuner</span> <span class="o">==</span> <span class="s2">&quot;ga&quot;</span><span class="p">:</span>
-            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GATuner" title="tvm.autotvm.tuner.GATuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GATuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">,</span> <span class="n">pop_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GATuner" title="View documentation for tvm.autotvm.tuner.GATuner"><span class="n">GATuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">,</span> <span class="n">pop_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">tuner</span> <span class="o">==</span> <span class="s2">&quot;random&quot;</span><span class="p">:</span>
-            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.RandomTuner" title="tvm.autotvm.tuner.RandomTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RandomTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">)</span>
+            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.RandomTuner" title="View documentation for tvm.autotvm.tuner.RandomTuner"><span class="n">RandomTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">tuner</span> <span class="o">==</span> <span class="s2">&quot;gridsearch&quot;</span><span class="p">:</span>
-            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GridSearchTuner" title="tvm.autotvm.tuner.GridSearchTuner" class="sphx-glr-backref-module-tvm-autotvm-tuner sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GridSearchTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">)</span>
+            <span class="n">tuner_obj</span> <span class="o">=</span> <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.tuner.GridSearchTuner" title="View documentation for tvm.autotvm.tuner.GridSearchTuner"><span class="n">GridSearchTuner</span></a><span class="p">(</span><span class="n">tsk</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid tuner: &quot;</span> <span class="o">+</span> <span class="n">tuner</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">use_transfer_learning</span><span class="p">:</span>
-            <span class="k">if</span> <a href="https://docs.python.org/3/library/os.path.html#os.path.isfile" title="os.path.isfile" class="sphx-glr-backref-module-os-path sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">):</span>
-                <span class="n">tuner_obj</span><span class="o">.</span><span class="n">load_history</span><span class="p">(</span><a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.load_from_file" title="tvm.autotvm.record.load_from_file" class="sphx-glr-backref-module-tvm-autotvm-record sphx-glr-backref-type-py-function"><span class="n">autotvm</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">load_from_file</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">):</span>
+                <span class="n">tuner_obj</span><span class="o">.</span><span class="n">load_history</span><span class="p">(</span><a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.load_from_file" title="View documentation for tvm.autotvm.record.load_from_file"><span class="n">autotvm</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">load_from_file</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">))</span>
 
         <span class="c1"># do tuning</span>
         <span class="n">tsk_trial</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_trial</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tsk</span><span class="o">.</span><span class="n">config_space</span><span class="p">))</span>
@@ -555,21 +518,21 @@ Here we use an Pynq-Z1 board as an example.</p>
         <span class="p">)</span>
 
     <span class="c1"># pick best records to a cache file</span>
-    <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.pick_best" title="tvm.autotvm.record.pick_best" class="sphx-glr-backref-module-tvm-autotvm-record sphx-glr-backref-type-py-function"><span class="n">autotvm</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">pick_best</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">,</span> <span class="n">log_filename</span><span class="p">)</span>
-    <a href="https://docs.python.org/3/library/os.html#os.remove" title="os.remove" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">remove</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">)</span>
+    <a href="../../../../reference/api/python/autotvm.html#tvm.autotvm.record.pick_best" title="View documentation for tvm.autotvm.record.pick_best"><span class="n">autotvm</span><span class="o">.</span><span class="n">record</span><span class="o">.</span><span class="n">pick_best</span></a><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">,</span> <span class="n">log_filename</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tmp_log_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Register VTA-specific tuning tasks</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">register_vta_tuning_tasks</span><span class="p">():</span>
-    <span class="kn">from</span> <span class="nn">tvm.autotvm.task</span> <span class="kn">import</span> <span class="n">TaskExtractEnv</span>
+    <span class="kn">from</span> <span class="nn">tvm.autotvm.task</span> <span class="k">import</span> <span class="n">TaskExtractEnv</span>
 
     <span class="nd">@tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">tag_scope</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">topi</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">ELEMWISE</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">my_clip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a_min</span><span class="p">,</span> <span class="n">a_max</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Unlike topi&#39;s current clip, put min and max into two stages.&quot;&quot;&quot;</span>
         <span class="n">const_min</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">const</span><span class="p">(</span><span class="n">a_min</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="n">const_max</span> <span class="o">=</span> <span class="n">tvm</span><span class="o">.</span><span class="n">tir</span><span class="o">.</span><span class="n">const</span><span class="p">(</span><span class="n">a_max</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <a href="../../../../reference/api/python/te.html#tvm.te.min" title="tvm.te.min" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">min</span></a><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="n">const_max</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clipA&quot;</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.compute" title="tvm.te.compute" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <a href="../../../../reference/api/python/te.html#tvm.te.max" title="tvm.te.max" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">max</span></a><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="n">const_min</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clipB&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <a href="../../../../reference/api/python/te.html#tvm.te.min" title="View documentation for tvm.te.min"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">min</span></a><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="n">const_max</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clipA&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.compute" title="View documentation for tvm.te.compute"><span class="n">te</span><span class="o">.</span><span class="n">compute</span></a><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">i</span><span class="p">:</span> <a href="../../../../reference/api/python/te.html#tvm.te.max" title="View documentation for tvm.te.max"><span class="n">tvm</span><span class="o">.</span><span class="n">te</span><span class="o">.</span><span class="n">max</span></a><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">),</span> <span class="n">const_min</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clipB&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span>
 
     <span class="c1"># init autotvm env to register VTA operator</span>
@@ -585,10 +548,10 @@ Here we use an Pynq-Z1 board as an example.</p>
             <span class="n">res</span> <span class="o">=</span> <span class="n">my_clip</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">)</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">topi</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;int8&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <a href="../../../../reference/api/python/target.html#tvm.target.Target.current" title="tvm.target.Target.current" class="sphx-glr-backref-module-tvm-target-Target sphx-glr-backref-type-py-method"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span><span class="o">.</span><span class="n">current</span></a><span class="p">()</span><span class="o">.</span><span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;vta&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <a href="../../../../reference/api/python/target.html#tvm.target.Target.current" title="View documentation for tvm.target.Target.current"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span><span class="o">.</span><span class="n">current</span></a><span class="p">()</span><span class="o">.</span><span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;vta&quot;</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">vta</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">schedule_add_packed</span><span class="p">([</span><span class="n">res</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">op</span><span class="p">])</span>
+            <span class="n">s</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">op</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">res</span><span class="p">]</span>
 
     <span class="nd">@autotvm</span><span class="o">.</span><span class="n">template</span><span class="p">(</span><span class="s2">&quot;multiply.vta&quot;</span><span class="p">)</span>
@@ -601,10 +564,10 @@ Here we use an Pynq-Z1 board as an example.</p>
             <span class="n">res</span> <span class="o">=</span> <span class="n">my_clip</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">)</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">topi</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;int8&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <a href="../../../../reference/api/python/target.html#tvm.target.Target.current" title="tvm.target.Target.current" class="sphx-glr-backref-module-tvm-target-Target sphx-glr-backref-type-py-method"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span><span class="o">.</span><span class="n">current</span></a><span class="p">()</span><span class="o">.</span><span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;vta&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <a href="../../../../reference/api/python/target.html#tvm.target.Target.current" title="View documentation for tvm.target.Target.current"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span><span class="o">.</span><span class="n">current</span></a><span class="p">()</span><span class="o">.</span><span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;vta&quot;</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">vta</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">schedule_multiply_packed</span><span class="p">([</span><span class="n">res</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.create_schedule" title="tvm.te.create_schedule" class="sphx-glr-backref-module-tvm-te sphx-glr-backref-type-py-function"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">op</span><span class="p">])</span>
+            <span class="n">s</span> <span class="o">=</span> <a href="../../../../reference/api/python/te.html#tvm.te.create_schedule" title="View documentation for tvm.te.create_schedule"><span class="n">te</span><span class="o">.</span><span class="n">create_schedule</span></a><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">op</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">s</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">res</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -629,7 +592,7 @@ Here we use an Pynq-Z1 board as an example.</p>
             <span class="n">relay</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">),</span>
             <span class="n">relay</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;multiply&quot;</span><span class="p">),</span>
         <span class="p">),</span>
-        <span class="n">target</span><span class="o">=</span><a href="../../../../reference/api/python/target.html#tvm.target.Target" title="tvm.target.Target" class="sphx-glr-backref-module-tvm-target sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span>
+        <span class="n">target</span><span class="o">=</span><a href="../../../../reference/api/python/target.html#tvm.target.Target" title="View documentation for tvm.target.Target"><span class="n">tvm</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">Target</span></a><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">env</span><span class="o">.</span><span class="n">target_host</span><span class="p">),</span>
     <span class="p">)</span>
 
     <span class="c1"># filter out non-packed alu task</span>
@@ -664,11 +627,15 @@ Here we use an Pynq-Z1 board as an example.</p>
 <span class="n">tune_and_evaluate</span><span class="p">(</span><span class="n">tuning_option</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-topic-vta-tutorials-autotvm-tune-alu-vta-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>ALU only op only available for intelfocl target
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-topic-vta-tutorials-autotvm-tune-alu-vta-py">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../../../_downloads/6bbcf342fb9192416b8e1a86a1d4e981/tune_alu_vta.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tune_alu_vta.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<div class="sphx-glr-download docutils container">
 <p><a class="reference download internal" download="" href="../../../../_downloads/178b6f23dffc01ac92f2cf95f41a5679/tune_alu_vta.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tune_alu_vta.ipynb</span></code></a></p>
 </div>
 </div>
@@ -688,24 +655,24 @@ Here we use an Pynq-Z1 board as an example.</p>
         <a href="tune_relay_vta.html" class="btn btn-neutral float-right" title="Auto-tuning a convolutional network on VTA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Auto tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../optimize/matrix_multiply_opt.html" class="btn btn-neutral float-left" title="Matrix Multiply Blocking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
 
-<div id="button" class="backtop"><img src="../../../../_static/img/right.svg" alt="backtop"/> </div>
+<div id="button" class="backtop"><img src="../../../../_static//img/right.svg" alt="backtop"/> </div>
 <section class="footerSec">
     <div class="footerHeader">
-      <div class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
-        <div class="copywrite d-flex align-items-center">
-          <h5 id="copy-right-info">© 2022 Apache Software Foundation | All rights reserved</h5>
-        </div>
-      </div>
+      <ul class="d-flex align-md-items-center justify-content-between flex-column flex-md-row">
+        <li class="copywrite d-flex align-items-center">
+          <h5 id="copy-right-info">© 2020 Apache Software Foundation | All right reserved</h5>
+        </li>
+      </ul>
 
     </div>
 
-    <div>
-      <div class="footernote">Copyright © 2022 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</div>
-    </div>
+    <ul>
+      <li class="footernote">Copyright © 2020 The Apache Software Foundation. Apache TVM, Apache, the Apache feather, and the Apache TVM project logo are either trademarks or registered trademarks of the Apache Software Foundation.</li>
+    </ul>
 
 </section>
 </footer>
